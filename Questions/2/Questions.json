@@ -1,0 +1,38 @@
+{
+	"Questions":[
+		{
+			"id":1,
+			"QuestionDesc": "Hitler party which came into power in 1933 is known as",
+			"Options": [
+				{"OptionDesc":"Labour Party"},
+				{"OptionDesc":"Nazi Party"},
+				{"OptionDesc":"Ku-Klux-Klan"},
+				{"OptionDesc":"Democratic Party"}
+			],
+			"answer":2
+		},
+		{
+			"id":2,
+			"QuestionDesc": "The ozone layer restricts",
+			"Options": [
+				{"OptionDesc":"Visible light"},
+				{"OptionDesc":"Infrared radiation"},
+				{"OptionDesc":"X-rays and gamma rays"},
+				{"OptionDesc":"Ultraviolet radiation"}
+			],
+			"answer":4
+		},
+		{
+			"id":3,
+			"QuestionDesc": "Dr. Zakir Hussain was",
+			"Options": [
+				{"OptionDesc":"the first Muslim president of India"},
+				{"OptionDesc":"first vice president of India"},
+				{"OptionDesc":"first president of Indian National Congress"},
+				{"OptionDesc":"first speaker of Lok Sabha"}
+			],
+			"answer":1
+		}
+	]
+	
+}
