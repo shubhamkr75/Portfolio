@@ -1,0 +1,38 @@
+{
+	"Questions":[
+		{
+			"id":1,
+			"QuestionDesc": "Capital City of Mizoram",
+			"Options": [
+				{"OptionDesc":"Itanagar"},
+				{"OptionDesc":"Imphal"},
+				{"OptionDesc":"Shillong"},
+				{"OptionDesc":"Mizoram"}
+			],
+			"answer":4
+		},
+		{
+			"id":2,
+			"QuestionDesc": "Capital City of Manipur",
+			"Options": [
+				{"OptionDesc":"Itanagar"},
+				{"OptionDesc":"Imphal"},
+				{"OptionDesc":"Shillong"},
+				{"OptionDesc":"Mizoram"}
+			],
+			"answer":2
+		},
+		{
+			"id":3,
+			"QuestionDesc": "Capital City of Meghalaya",
+			"Options": [
+				{"OptionDesc":"Itanagar"},
+				{"OptionDesc":"Imphal"},
+				{"OptionDesc":"Shillong"},
+				{"OptionDesc":"Mizoram"}
+			],
+			"answer":3
+		}
+	]
+	
+}
