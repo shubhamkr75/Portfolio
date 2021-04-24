@@ -17,9 +17,9 @@ class Questions extends Component {
         }
     }
     
-    fetchQuestions(){
+    fetchQuestions(id){
         if(!this.state.checkdata){
-        fetch(`http://localhost:5000/users`)
+        fetch(`http://localhost:5000/users/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // setquestionList(data.Questions);
@@ -68,8 +68,7 @@ class Questions extends Component {
     }
 
     // }
-    render(){
-    this.fetchQuestions();   
+    render(){ 
     const que=[];
     for(let i=0;i<this.state.questionList.length;i++){  
         que.push(
@@ -124,7 +123,14 @@ class Questions extends Component {
             );
         }
         else{
-            return <div>Failed to render data</div>
+            return(
+                <div>
+                    <h3>Welcome to EXAM BABA</h3>
+                    <p>Please take the below available test for You</p>
+                    <button onClick={()=>this.fetchQuestions(1)}>Test1</button>
+                    <button onClick={()=>this.fetchQuestions(2)}>Test2</button>
+                </div>
+            );
         }
     }
 }

@@ -2,8 +2,7 @@ import express from 'express';
 import fs from 'fs';
 
 const router=express.Router();
-let rawdata = fs.readFileSync('..\\Questions.json');
-const users = JSON.parse(rawdata);
+
 // const users=[
 //     {
 //         firstName:"John",
@@ -16,7 +15,10 @@ const users = JSON.parse(rawdata);
 //         age:27
 //     }
 // ]
-router.get('/',(req,res)=>{
+router.get('/:id',(req,res)=>{
+    const {id}=req.params;
+    let rawdata = fs.readFileSync(`..\\Questions\\${id}\\Questions.json`);
+    const users = JSON.parse(rawdata);  
     res.send(users);
 });
 router.post('/',(req,res)=>{
