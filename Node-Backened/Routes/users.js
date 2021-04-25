@@ -1,8 +1,24 @@
 import express from 'express';
 import fs from 'fs';
+import sql from 'mssql';
 
 const router=express.Router();
+var config = {
+  user: 'skuma561',
+  password: 'Test@123',
+  server: 'LIN77001221\\SQLEXPRESS', 
+  database: 'CodeBabaDB' 
+};
 
+// connect to your database
+sql.connect(config, function (err) {
+  if (err) console.log(err);
+  var request = new sql.Request();     
+  request.query('select * from Examination', function (err, recordset) {      
+      if (err) console.log(err)
+      console.log(recordset);     
+  });
+});
 // const users=[
 //     {
 //         firstName:"John",
