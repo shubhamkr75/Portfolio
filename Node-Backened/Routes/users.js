@@ -38,7 +38,7 @@ router.get('/exams',(req,res)=>{
         if (err) console.log(err)
         console.log(recordset);  
         // const exams = JSON.parse(recordset);  
-         res.send(recordset);   
+        res.send(recordset);   
     });
   });
   
