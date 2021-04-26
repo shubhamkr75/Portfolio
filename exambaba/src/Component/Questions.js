@@ -9,7 +9,10 @@ class Questions extends Component {
         super();
         this.state={
             questionList: Array().fill(null),
+            examList: Array().fill(null),
             checkdata: false,
+            examdata: false,
+            examtime:null,
             showResult: false,
             answerList: Array().fill(null),
             marks: 0  ,
@@ -17,15 +20,26 @@ class Questions extends Component {
         }
     }
     
-    fetchQuestions(id){
-        if(!this.state.checkdata){
-        fetch(`http://localhost:5000/users/${id}`)
+    fetchQuestions(id,exam_time){
+        if(!this.state.checkdata){     //if question is not rettrieved
+        fetch(`http://localhost:5000/users/questions/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // setquestionList(data.Questions);
                 // setCheckdata(true);
-                this.setState({questionList:data.Questions,checkdata:true});                
+                this.setState({questionList:data.Questions,checkdata:true,examtime:exam_time});                
             });
+        }
+    }
+    fetchExams(){
+        if(!this.state.examdata){     //if exam is not rettrieved
+            fetch(`http://localhost:5000/users/exams`)
+                .then((res) => res.json())
+                .then((data) => {
+                    // setquestionList(data.Questions);
+                    // setCheckdata(true);
+                    this.setState({examList:data.recordset,examdata:true});                
+                });
         }
     }
     saveResponse(id,response){
@@ -48,7 +62,7 @@ class Questions extends Component {
     }
     setTimer=()=>{
         let startTime=Date.now();
-        startTime=startTime+1*60*60*1000;
+        startTime=startTime+1*this.state.examtime*60*1000;
         var x = setInterval(()=> {
             var distance = startTime - Date.now();
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -69,6 +83,7 @@ class Questions extends Component {
 
     // }
     render(){ 
+    {this.fetchExams()}
     const que=[];
     for(let i=0;i<this.state.questionList.length;i++){  
         que.push(
@@ -122,14 +137,25 @@ class Questions extends Component {
                 </div>
             );
         }
-        else{
+        else if(this.state.examdata){
+            
             return(
                 <div>
                     <h3>Welcome to EXAM BABA</h3>
                     <p>Please take the below available test for You</p>
-                    <button onClick={()=>this.fetchQuestions(1)}>Test1</button>
-                    <button onClick={()=>this.fetchQuestions(2)}>Test2</button>
+                    {this.state.examList.map((list) => {
+                        return(
+                            <div className="examList">
+                                <button onClick={()=>this.fetchQuestions(list.ExamId,list.Exam_Time)}>{list.ExamName}</button>
+                            </div>
+                        );
+                    })}
                 </div>
+            );
+        }
+        else{
+            return(
+            <div>cannot render data</div>
             );
         }
     }
