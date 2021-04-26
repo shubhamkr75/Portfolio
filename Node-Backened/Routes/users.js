@@ -11,14 +11,7 @@ var config = {
 };
 
 // connect to your database
-sql.connect(config, function (err) {
-  if (err) console.log(err);
-  var request = new sql.Request();     
-  request.query('select * from Examination', function (err, recordset) {      
-      if (err) console.log(err)
-      console.log(recordset);     
-  });
-});
+
 // const users=[
 //     {
 //         firstName:"John",
@@ -31,11 +24,24 @@ sql.connect(config, function (err) {
 //         age:27
 //     }
 // ]
-router.get('/:id',(req,res)=>{
+router.get('/questions/:id',(req,res)=>{
     const {id}=req.params;
     let rawdata = fs.readFileSync(`..\\Questions\\${id}\\Questions.json`);
     const users = JSON.parse(rawdata);  
     res.send(users);
+});
+router.get('/exams',(req,res)=>{
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    var request = new sql.Request();     
+    request.query('select * from Examination where school_id=1', function (err, recordset) {      
+        if (err) console.log(err)
+        console.log(recordset);  
+        // const exams = JSON.parse(recordset);  
+        res.send(recordset);   
+    });
+  });
+  
 });
 router.post('/',(req,res)=>{
     users.push(req.body);
