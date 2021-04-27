@@ -43,9 +43,22 @@ router.get('/exams',(req,res)=>{
   });
   
 });
-router.post('/',(req,res)=>{
-    users.push(req.body);
-    res.send(`user with the firstname ${req.body.firstName}`);
+router.post('/createExam',(req,res)=>{
+    //users.push(req.body);
+    sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();   
+      let query = "exec addexam @examname='" + req.body.examName + "', @examtime='" + req.body.examTime + "';";  
+      request.query(query, function (err, recordset) {
+        if (err) {
+            console.log(err);
+            sql.close();
+        }
+        sql.close();
+
+      });
+    });
+    res.send(`user with the exam Name: ${req.body.examName}`);
 });
 router.delete('/:firstName',(req,res)=>{
     const {firstName}=req.params;
