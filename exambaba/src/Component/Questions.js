@@ -42,10 +42,10 @@ class Questions extends Component {
                     <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
                 </tr>
                 <tr>
-                    <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="checkbox" name={qlist.id} onClick={()=>this.saveResponse(qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
-                    <td  width="99%" >{qlist.Options[0].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="checkbox" onClick={()=>this.saveResponse(qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
-                    <td width="99%" >{qlist.Options[1].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="checkbox" onClick={()=>this.saveResponse(qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
-                    <td width="99%" >{qlist.Options[2].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="checkbox" onClick={()=>this.saveResponse(qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
+                    <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
+                    <td  width="99%" >{qlist.Options[0].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
+                    <td width="99%" >{qlist.Options[1].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
+                    <td width="99%" >{qlist.Options[2].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
                     <td width="99%" >{qlist.Options[3].OptionDesc}</td></tr></tbody></table>                    
                     </td>
                 </tr>
@@ -66,14 +66,29 @@ class Questions extends Component {
                 });
         }
     }
-    saveResponse(id,response){
-        this.setState(update(this.state, {
-            answerList: {
-              [id]: {
-                $set: response
-              }
+    saveResponse(event,id,response){
+        if(event.target.checked){
+            if(this.state.answerList[id]===response){
+                this.setState(update(this.state, {
+                    answerList: {
+                      [id]: {
+                        $set: null
+                      }
+                    }
+                  }));
+                  event.target.checked=false;
             }
-          }));
+            else{
+                this.setState(update(this.state, {
+                    answerList: {
+                    [id]: {
+                        $set: response
+                        }
+                    }
+                }));
+            }
+        }
+        
     }
     calculateMarks(){
         let marksCalculated=0;
@@ -152,6 +167,7 @@ class Questions extends Component {
                         return(
                             <div className="examList">
                                 <button onClick={()=>this.fetchQuestions(list.ExamId,list.Exam_Time)}>{list.ExamName}</button>
+                                
                             </div>
                         );
                     })}

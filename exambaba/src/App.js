@@ -1,6 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Questions from './Component/Questions'
+import ExamCreation from './Component/ExamCreation'
 
 function App() {
   return (
