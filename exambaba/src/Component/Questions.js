@@ -27,7 +27,7 @@ class Questions extends Component {
             .then((data) => {
                 // setquestionList(data.Questions);
                 // setCheckdata(true);
-                this.setState({questionList:data.Questions,checkdata:true,examtime:exam_time});                
+                this.setState({questionList:data,checkdata:true,examtime:exam_time});                
             });
         }
     }
@@ -43,10 +43,10 @@ class Questions extends Component {
                 </tr>
                 <tr>
                     <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
-                    <td  width="99%" >{qlist.Options[0].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
-                    <td width="99%" >{qlist.Options[1].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
-                    <td width="99%" >{qlist.Options[2].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
-                    <td width="99%" >{qlist.Options[3].OptionDesc}</td></tr></tbody></table>                    
+                    <td  width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
+                    <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
+                    <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
+                    <td width="99%" >{qlist.Option4}</td></tr></tbody></table>                    
                     </td>
                 </tr>
                 </tbody></table> 
@@ -93,7 +93,7 @@ class Questions extends Component {
     calculateMarks(){
         let marksCalculated=0;
         for(let i=0;i<this.state.questionList.length;i++){ 
-            if(this.state.questionList[i].answer===this.state.answerList[this.state.questionList[i].id]){
+            if(this.state.questionList[i].answer==this.state.answerList[this.state.questionList[i].id]){
                 marksCalculated++;
             }
         }        

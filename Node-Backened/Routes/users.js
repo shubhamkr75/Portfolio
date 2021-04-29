@@ -1,13 +1,22 @@
 import express from 'express';
 import fs from 'fs';
 import sql from 'mssql';
-
+import multer from 'multer';
+import bodyParser from 'body-parser'
+import fileExtension from 'file-extension';
+import xlsxtojson from 'xlsx-to-json';
+import xlstojson from "xls-to-json";
+import path from 'path';
 const router=express.Router();
 var config = {
   user: 'skuma561',
   password: 'Test@123',
   server: 'LIN77001221\\SQLEXPRESS', 
-  database: 'CodeBabaDB' 
+  database: 'CodeBabaDB' ,
+  "options": {
+    "encrypt": true,
+    "enableArithAbort": true
+    }
 };
 
 // connect to your database
@@ -43,22 +52,69 @@ router.get('/exams',(req,res)=>{
   });
   
 });
-router.post('/createExam',(req,res)=>{
-    //users.push(req.body);
-    sql.connect(config, function (err) {
-      if (err) console.log(err);
-      var request = new sql.Request();   
-      let query = "exec addexam @examname='" + req.body.examName + "', @examtime='" + req.body.examTime + "';";  
-      request.query(query, function (err, recordset) {
-        if (err) {
-            console.log(err);
-            sql.close();
-        }
-        sql.close();
+  
 
-      });
-    });
-    res.send(`user with the exam Name: ${req.body.examName}`);
+let storage = multer.diskStorage({ 
+});
+let upload = multer({storage: storage});
+// let upload = multer({storage: storage}).single("file");
+router.post('/createExam',(req,res)=>{
+    //users.push(req.body);      
+      let excel2json;
+        upload.single("file")(req,res,function(err){
+          console.log(req.body);         
+          const { examName, examTime, examId } = req.body;
+          var dir = '..\\Questions\\'+req.body.examId;
+          console.log(dir);
+          if (!fs.existsSync(dir)){
+              fs.mkdirSync(dir);
+          } 
+          sql.connect(config, function (err) {
+            if (err) console.log(err);
+            var request = new sql.Request();        
+           //let questionFile = req.files.file; 
+            let query = "exec addexam @examname='" + examName + "', @examtime='" + examTime + "', @examid='" + examId +"';" ;  
+            console.log(query);
+            request.query(query, function (err, recordset) {
+              if (err) {
+                  console.log(err);
+                  sql.close();
+              }
+              console.log(recordset);
+              sql.close();
+            });
+          });
+            if(err){
+                 res.json({error_code:401,err_desc:err});
+                 return;
+            }
+            if(!req.file){
+                res.json({error_code:404,err_desc:"File not found!"});
+                return;
+            }
+
+            if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+                excel2json = xlsxtojson;
+            } else {
+                excel2json = xlstojson;
+            }
+
+           //  code to convert excel data to json  format
+            excel2json({
+                input: req.file.path,  
+                output: `..\\Questions\\${examId}\\Questions.json`, // output json 
+                lowerCaseHeaders:true
+            }, function(err, result) {
+                if(err) {
+                  // res.json(err);
+                } else {
+                  console.log(result);
+                  // res.json(result);
+                }
+            });
+
+        })
+        res.send("Exam Created successfully");
 });
 router.delete('/:firstName',(req,res)=>{
     const {firstName}=req.params;
