@@ -45,7 +45,7 @@ router.get('/exams',(req,res)=>{
     var request = new sql.Request();     
     request.query('select * from Examination where school_id=1', function (err, recordset) {      
         if (err) console.log(err)
-        console.log(recordset);  
+        //console.log(recordset);  
         // const exams = JSON.parse(recordset);  
         res.send(recordset);   
     });
@@ -116,6 +116,75 @@ router.post('/createExam',(req,res)=>{
         })
         res.send("Exam Created successfully");
 });
+
+router.post('/fetchResponse',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { examId } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchresponse @examid='" + examId + "', @studentid='1';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+router.post('/createResponse',(req,res)=>{
+  //users.push(req.body); 
+      sql.connect(config, function (err) {
+        if (err) console.log(err);
+        const { examId } = req.body;
+        let request = new sql.Request();  
+        let query = "exec addresponse @examid='" + examId + "', @studentid='1';";  
+        console.log(query);
+        request.query(query, function (err, recordset) {
+          if (err) {
+              console.log(err);
+              req.send(err);
+              sql.close();
+          }
+          
+          //console.log(recordset.rowsAffected[0]);
+          sql.close();
+        });
+      });  
+      res.send("Record Created");
+      // res.send("Exam Created successfully");
+    })
+router.post('/saveResponse',(req,res)=>{
+//users.push(req.body); 
+    sql.connect(config, function (err) {
+      if (err) console.log(err);
+      const { examId,responseList } = req.body;
+      let request = new sql.Request();  
+      let query = "exec updateresponse @examid='" + examId + "', @studentid='1', @response='"+responseList+"';";  
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+            console.log(err);
+            req.send(err);
+            sql.close();
+        }
+        //console.log(recordset);
+        //console.log(recordset.rowsAffected[0]);
+        sql.close();
+      });
+    });  
+    res.send("Record Updated");
+    // res.send("Exam Created successfully");
+  })
+    
+
 router.delete('/:firstName',(req,res)=>{
     const {firstName}=req.params;
     users=users.filter((user)=>user.firstName !== firstName);
