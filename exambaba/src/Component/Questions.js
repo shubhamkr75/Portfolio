@@ -17,7 +17,7 @@ class Questions extends Component {
             answerList: Array().fill(null),
             marks: 0  ,
             timeOut:false,
-            ExamId:null          
+            ExamId:null,     
         }
     }
     
@@ -133,14 +133,18 @@ class Questions extends Component {
            res=data.recordset.length; 
            if((data.recordset[0]!=undefined||data.recordset[0]!=null)&&data.recordset[0].ResponseAnswer!=null){
             this.setState({answerList:JSON.parse(data.recordset[0].ResponseAnswer)}); //fetching saved response           
-           }
+            this.setTimer(data.recordset[0].StartTime);
+            }else if(data.recordset[0]!=undefined||data.recordset[0]!=null){
+                this.setTimer(data.recordset[0].StartTime);
+            }else{
+            this.setTimer(Date.now());}
         });
         return res;
     }
     async createResponse(){
         let recordCount=await this.fetchResponse();
         if(recordCount==0){
-        fetch("http://localhost:5000/users/createResponse", {
+        await fetch("http://localhost:5000/users/createResponse", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -150,6 +154,7 @@ class Questions extends Component {
                JSON.stringify({
                 examId: this.state.ExamId,
                 totalQuestions: this.state.questionList.length,
+                startTime:Date.now(),
                 // examTime: this.state.examTime,
                 //'file': this.uploadInput.files[0]
               })
@@ -163,6 +168,7 @@ class Questions extends Component {
                 console.log(err);
                 
               });
+              
             }
     }
     calculateMarks(){
@@ -178,8 +184,8 @@ class Questions extends Component {
         } 
         return marksCalculated;
     }
-    setTimer=()=>{
-        let startTime=Date.now();
+    setTimer=(timing)=>{
+        let startTime=timing;
         startTime=startTime+1*this.state.examtime*60*1000;
         var x = setInterval(()=> {
             var distance = startTime - Date.now();
@@ -203,7 +209,7 @@ class Questions extends Component {
     render(){         
     {this.fetchExams()}    
         if(this.state.checkdata&&!this.state.showResult&&!this.state.timeOut){
-            this.setTimer();         
+            //this.setTimer();         
             return(                    
             <div class="bix-div-container">{this.displayQuestions()}
                 <div id="divSubmitTest" align="center">
