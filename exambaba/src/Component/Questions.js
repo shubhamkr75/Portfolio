@@ -16,19 +16,21 @@ class Questions extends Component {
             showResult: false,
             answerList: Array().fill(null),
             marks: 0  ,
-            timeOut:false          
+            timeOut:false,
+            ExamId:null          
         }
     }
     
-    fetchQuestions(id,exam_time){
+    async fetchQuestions(id,exam_time){
         if(!this.state.checkdata){     //if question is not rettrieved
-        fetch(`http://localhost:5000/users/questions/${id}`)
+            await fetch(`http://localhost:5000/users/questions/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // setquestionList(data.Questions);
                 // setCheckdata(true);
-                this.setState({questionList:data.Questions,checkdata:true,examtime:exam_time});                
+                this.setState({questionList:data,checkdata:true,examtime:exam_time,ExamId:id});                
             });
+            this.createResponse();
         }
     }
     displayQuestions(){        
@@ -36,21 +38,21 @@ class Questions extends Component {
                 <div class="questionList">
                 {this.state.questionList.map((qlist) => {
                     return(
-                <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
-                <tbody><tr>
-                    <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{qlist.id}.&nbsp;</p></td>
-                    <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
-                </tr>
-                <tr>
-                    <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
-                    <td  width="99%" >{qlist.Options[0].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
-                    <td width="99%" >{qlist.Options[1].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
-                    <td width="99%" >{qlist.Options[2].OptionDesc}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
-                    <td width="99%" >{qlist.Options[3].OptionDesc}</td></tr></tbody></table>                    
-                    </td>
-                </tr>
-                </tbody></table> 
-                );
+                        <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tbody><tr>
+                            <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{qlist.id}.&nbsp;</p></td>
+                            <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
+                        </tr>
+                        <tr>
+                            <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]===1} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
+                            <td  width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==2} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
+                            <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]===3} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
+                            <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]===4} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
+                            <td width="99%" >{qlist.Option4}</td></tr></tbody></table>                    
+                            </td>
+                        </tr>
+                        </tbody></table> 
+                    );
             })} 
             </div>
         );        
@@ -66,10 +68,10 @@ class Questions extends Component {
                 });
         }
     }
-    saveResponse(event,id,response){
+    async saveResponse(event,id,response){
         if(event.target.checked){
             if(this.state.answerList[id]===response){
-                this.setState(update(this.state, {
+               await this.setState(update(this.state, {
                     answerList: {
                       [id]: {
                         $set: null
@@ -79,7 +81,7 @@ class Questions extends Component {
                   event.target.checked=false;
             }
             else{
-                this.setState(update(this.state, {
+                await this.setState(update(this.state, {
                     answerList: {
                     [id]: {
                         $set: response
@@ -87,13 +89,82 @@ class Questions extends Component {
                     }
                 }));
             }
-        }
-        
+        }   
+        let responseAnswer=JSON.stringify(this.state.answerList);
+        fetch(`http://localhost:5000/users/saveResponse`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "accept": "application/json"
+            },
+            body: 
+             JSON.stringify({
+              examId: this.state.ExamId,
+              responseList:responseAnswer,
+              // examTime: this.state.examTime,
+              //'file': this.uploadInput.files[0]
+            })
+          })
+        .then((res) => res.json())
+        .then((data) => {           
+           console.log(data);               
+        });
+        // res.send("response saved"); 
+    }
+    async fetchResponse(){
+        var res;
+        await fetch(`http://localhost:5000/users/fetchResponse`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "accept": "application/json"
+            },
+            body: 
+             JSON.stringify({
+              examId: this.state.ExamId,
+              // examTime: this.state.examTime,
+              //'file': this.uploadInput.files[0]
+            })
+          })
+        .then((res) => res.json())
+        .then((data) => {           
+           console.log(data); 
+           res=data.recordset.length; 
+           this.setState({answerList:JSON.parse(data.recordset[0].ResponseAnswer)});            
+        });
+        return res;
+    }
+    async createResponse(){
+        let recordCount=await this.fetchResponse();
+        if(recordCount==0){
+        fetch("http://localhost:5000/users/createResponse", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+              },
+              body: 
+               JSON.stringify({
+                examId: this.state.ExamId,
+                // examTime: this.state.examTime,
+                //'file': this.uploadInput.files[0]
+              })
+            }).then(response => {
+                    console.log(response);                
+                })
+              .then(data => {
+                console.log(data)
+              })
+              .catch(err => {
+                console.log(err);
+                
+              });
+            }
     }
     calculateMarks(){
         let marksCalculated=0;
         for(let i=0;i<this.state.questionList.length;i++){ 
-            if(this.state.questionList[i].answer===this.state.answerList[this.state.questionList[i].id]){
+            if(this.state.questionList[i].answer==this.state.answerList[this.state.questionList[i].id]){
                 marksCalculated++;
             }
         }        
@@ -121,9 +192,9 @@ class Questions extends Component {
     }
 
     // }
-    render(){ 
+    render(){         
     {this.fetchExams()}    
-        if(this.state.checkdata&&!this.state.showResult&&!this.state.timeOut){   
+        if(this.state.checkdata&&!this.state.showResult&&!this.state.timeOut){
             this.setTimer();         
             return(                    
             <div class="bix-div-container">{this.displayQuestions()}
