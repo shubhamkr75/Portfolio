@@ -143,9 +143,9 @@ router.post('/createResponse',(req,res)=>{
   //users.push(req.body); 
       sql.connect(config, function (err) {
         if (err) console.log(err);
-        const { examId } = req.body;
+        const { examId,totalQuestions } = req.body;
         let request = new sql.Request();  
-        let query = "exec addresponse @examid='" + examId + "', @studentid='1';";  
+        let query = "exec addresponse @examid='" + examId + "', @studentid='1', @totalquestions="+totalQuestions+";";  
         console.log(query);
         request.query(query, function (err, recordset) {
           if (err) {
@@ -165,14 +165,14 @@ router.post('/saveResponse',(req,res)=>{
 //users.push(req.body); 
     sql.connect(config, function (err) {
       if (err) console.log(err);
-      const { examId,responseList } = req.body;
+      const { examId,responseList,totalMarks } = req.body;
       let request = new sql.Request();  
-      let query = "exec updateresponse @examid='" + examId + "', @studentid='1', @response='"+responseList+"';";  
+      let query = "exec updateresponse @examid='" + examId + "', @studentid='1', @response='"+responseList+"',@totalMarks="+totalMarks+";";  
       console.log(query);
       request.query(query, function (err, recordset) {
         if (err) {
             console.log(err);
-            req.send(err);
+            res.send(err);
             sql.close();
         }
         //console.log(recordset);
