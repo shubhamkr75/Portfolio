@@ -101,6 +101,7 @@ class Questions extends Component {
              JSON.stringify({
               examId: this.state.ExamId,
               responseList:responseAnswer,
+              totalMarks:this.totalMarksCalculate(),
               // examTime: this.state.examTime,
               //'file': this.uploadInput.files[0]
             })
@@ -148,6 +149,7 @@ class Questions extends Component {
               body: 
                JSON.stringify({
                 examId: this.state.ExamId,
+                totalQuestions: this.state.questionList.length,
                 // examTime: this.state.examTime,
                 //'file': this.uploadInput.files[0]
               })
@@ -164,13 +166,17 @@ class Questions extends Component {
             }
     }
     calculateMarks(){
+        let marksCalculated=this.totalMarksCalculate();       
+        this.setState({checkdata:false,showResult:true,marks:marksCalculated});
+    }
+    totalMarksCalculate(){
         let marksCalculated=0;
         for(let i=0;i<this.state.questionList.length;i++){ 
             if(this.state.questionList[i].answer==this.state.answerList[this.state.questionList[i].id]){
                 marksCalculated++;
             }
-        }        
-        this.setState({checkdata:false,showResult:true,marks:marksCalculated});
+        } 
+        return marksCalculated;
     }
     setTimer=()=>{
         let startTime=Date.now();
