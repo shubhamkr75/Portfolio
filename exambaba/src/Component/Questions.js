@@ -130,7 +130,7 @@ class Questions extends Component {
         .then((data) => {           
            console.log(data); 
            res=data.recordset.length; 
-           this.setState({answerList:JSON.parse(data.recordset[0].ResponseAnswer)}); //fetching saved response form db           
+           this.setState({answerList:JSON.parse(data.recordset[0].ResponseAnswer)}); //fetching saved response           
         });
         return res;
     }
