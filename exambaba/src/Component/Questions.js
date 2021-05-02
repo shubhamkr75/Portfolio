@@ -261,7 +261,7 @@ class Questions extends Component {
             );
         }
         else if(this.state.checkdata==5){
-            let studentId=1;
+            let studentId='1';
             return(
                 <StudentDashboard studentId={studentId}/>
             );
