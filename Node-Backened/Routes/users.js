@@ -131,7 +131,6 @@ router.post('/fetchResponse',(req,res)=>{
           sql.close();
       }          
       //res.send(recordset.rowsAffected[0]);
-      records=recordset.rowsAffected[0];
       console.log(recordset);
       res.send(recordset);
       sql.close();
