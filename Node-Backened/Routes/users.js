@@ -78,10 +78,10 @@ router.post('/createExam',(req,res)=>{
             request.query(query, function (err, recordset) {
               if (err) {
                   console.log(err);
-                  sql.close();
+                  //sql.close();
               }
               console.log(recordset);
-              sql.close();
+              //sql.close();
             });
           });
             if(err){
@@ -139,23 +139,45 @@ router.post('/fetchResponse',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/fetchExamHistory',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { studentId } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchExamHistory @studentid="+studentId+";" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
 router.post('/createResponse',(req,res)=>{
   //users.push(req.body); 
       sql.connect(config, function (err) {
         if (err) console.log(err);
-        const { examId,totalQuestions } = req.body;
+        const { examId,totalQuestions,startTime } = req.body;
         let request = new sql.Request();  
-        let query = "exec addresponse @examid='" + examId + "', @studentid='1', @totalquestions="+totalQuestions+";";  
+        let query = "exec addresponse @examid='" + examId + "', @studentid='1', @totalquestions="+totalQuestions+", @startTime="+startTime+";";  
         console.log(query);
         request.query(query, function (err, recordset) {
           if (err) {
               console.log(err);
               req.send(err);
-              sql.close();
+              // sql.close();
           }
           
           //console.log(recordset.rowsAffected[0]);
-          sql.close();
+          // sql.close();
         });
       });  
       res.send("Record Created");
@@ -173,11 +195,11 @@ router.post('/saveResponse',(req,res)=>{
         if (err) {
             console.log(err);
             res.send(err);
-            sql.close();
+            // sql.close();
         }
         //console.log(recordset);
         //console.log(recordset.rowsAffected[0]);
-        sql.close();
+        // sql.close();
       });
     });  
     res.send("Record Updated");

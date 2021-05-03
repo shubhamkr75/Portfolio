@@ -16,3 +16,9 @@
 #btnSubmitTest{
     font-size: 20px;
 }
+#pastExamination{
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    height: 30px;
+}

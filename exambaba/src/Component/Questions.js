@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React, { Component, useState } from 'react';
 import update from 'react-addons-update';
 import './Questions.css'
+import StudentDashboard from './StudentDashboard';
 class Questions extends Component {
     // const [questionList,setquestionList] = useState([]);   
     // const [checkdata, setCheckdata] = useState(false); 
@@ -10,25 +11,24 @@ class Questions extends Component {
         this.state={
             questionList: Array().fill(null),
             examList: Array().fill(null),
-            checkdata: false,
+            checkdata: 0,
             examdata: false,
             examtime:null,
             showResult: false,
             answerList: Array().fill(null),
             marks: 0  ,
-            timeOut:false,
-            ExamId:null          
+            ExamId:null,     
         }
     }
     
     async fetchQuestions(id,exam_time){
-        if(!this.state.checkdata){     //if question is not rettrieved
+        if(this.state.checkdata!=1){     //if question is not rettrieved
             await fetch(`http://localhost:5000/users/questions/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // setquestionList(data.Questions);
                 // setCheckdata(true);
-                this.setState({questionList:data,checkdata:true,examtime:exam_time,ExamId:id});                
+                this.setState({questionList:data,checkdata:1,examtime:exam_time,ExamId:id});                
             });
             this.createResponse();
         }
@@ -57,16 +57,16 @@ class Questions extends Component {
             </div>
         );        
     }
-    fetchExams(){
-        if(!this.state.examdata){     //if exam is not rettrieved
-            fetch(`http://localhost:5000/users/exams`)
+    async fetchExams(){    //if exam is not rettrieved
+        if(!this.state.examdata){
+            await fetch(`http://localhost:5000/users/exams`)
                 .then((res) => res.json())
                 .then((data) => {
                     // setquestionList(data.Questions);
                     // setCheckdata(true);
-                    this.setState({examList:data.recordset,examdata:true});                
+                    this.setState({examList:data.recordset,checkdata:4,examdata:true});                
                 });
-        }
+            }
     }
     async saveResponse(event,id,response){
         if(event.target.checked){
@@ -133,14 +133,18 @@ class Questions extends Component {
            res=data.recordset.length; 
            if((data.recordset[0]!=undefined||data.recordset[0]!=null)&&data.recordset[0].ResponseAnswer!=null){
             this.setState({answerList:JSON.parse(data.recordset[0].ResponseAnswer)}); //fetching saved response           
-           }
+            this.setTimer(data.recordset[0].StartTime);
+            }else if(data.recordset[0]!=undefined||data.recordset[0]!=null){
+                this.setTimer(data.recordset[0].StartTime);
+            }else{
+            this.setTimer(Date.now());}
         });
         return res;
     }
     async createResponse(){
         let recordCount=await this.fetchResponse();
         if(recordCount==0){
-        fetch("http://localhost:5000/users/createResponse", {
+        await fetch("http://localhost:5000/users/createResponse", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -150,6 +154,7 @@ class Questions extends Component {
                JSON.stringify({
                 examId: this.state.ExamId,
                 totalQuestions: this.state.questionList.length,
+                startTime:Date.now(),
                 // examTime: this.state.examTime,
                 //'file': this.uploadInput.files[0]
               })
@@ -163,11 +168,12 @@ class Questions extends Component {
                 console.log(err);
                 
               });
+              
             }
     }
     calculateMarks(){
         let marksCalculated=this.totalMarksCalculate();       
-        this.setState({checkdata:false,showResult:true,marks:marksCalculated});
+        this.setState({checkdata:2,marks:marksCalculated});
     }
     totalMarksCalculate(){
         let marksCalculated=0;
@@ -178,8 +184,8 @@ class Questions extends Component {
         } 
         return marksCalculated;
     }
-    setTimer=()=>{
-        let startTime=Date.now();
+    setTimer=(timing)=>{
+        let startTime=timing;
         startTime=startTime+1*this.state.examtime*60*1000;
         var x = setInterval(()=> {
             var distance = startTime - Date.now();
@@ -194,7 +200,7 @@ class Questions extends Component {
             if (distance < 0) {
               clearInterval(x);
               this.calculateMarks();
-              this.setState({timeOut:true});
+              this.setState({checkdata:3});
             }
           }, 1000);
     }
@@ -202,8 +208,8 @@ class Questions extends Component {
     // }
     render(){         
     {this.fetchExams()}    
-        if(this.state.checkdata&&!this.state.showResult&&!this.state.timeOut){
-            this.setTimer();         
+        if(this.state.checkdata==1){       //if question is fetched     
+            //this.setTimer();         
             return(                    
             <div class="bix-div-container">{this.displayQuestions()}
                 <div id="divSubmitTest" align="center">
@@ -216,7 +222,7 @@ class Questions extends Component {
             );
             
         }
-        else if(this.state.showResult&&!this.state.timeOut){
+        else if(this.state.checkdata==2){ //if test is submitted
             return(                    
                 <div class="bix-div-container">
                    <h1 class="display-3">Thank You. Your Response has been Submitted</h1>
@@ -226,7 +232,7 @@ class Questions extends Component {
                 </div>
             );
         }
-        else if(this.state.timeOut){
+        else if(this.state.checkdata==3){       //if timeouts
             return(                    
                 <div class="bix-div-container">
                    <h1 class="display-3">Times Up. Your Response has been Submitted</h1>
@@ -236,7 +242,7 @@ class Questions extends Component {
                 </div>
             );
         }
-        else if(this.state.examdata){
+        else if(this.state.checkdata==4){
             
             return(
                 <div>
@@ -250,12 +256,19 @@ class Questions extends Component {
                             </div>
                         );
                     })}
+                    <input align="center" onClick={()=>this.setState({checkdata:5})} type="button" value="Past Examination" id="pastExamination"/>
                 </div>
+            );
+        }
+        else if(this.state.checkdata==5){
+            let studentId='1';
+            return(
+                <StudentDashboard studentId={studentId}/>
             );
         }
         else{
             return(
-            <div>cannot render data</div>
+            <div>waiting/cannot render data</div>
             );
         }
     }
