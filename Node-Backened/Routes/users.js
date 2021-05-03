@@ -138,6 +138,58 @@ router.post('/fetchResponse',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/fetchClasses',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { schoolId } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchClasses @schoolId='" + schoolId + "';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      console.log(recordset);
+      res.send(recordset);
+      sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
+router.post('/createUser',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { name,emailId,mobileNumber,schoolCode,selectedClass,userPassword } = req.body;
+    let request = new sql.Request();  
+    // @name,@studentId,@emailId,@mobileNumber,@schoolCode,@class
+    // @name varchar,@studentId varchar,@emailId varchar,@mobileNumber varchar,@schoolCode varchar,@class varchar
+    let query = "exec createUser @name='" + name + "',@studentId='" + makeid() + "',@emailId='" + emailId + 
+    "',@mobileNumber='" + mobileNumber + "',@schoolCode='" + schoolCode + "',@userPassword='" + userPassword + "',@class='" + selectedClass + "';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      console.log(recordset);
+      res.send(recordset);
+      sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
 router.post('/fetchExamHistory',(req,res)=>{
   let records;
    sql.connect(config, function (err) {
