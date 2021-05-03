@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import FetchResponse from './FetchResponse';
 class StudentDashboard extends Component{
     constructor(props) {
         super(props);
         this.state = {
             examHistoryList: [],
+            section:0,
+            selectedExam:null,
         };
       }
 
@@ -26,14 +29,14 @@ class StudentDashboard extends Component{
         .then((res) => res.json())
         .then((data) => {           
            console.log(data); 
-           this.setState({examHistoryList:data.recordset});
+           this.setState({examHistoryList:data.recordset,section:1});
         });
         return res;
     }
       
     render(){
         {this.state.examHistoryList.length==0 && this.fetchExamHistory()} 
-        if(this.state.examHistoryList.length!=0){
+        if(this.state.examHistoryList.length!=0&&this.state.section==1){
         return(
             <div className="examHistorySection">
                 <h1>Dashboard</h1>
@@ -65,7 +68,7 @@ class StudentDashboard extends Component{
                             <span id="examStartTime">{moment(Date(list.StartTime)).format('Do MMMM YYYY')}</span>
                         </td>
                         <td>
-                        <input align="center" type="button" value="Check Response" id="ResponseDetails"/>    
+                        <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Check Response" id="ResponseDetails"/>    
                         </td>
                     </tr>
                 );
@@ -73,6 +76,11 @@ class StudentDashboard extends Component{
             </tbody></table>
             </div>
         );
+        }
+        else if(this.state.section==2){
+            return(
+                <FetchResponse ExamId={this.state.selectedExam}/>
+            );
         }
         else{
             return(
