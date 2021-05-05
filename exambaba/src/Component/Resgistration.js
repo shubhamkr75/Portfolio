@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import App from '../App';
+import Login from './Login';
  
 class Registration extends Component{
     constructor(props) {
@@ -48,10 +50,12 @@ class Registration extends Component{
                document.getElementById("examCode").innerHTML = ""
                 }
                else if((data.recordset[0]!=undefined||data.recordset[0]!=null)&&data.recordset[0].classes==null){
-                document.getElementById("examCode").innerHTML = "Classes not available"
+                document.getElementById("examCode").innerHTML = "Classes not available";
+                this.setState({classesList:[]});
                }
                else{
                 document.getElementById("examCode").innerHTML = "Invalid School Code";
+                this.setState({classesList:[]});
                }     
         });
       }
@@ -95,52 +99,115 @@ class Registration extends Component{
 render(){
     if(this.state.flag==0){
     return(
-        <div>
-            <h1>Registration Form</h1>
-        <form>
-          <label> Name: 
-            <input name="name" type="text" required onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <label> Email Id: 
-            <input name="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <label>
-            Mobile Number: 
-            <input name="mobileNumber" type="tel" placeholder='1234567891' minLength='10'
-              maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <label>
-            School Code: 
-            <input name="schoolCode" type="number" onChange={this.handleInputChange} onBlur={this.fetchClasses} />
-          </label>
-          <label id="examCode"></label>
-          <br />
-          <label> Class: 
-              <select name="class" type="number" onChange={this.handleInputChange}>
-              <option value=""></option>
-                  {this.state.classesList.map((clist) => {
-                      return(
-                          <option value={clist}>{clist}</option>
-                      );
-                  })}
-              </select>
-          </label>
-          <br />
-          <label> Create Password: 
-            <input name="userPassword" type="password" required onChange={this.handleInputChange}  />
-          </label>
-          <br />
-          <label> Reenter Password: 
-            <input name="repassword" type="password" required onBlur={this.checkPassword} />
-          </label>
-          <label id="matchPaasword"></label>
-          <br />
-          <input align="center" onClick={()=>this.createUser()} type="button" value="Register" id="submitUser"/>
-        </form>
-        <br/>
+        // <div>
+        //     <h1>Registration Form</h1>
+        // <form>
+        //   <label> Name: 
+        //     <input name="name" type="text" required onChange={this.handleInputChange} />
+        //   </label>
+        //   <br />
+        //   <label> Email Id: 
+        //     <input name="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} />
+        //   </label>
+        //   <br />
+        //   <label>
+        //     Mobile Number: 
+        //     <input name="mobileNumber" type="tel" placeholder='1234567891' minLength='10'
+        //       maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} />
+        //   </label>
+        //   <br />
+        //   <label>
+        //     School Code: 
+        //     <input name="schoolCode" type="number" onChange={this.handleInputChange} onBlur={this.fetchClasses} />
+        //   </label>
+        //   <label id="examCode"></label>
+        //   <br />
+        //   <label> Class: 
+        //       <select name="class" type="number" onChange={this.handleInputChange}>
+        //       <option value=""></option>
+        //           {this.state.classesList.map((clist) => {
+        //               return(
+        //                   <option value={clist}>{clist}</option>
+        //               );
+        //           })}
+        //       </select>
+        //   </label>
+        //   <br />
+        //   <label> Create Password: 
+        //     <input name="userPassword" type="password" required onChange={this.handleInputChange}  />
+        //   </label>
+        //   <br />
+        //   <label> Reenter Password: 
+        //     <input name="repassword" type="password" required onBlur={this.checkPassword} />
+        //   </label>
+        //   <label id="matchPaasword"></label>
+        //   <br />
+        //   <input align="center" onClick={()=>this.createUser()} type="button" value="Register" id="submitUser"/>
+        // </form>
+        // <br/>
+        // </div>
+
+        <div className="container-fluid login-component px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div className="card card0 border-0">
+                <div className="row d-flex">
+                    <div className="col-lg-6">
+                        <div className="card1 pb-5">
+                            <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div>
+                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
+                        </div>
+                    </div>
+                    <div className="col-lg-6">                    
+                        <div className="card2 card border-0 px-4 py-5">
+                            <div className="row px-3"> <label className="mb-1">
+                                    <h6 className="mb-0 text-sm">Name</h6>
+                                </label> <input name="name" type="text" required onChange={this.handleInputChange} /> </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                    <h6 className="mb-0 text-sm">Email ID</h6>
+                                </label> <input name="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} /> </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">Mobile Number</h6>
+                                </label> <input name="mobileNumber" type="tel" placeholder='1234567891' minLength='10' maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} /> 
+                            </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">School Code</h6>
+                                </label> <input name="schoolCode" type="number" onChange={this.handleInputChange} onBlur={this.fetchClasses} /> 
+                                <label id="examCode"></label>
+                            </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">Class</h6>
+                                </label> 
+                                <select name="class" type="number" onChange={this.handleInputChange}>
+                                  <option value=""></option>
+                                      {this.state.classesList.map((clist) => {
+                                          return(
+                                              <option value={clist}>{clist}</option>
+                                          );
+                                      })}
+                                </select> 
+                            </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">Password</h6>
+                                </label> <input name="userPassword" type="password" placeholder="Password" required onChange={this.handleInputChange}  /> 
+                            </div>
+                            <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">Confirm password</h6>
+                                </label> <input name="repassword" placeholder="Confirm" type="password" required onBlur={this.checkPassword} />
+                                <label id="matchPaasword"></label>
+                            </div>
+
+                            <div className="row px-3 mb-4">
+                                <div className="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" /> <label for="chk1" class="custom-control-label text-sm"> Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+                            </div>
+                            <div className="row mb-3 px-3"> <button onClick={()=>this.createUser()} type="submit" value="Register"  id="submitUser">Register</button> </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-blue py-4">
+                    <div className="row px-3"> <small className="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
+                        <div className="social-contact ml-4 ml-sm-auto"> <span className="fa fa-facebook mr-4 text-sm"></span> <span className="fa fa-google-plus mr-4 text-sm"></span> <span className="fa fa-linkedin mr-4 text-sm"></span> <span className="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
     }
@@ -151,6 +218,11 @@ render(){
             </div>
             
         );
+    }
+    else if(this.state.flag==3){
+      return(
+          <App/>
+      );
     }
     else{
         return(

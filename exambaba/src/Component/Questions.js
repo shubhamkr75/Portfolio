@@ -33,14 +33,16 @@ class Questions extends Component {
             this.createResponse();
         }
     }
-    displayQuestions(){        
+    displayQuestions(){ 
+        let counter=0;       
             return(
                 <div class="questionList">
                 {this.state.questionList.map((qlist) => {
+                    counter++;
                     return(
                         <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
                         <tbody><tr>
-                            <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{qlist.id}.&nbsp;</p></td>
+                            <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{counter}.&nbsp;</p></td>
                             <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
                         </tr>
                         <tr>
