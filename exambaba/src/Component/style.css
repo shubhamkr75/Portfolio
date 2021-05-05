@@ -1,0 +1,173 @@
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #B0BEC5;
+    background-repeat: no-repeat
+}
+ 
+.login-component .card0 {
+    box-shadow: 0px 4px 8px 0px #757575;
+    border-radius: 0px
+}
+ 
+.login-component .card2 {
+    margin: 0px 40px
+}
+ 
+.login-component .logo {
+    width: 200px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 35px
+}
+ 
+.login-component .image {
+    width: 360px;
+    height: 280px
+}
+ 
+.login-component .border-line {
+    border-right: 1px solid #EEEEEE
+}
+ 
+.login-component .facebook {
+    background-color: #3b5998;
+    color: #fff;
+    font-size: 18px;
+    padding-top: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer
+}
+ 
+.login-component .twitter {
+    background-color: #1DA1F2;
+    color: #fff;
+    font-size: 18px;
+    padding-top: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer
+}
+ 
+.login-component .linkedin {
+    background-color: #2867B2;
+    color: #fff;
+    font-size: 18px;
+    padding-top: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer
+}
+ 
+.login-component .line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px
+}
+ 
+.login-component .or {
+    width: 10%;
+    font-weight: bold
+}
+ 
+.login-component .text-sm {
+    font-size: 14px !important
+}
+ 
+.login-component::placeholder {
+    color: #BDBDBD;
+    opacity: 1;
+    font-weight: 300
+}
+ 
+.login-component :-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+ 
+.login-component ::-ms-input-placeholder {
+    color: #BDBDBD;
+    font-weight: 300
+}
+ 
+.login-component input,
+.login-component textarea {
+    padding: 10px 12px 10px 12px;
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #2C3E50;
+    font-size: 14px;
+    letter-spacing: 1px
+}
+ 
+.login-component input:focus,
+.login-component textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #304FFE;
+    outline-width: 0
+}
+ 
+.login-component button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+ 
+.login-component a {
+    color: inherit;
+    cursor: pointer
+}
+ 
+.login-component .btn-blue {
+    background-color: #1A237E;
+    width: 150px;
+    color: #fff;
+    border-radius: 2px
+}
+ 
+.login-component .btn-blue:hover {
+    background-color: #000;
+    cursor: pointer
+}
+ 
+.login-component .bg-blue {
+    color: #fff;
+    background-color: #1A237E
+}
+ 
+.login-component{
+    color: #000;
+}
+
+@media screen and (max-width: 991px) {
+    .login-component .logo {
+        margin-left: 0px
+    }
+ 
+    .login-component .image {
+        width: 300px;
+        height: 220px
+    }
+ 
+    .login-component .border-line {
+        border-right: none
+    }
+ 
+    .login-component .card2 {
+        border-top: 1px solid #EEEEEE !important;
+        margin: 0px 15px
+    }
+}

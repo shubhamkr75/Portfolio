@@ -172,8 +172,6 @@ router.post('/createUser',(req,res)=>{
     if (err) console.log(err);
     const { name,emailId,mobileNumber,schoolCode,selectedClass,userPassword } = req.body;
     let request = new sql.Request();  
-    // @name,@studentId,@emailId,@mobileNumber,@schoolCode,@class
-    // @name varchar,@studentId varchar,@emailId varchar,@mobileNumber varchar,@schoolCode varchar,@class varchar
     let query = "exec createUser @name='" + name + "',@studentId='" + makeid() + "',@emailId='" + emailId + 
     "',@mobileNumber='" + mobileNumber + "',@schoolCode='" + schoolCode + "',@userPassword='" + userPassword + "',@class='" + selectedClass + "';" ;  
     console.log(query);
@@ -257,6 +255,38 @@ router.post('/saveResponse',(req,res)=>{
     // res.send("Exam Created successfully");
   })
     
+router.post('/loginUser',(req,res)=>{
+//users.push(req.body); 
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { userEmail,userPassword } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchUser @userEmail='" + userEmail + "', @userPassword="+userPassword+";";  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // req.send(err);
+          // sql.close();
+          res.send("failed");
+      }
+      console.log(recordset);
+      console.log(recordset.rowsAffected[0]);
+      // console.log(recordset.recordset[0].Student_Name);
+      if(recordset.rowsAffected[0]>0 && recordset.recordset[0].Student_Name!=null){
+          // req.send(err);
+          res.send({
+            
+            token: recordset.recordset[0].Student_Name
+          });
+        }
+        else
+        res.send("failed");
+      sql.close();
+    });
+  });  
+  // res.send("Exam Created successfully");
+})
 
 router.delete('/:firstName',(req,res)=>{
     const {firstName}=req.params;
