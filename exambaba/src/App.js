@@ -6,6 +6,7 @@ import ExamCreation from './Component/ExamCreation'
 import Registration from './Component/Resgistration';
 import Login from './Component/Login';
 import UseToken from './Component/UseToken';
+import TeacherDashboard from './Component/TeacherDashboard';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -37,7 +38,8 @@ function App() {
             <Registration />
           </Route>
           <Route path="/">
-            <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+          <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+          {/* <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
           </Route>
         </Switch>
       </BrowserRouter>
