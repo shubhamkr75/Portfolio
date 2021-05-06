@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component, useState } from 'react';
 import update from 'react-addons-update';
+import LogOut from './LogOut';
 import './Questions.css'
 import StudentDashboard from './StudentDashboard';
 class Questions extends Component {
@@ -36,7 +37,7 @@ class Questions extends Component {
     displayQuestions(){ 
         let counter=0;       
             return(
-                <div class="questionList">
+                <div class="questionList">                
                 {this.state.questionList.map((qlist) => {
                     counter++;
                     return(
@@ -210,6 +211,7 @@ class Questions extends Component {
     // }
     render(){         
     {this.fetchExams()}    
+    
         if(this.state.checkdata==1){       //if question is fetched     
             //this.setTimer();         
             return(                    
@@ -248,6 +250,7 @@ class Questions extends Component {
             
             return(
                 <div>
+                    <LogOut/>
                     <h3>Welcome to EXAM BABA</h3>
                     <p>Please take the below available test for You</p>
                     {this.state.examList.map((list) => {
@@ -265,12 +268,16 @@ class Questions extends Component {
         else if(this.state.checkdata==5){
             let studentId='1';
             return(
-                <StudentDashboard studentId={studentId}/>
+                <div>
+                    <LogOut/>
+                    <StudentDashboard studentId={studentId}/>    
+                </div>
+                
             );
         }
         else{
             return(
-            <div>waiting/cannot render data</div>
+            <div><LogOut/>waiting/cannot render data</div>
             );
         }
     }

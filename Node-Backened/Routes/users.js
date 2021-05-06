@@ -271,7 +271,7 @@ router.post('/loginUser',(req,res)=>{
           res.send("failed");
       }
       console.log(recordset);
-      console.log(recordset.rowsAffected[0]);
+      // console.log(recordset.rowsAffected[0]);
       // console.log(recordset.recordset[0].Student_Name);
       if(recordset.rowsAffected[0]>0 && recordset.recordset[0].Student_Name!=null){
           // req.send(err);
@@ -280,8 +280,9 @@ router.post('/loginUser',(req,res)=>{
             token: recordset.recordset[0].Student_Name
           });
         }
-        else
+        else{
         res.send("failed");
+        }
       sql.close();
     });
   });  

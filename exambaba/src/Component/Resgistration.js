@@ -99,54 +99,7 @@ class Registration extends Component{
 render(){
     if(this.state.flag==0){
     return(
-        // <div>
-        //     <h1>Registration Form</h1>
-        // <form>
-        //   <label> Name: 
-        //     <input name="name" type="text" required onChange={this.handleInputChange} />
-        //   </label>
-        //   <br />
-        //   <label> Email Id: 
-        //     <input name="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} />
-        //   </label>
-        //   <br />
-        //   <label>
-        //     Mobile Number: 
-        //     <input name="mobileNumber" type="tel" placeholder='1234567891' minLength='10'
-        //       maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} />
-        //   </label>
-        //   <br />
-        //   <label>
-        //     School Code: 
-        //     <input name="schoolCode" type="number" onChange={this.handleInputChange} onBlur={this.fetchClasses} />
-        //   </label>
-        //   <label id="examCode"></label>
-        //   <br />
-        //   <label> Class: 
-        //       <select name="class" type="number" onChange={this.handleInputChange}>
-        //       <option value=""></option>
-        //           {this.state.classesList.map((clist) => {
-        //               return(
-        //                   <option value={clist}>{clist}</option>
-        //               );
-        //           })}
-        //       </select>
-        //   </label>
-        //   <br />
-        //   <label> Create Password: 
-        //     <input name="userPassword" type="password" required onChange={this.handleInputChange}  />
-        //   </label>
-        //   <br />
-        //   <label> Reenter Password: 
-        //     <input name="repassword" type="password" required onBlur={this.checkPassword} />
-        //   </label>
-        //   <label id="matchPaasword"></label>
-        //   <br />
-        //   <input align="center" onClick={()=>this.createUser()} type="button" value="Register" id="submitUser"/>
-        // </form>
-        // <br/>
-        // </div>
-
+        
         <div className="container-fluid login-component px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
             <div className="card card0 border-0">
                 <div className="row d-flex">
@@ -199,6 +152,7 @@ render(){
                                 <div className="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" /> <label for="chk1" class="custom-control-label text-sm"> Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
                             </div>
                             <div className="row mb-3 px-3"> <button onClick={()=>this.createUser()} type="submit" value="Register"  id="submitUser">Register</button> </div>
+                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Already have an account? <a className="text-danger" onClick={()=>this.setState({flag:3})}>Login</a></small> </div>
                         </div>
                     </div>
                 </div>

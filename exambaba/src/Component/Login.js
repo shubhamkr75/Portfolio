@@ -14,6 +14,7 @@ class Login extends Component {
             userEmail: "",
             userPassword: "",
             flag:0,
+            credentialflag:0,
         };
  
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -31,7 +32,7 @@ class Login extends Component {
         });
     }
     // user registration
-    async loginUser() {
+    async loginUser() {        
          return fetch(`http://localhost:5000/users/loginUser`, {
             method: "POST",
             headers: {
@@ -45,6 +46,11 @@ class Login extends Component {
                 })
         })
             .then((res) => res.json())
+            .catch(err => {
+                console.log(err);
+                this.setState({credentialflag:1});
+                document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
+              });
             // .then((data) => {
             //     console.log(data);
             // });
@@ -53,7 +59,10 @@ class Login extends Component {
     async handleSubmit(e){
         e.preventDefault();
         const token = await this.loginUser();
-        this.props.setToken(token);
+        if(token){
+            this.setState({credentialflag:0});
+            this.props.setToken(token);
+        }
     }
 
     render() {
@@ -77,6 +86,12 @@ class Login extends Component {
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Password</h6>
                                 </label> <input type="password" name="userPassword" onChange={this.handleInputChange} placeholder="Enter password" /> </div>
+                                <div><label id="passwordError">
+                                <h6 className="mb-0 text-sm"></h6>
+                                </label>
+                                </div>
+                                           
+                                       
                             <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue text-center">Login</button> </div>
                             <div className="row mb-4 px-3"> <small className="font-weight-bold">Don't have an account? <a className="text-danger" onClick={()=>this.setState({flag:1})}>Register</a></small> </div>
                         </div>
