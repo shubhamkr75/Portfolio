@@ -39,13 +39,16 @@ router.get('/questions/:id',(req,res)=>{
     const users = JSON.parse(rawdata);  
     res.send(users);
 });
-router.get('/exams',(req,res)=>{
+router.post('/exams',(req,res)=>{
   sql.connect(config, function (err) {
     if (err) console.log(err);
-    var request = new sql.Request();     
-    request.query('select * from Examination where school_id=1', function (err, recordset) {      
+    const {schoolId,userClass}=req.body;
+    var request = new sql.Request();  
+    let query = "exec fetchExams @schoolId='"+schoolId+"',@userClass='"+userClass+"';" ;  
+    console.log(query); 
+    request.query(query, function (err, recordset) {      
         if (err) console.log(err)
-        //console.log(recordset);  
+        console.log(recordset);  
         // const exams = JSON.parse(recordset);  
         res.send(recordset);   
     });
@@ -194,7 +197,7 @@ router.post('/fetchExamHistory',(req,res)=>{
     if (err) console.log(err);
     const { studentId } = req.body;
     let request = new sql.Request();  
-    let query = "exec fetchExamHistory @studentid="+studentId+";" ;  
+    let query = "exec fetchExamHistory @studentid='"+studentId+"';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {
@@ -202,7 +205,7 @@ router.post('/fetchExamHistory',(req,res)=>{
           // sql.close();
       }          
       //res.send(recordset.rowsAffected[0]);
-      records=recordset.rowsAffected[0];
+      // records=recordset.rowsAffected[0];
       console.log(recordset);
       res.send(recordset);
       // sql.close();
@@ -261,7 +264,7 @@ router.post('/loginUser',(req,res)=>{
     if (err) console.log(err);
     const { userEmail,userPassword } = req.body;
     let request = new sql.Request();  
-    let query = "exec fetchUser @userEmail='" + userEmail + "', @userPassword="+userPassword+";";  
+    let query = "exec fetchUser @userEmail='" + userEmail + "', @userPassword='"+userPassword+"';";  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {
@@ -273,11 +276,10 @@ router.post('/loginUser',(req,res)=>{
       console.log(recordset);
       // console.log(recordset.rowsAffected[0]);
       // console.log(recordset.recordset[0].Student_Name);
-      if(recordset.rowsAffected[0]>0 && recordset.recordset[0].Student_Name!=null){
+      if(recordset.rowsAffected[0]>0 && recordset.recordset[0].Student_id!=null){
           // req.send(err);
-          res.send({
-            
-            token: recordset.recordset[0].Student_Name
+          res.send({            
+            token: recordset.recordset[0]
           });
         }
         else{

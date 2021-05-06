@@ -62,7 +62,18 @@ class Questions extends Component {
     }
     async fetchExams(){    //if exam is not rettrieved
         if(!this.state.examdata){
-            await fetch(`http://localhost:5000/users/exams`)
+            await fetch(`http://localhost:5000/users/exams`, {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                  "accept": "application/json"
+                },
+                body: 
+                 JSON.stringify({
+                    schoolId: this.props.schoolId,
+                    userClass:this.props.userClass,
+                })
+              })
                 .then((res) => res.json())
                 .then((data) => {
                     // setquestionList(data.Questions);
@@ -266,7 +277,7 @@ class Questions extends Component {
             );
         }
         else if(this.state.checkdata==5){
-            let studentId='1';
+            let studentId=this.props.studentId;
             return(
                 <div>
                     <LogOut/>

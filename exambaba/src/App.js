@@ -37,7 +37,7 @@ function App() {
             <Registration />
           </Route>
           <Route path="/">
-            <Questions/>
+            <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
           </Route>
         </Switch>
       </BrowserRouter>
