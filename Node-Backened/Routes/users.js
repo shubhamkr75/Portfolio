@@ -56,6 +56,22 @@ router.post('/exams',(req,res)=>{
   
 });
   
+router.post('/adminExams',(req,res)=>{
+  sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const {studentid}=req.body;
+    var request = new sql.Request();  
+    let query = "exec adminExams @studentid='"+studentid+"';" ;  
+    console.log(query); 
+    request.query(query, function (err, recordset) {      
+        if (err) console.log(err)
+        console.log(recordset);  
+        // const exams = JSON.parse(recordset);  
+        res.send(recordset);   
+    });
+  });
+  
+});
 
 let storage = multer.diskStorage({ 
 });
@@ -124,9 +140,9 @@ router.post('/fetchResponse',(req,res)=>{
   let records;
    sql.connect(config, function (err) {
     if (err) console.log(err);
-    const { examId } = req.body;
+    const { examId,studentid } = req.body;
     let request = new sql.Request();  
-    let query = "exec fetchresponse @examid='" + examId + "', @studentid='1';" ;  
+    let query = "exec fetchresponse @examid='" + examId + "', @studentid='" + studentid + "';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {
@@ -198,6 +214,28 @@ router.post('/fetchExamHistory',(req,res)=>{
     const { studentId } = req.body;
     let request = new sql.Request();  
     let query = "exec fetchExamHistory @studentid='"+studentId+"';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+router.post('/fetchExamReport',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { selectedExam } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchExamReport @selectedExam='"+selectedExam+"';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {

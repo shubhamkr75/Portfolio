@@ -24,8 +24,6 @@ class StudentDashboard extends Component{
             body: 
              JSON.stringify({
               studentId: this.props.studentId,
-              // examTime: this.state.examTime,
-              //'file': this.uploadInput.files[0]
             })
           })
         .then((res) => res.json())
