@@ -8,11 +8,13 @@ class StudentDashboard extends Component{
             examHistoryList: [],
             section:0,
             selectedExam:null,
+            fetchedHistory:false,
         };
       }
 
       async fetchExamHistory(){
         var res;
+        this.setState({fetchedHistory:true});
         await fetch(`http://localhost:5000/users/fetchExamHistory`, {
             method: "POST",
             headers: {
@@ -35,7 +37,7 @@ class StudentDashboard extends Component{
     }
       
     render(){
-        {this.state.examHistoryList.length==0 && this.fetchExamHistory()} 
+        {!this.state.fetchedHistory && this.fetchExamHistory()} 
         if(this.state.examHistoryList.length!=0&&this.state.section==1){
         return(
             <div className="examHistorySection">
@@ -84,7 +86,7 @@ class StudentDashboard extends Component{
         }
         else{
             return(
-                <div>Waiting/Cannot render data</div>
+                <div>No Exams to show</div>
             );
         }
     }

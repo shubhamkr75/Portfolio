@@ -5,9 +5,21 @@ import Questions from './Component/Questions'
 import ExamCreation from './Component/ExamCreation'
 import Registration from './Component/Resgistration';
 import Login from './Component/Login';
+import UseToken from './Component/UseToken';
+
+// function setToken(userToken) {
+//   sessionStorage.setItem('token', JSON.stringify(userToken));
+// }
+
+// function getToken() {
+//   const tokenString = sessionStorage.getItem('token');
+//   const userToken = JSON.parse(tokenString);
+//   return userToken?.token
+// }
 
 function App() {
-  const [token, setToken] = useState();
+  // const token = getToken();
+  const { token, setToken } = UseToken();
 
   if(!token) {
     return <Login setToken={setToken} />
@@ -25,7 +37,7 @@ function App() {
             <Registration />
           </Route>
           <Route path="/">
-            <Questions/>
+            <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
           </Route>
         </Switch>
       </BrowserRouter>
