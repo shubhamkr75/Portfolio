@@ -273,6 +273,50 @@ router.post('/fetchApprovals',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/fetchAllUsers',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { schoolid } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchAllUsers @schoolid='"+schoolid+"';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+router.post('/fetchAdmins',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { schoolid } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchAdmins @schoolid='"+schoolid+"';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
 router.post('/fetchUserProfile',(req,res)=>{
   let records;
    sql.connect(config, function (err) {
@@ -308,7 +352,9 @@ router.post('/approveUser',(req,res)=>{
     else if(approvalType=="delete") {
     query = "exec deleteUser @studentId='"+studentId+"';" ; }
     else if(approvalType=="makeadmin") {
-      query = "exec makeAdmin @studentId='"+studentId+"';" ; }
+    query = "exec makeAdmin @studentId='"+studentId+"';" ; }
+    else if(approvalType=="RemoveAdmin") {
+    query = "exec RemoveAdmin @studentId='"+studentId+"';" ; }
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {
