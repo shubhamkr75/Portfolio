@@ -251,6 +251,80 @@ router.post('/fetchExamReport',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/fetchApprovals',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { schoolid } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchApprovals @schoolid='"+schoolid+"';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+router.post('/fetchUserProfile',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { studentId } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchUserProfile @studentId='"+studentId+"';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+
+router.post('/approveUser',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { studentId,approvalType } = req.body;
+    let request = new sql.Request(); 
+    let query=""
+    if(approvalType=="approve") {
+    query = "exec approveUser @studentId='"+studentId+"';" ; }
+    else if(approvalType=="delete") {
+    query = "exec deleteUser @studentId='"+studentId+"';" ; }
+    else if(approvalType=="makeadmin") {
+      query = "exec makeAdmin @studentId='"+studentId+"';" ; }
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
+
 router.post('/createResponse',(req,res)=>{
   //users.push(req.body); 
       sql.connect(config, function (err) {

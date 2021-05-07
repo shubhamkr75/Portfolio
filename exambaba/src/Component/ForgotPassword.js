@@ -3,17 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 import PropTypes from 'prop-types';
 import Registration from './Resgistration';
-import ForgotPassword from './ForgotPassword';
+import App from '../App';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
  
-class Login extends Component {
+class ForgotPassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userEmail: "",
-            userPassword: "",
             flag:0,
             credentialflag:0,
         };
@@ -74,7 +73,7 @@ class Login extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row"> <img src="\\\\\\\\\\" className="logo" /> </div>
+                            <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div>
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
                         </div>
                     </div>
@@ -84,17 +83,11 @@ class Login extends Component {
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Email Address</h6>
                                 </label> <input className="mb-4" type="text" name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
-                            <div className="row px-3"> <label className="mb-1">
-                                    <h6 className="mb-0 text-sm">Password</h6>
-                                </label> <input type="password" name="userPassword" onChange={this.handleInputChange} placeholder="Enter password" /> </div>
-                                <div><label id="passwordError">
-                                <h6 className="mb-0 text-sm"></h6>
-                                </label>
-                                </div>
+                            
                                            
-                            <div className="row mb-4 px-3"> <small className="font-weight-bold"><a className="text-right" onClick={()=>this.setState({flag:2})}>Forgot Password?</a></small> </div>           
-                            <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue text-center">Login</button> </div>
-                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Don't have an account? <a className="text-danger" onClick={()=>this.setState({flag:1})}>Register</a></small> </div>
+                                       
+                            <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue text-center">Send OTP</button> </div>
+                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Remember the password? <a className="text-danger" onClick={()=>this.setState({flag:1})}>Login</a></small> </div>
                         </div>
                     </div>
                 </div>
@@ -109,12 +102,7 @@ class Login extends Component {
     }
     else if(this.state.flag==1){
         return(
-            <Registration/>
-        );
-    }
-    else if(this.state.flag==2){
-        return(
-            <ForgotPassword/>
+            <App/>
         );
     }
     else{
@@ -124,7 +112,4 @@ class Login extends Component {
     }
 }
 }
-export default Login;
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+export default ForgotPassword;

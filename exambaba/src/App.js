@@ -6,7 +6,12 @@ import ExamCreation from './Component/ExamCreation'
 import Registration from './Component/Resgistration';
 import Login from './Component/Login';
 import UseToken from './Component/UseToken';
+import Approval from './Component/Approval';
+import ForgotPassword from './Component/ForgotPassword';
+
+
 import TeacherDashboard from './Component/TeacherDashboard';
+import Profile from './Component/Profile';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -38,7 +43,10 @@ function App() {
             <Registration />
           </Route>
           <Route path="/">
-          <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+          {/* <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
+          {/* <Approval schoolId={token.School_id}/> */}
+          {/* <ForgotPassword schoolId={token.School_id}/> */}
+          <Profile  studentId={token.Student_id}/>
           {/* <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
           </Route>
         </Switch>
