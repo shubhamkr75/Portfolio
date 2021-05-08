@@ -64,7 +64,7 @@ class FetchAdmins extends Component{
                 <table id="examListTable" cellpadding="2" >
 						<tbody><tr id="Tr1">
 							<th id="Td1" class="user"> S.No</th>
-							<th id="Td2"> Student Name</th>
+							<th id="Td2"> Admin Name</th>
 							<th id="Td3"> Class</th>
 							<th id="Td4"> Email</th>							
 						</tr>

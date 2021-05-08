@@ -79,7 +79,7 @@ class StudentDashboard extends Component{
         }
         else if(this.state.section==2){
             return(
-                <FetchResponse ExamId={this.state.selectedExam}/>
+                <FetchResponse ExamId={this.state.selectedExam} studentId={this.props.studentId}/>
             );
         }
         else{

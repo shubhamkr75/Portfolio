@@ -7,7 +7,10 @@ class ExamCreation extends React.Component {
       this.state = {
         examName: "Test",
         examTime: 60,
-        testCreated: 1
+        testCreated: 1,
+        classesList: [],
+        class:"",
+        fetched:false,
       };
   
       this.handleInputChange = this.handleInputChange.bind(this);
@@ -25,12 +28,35 @@ class ExamCreation extends React.Component {
     getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
+    fetchClasses(){
+      this.setState({fetched:true});
+      fetch(`http://localhost:5000/users/fetchClasses`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            "accept": "application/json"
+          },
+          body: 
+           JSON.stringify({
+               schoolId:this.props.schoolId,
+          })
+        })
+      .then((res) => res.json())
+      .then((data) => {    
+             if((data.recordset[0]!=undefined||data.recordset[0]!=null)&&data.recordset[0].classes!=null)       
+             {this.setState({classesList:JSON.parse(data.recordset[0].classes)}); 
+              }    
+      });
+    }
     createExam(){
     let examId=this.getRandomInt(99999);
     let formData = new FormData();
     formData.append('examName', this.state.examName);
     formData.append('examTime', this.state.examTime);
     formData.append('examId', examId);
+    formData.append('classSelected', this.state.class);
+    formData.append('schoolId', this.props.schoolId);    
+    formData.append('studentId', this.props.studentId);    
     formData.append('file', this.uploadInput.files[0]);
     //   fetch("http://localhost:5000/users/createExam", {
     //   method: "POST",
@@ -72,6 +98,7 @@ class ExamCreation extends React.Component {
     }
     
     render() {
+      {!this.state.fetched && this.fetchClasses()}
       if(this.state.testCreated==1){      //starting UI
       return (
         <div>
@@ -100,6 +127,19 @@ class ExamCreation extends React.Component {
           <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
             </label>
         </div>
+        <br/>
+        <div className="row px-3"> <label className="mb-1">
+                                <h6 className="mb-0 text-sm">Class</h6>
+                                </label> 
+                                <select name="class" type="number" onChange={this.handleInputChange}>
+                                  <option value=""></option>
+                                      {this.state.classesList.map((clist) => {
+                                          return(
+                                              <option value={clist}>{clist}</option>
+                                          );
+                                      })}
+                                </select> 
+                            </div>
           <br />
           <input align="center" onClick={()=>this.createExam()} type="button" value="Create Exam" id="btnSubmitExam"/>
         </form>

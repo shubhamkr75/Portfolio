@@ -24,7 +24,7 @@ class FetchResponse extends Component{
                 body: 
                 JSON.stringify({
                 examId: this.props.ExamId,
-                studentid: this.props.studentid,
+                studentId: this.props.studentId,
                 // examTime: this.state.examTime,
                 //'file': this.uploadInput.files[0]
                 })

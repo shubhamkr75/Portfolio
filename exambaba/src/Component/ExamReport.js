@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react'
 import FetchResponse from './FetchResponse';
-import LogOut from './LogOut';
 class ExamReport extends Component{
     constructor(props) {
         super(props);
@@ -75,7 +74,7 @@ class ExamReport extends Component{
         }
         else if(this.state.section==2){
             return(
-                <FetchResponse ExamId={this.props.selectedExam} studentid={this.state.selectedStudent}/>
+                <FetchResponse ExamId={this.props.selectedExam} studentId={this.state.selectedStudent}/>
             );
         }
         else{
