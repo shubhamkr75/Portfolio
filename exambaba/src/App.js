@@ -55,7 +55,10 @@ function App() {
           </Route>
           <Route path="/studentdashboard">
             <StudentDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
-          </Route>          
+          </Route>    
+          <Route path="/Approval">
+            <Approval schoolId={token.School_id}/>
+          </Route>       
           <Route path="/">
           {/* <FetchAllUsers  schoolId={token.School_id}/> */}
           {/* <FetchAdmins  schoolId={token.School_id}/> */}
