@@ -31,7 +31,31 @@ class TeacherDashboard extends Component{
                 });
             }
     }
-      
+    
+    async activateExam(examid,activattype){
+        var res;
+        this.setState({fetchedHistory:true});
+        await fetch(`http://localhost:5000/users/activateExam`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "accept": "application/json"
+            },
+            body: 
+             JSON.stringify({
+              examId: examid,
+              activationType:activattype,
+            })
+          })
+        .then((res) => res.json())
+        .then((data) => {           
+           console.log(data); 
+           this.setState({section:1});
+           window.location.reload();
+        });
+        return res;
+    }
+
     render(){  
         {this.fetchExams()}  
         let index=0;     
@@ -66,6 +90,9 @@ class TeacherDashboard extends Component{
                         </td>
                         <td>
                         <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>    
+                        </td>
+                        <td>
+                        <input align="center" type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Activate":"Deactivate"} id="ResponseDetails"/>    
                         </td>
                     </tr>
                     );

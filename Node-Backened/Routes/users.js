@@ -82,7 +82,7 @@ router.post('/createExam',(req,res)=>{
       let excel2json;
         upload.single("file")(req,res,function(err){
           console.log(req.body);         
-          const { examName, examTime, examId } = req.body;
+          const { examName, examTime, examId, classSelected, schoolId, studentId } = req.body;
           var dir = '..\\Questions\\'+req.body.examId;
           console.log(dir);
           if (!fs.existsSync(dir)){
@@ -92,7 +92,7 @@ router.post('/createExam',(req,res)=>{
             if (err) console.log(err);
             var request = new sql.Request();        
            //let questionFile = req.files.file; 
-            let query = "exec addexam @examname='" + examName + "', @examtime='" + examTime + "', @examid='" + examId +"';" ;  
+            let query = "exec addexam @examname='" + examName + "', @examtime='" + examTime + "', @examid='" + examId +"', @classSelected='" + classSelected +"', @schoolId='" + schoolId + "', @studentId='" + studentId +"';" ;  
             console.log(query);
             request.query(query, function (err, recordset) {
               if (err) {
@@ -140,9 +140,9 @@ router.post('/fetchResponse',(req,res)=>{
   let records;
    sql.connect(config, function (err) {
     if (err) console.log(err);
-    const { examId,studentid } = req.body;
+    const { examId,studentId } = req.body;
     let request = new sql.Request();  
-    let query = "exec fetchresponse @examid='" + examId + "', @studentid='" + studentid + "';" ;  
+    let query = "exec fetchresponse @examid='" + examId + "', @studentid='" + studentId + "';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {
@@ -370,14 +370,40 @@ router.post('/approveUser',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/activateExam',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { examId,activationType } = req.body;
+    let request = new sql.Request(); 
+    let query=""
+    if(activationType=="activate") {
+    query = "exec activateExam @examId='"+examId+"';" ; }
+    else if(activationType=="deactivate") {
+    query = "exec deactivateExam @examId='"+examId+"';" ; }
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          // sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      // records=recordset.rowsAffected[0];
+      console.log(recordset);
+      res.send(recordset);
+      // sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
 
 router.post('/createResponse',(req,res)=>{
   //users.push(req.body); 
       sql.connect(config, function (err) {
         if (err) console.log(err);
-        const { examId,totalQuestions,startTime } = req.body;
+        const { examId,totalQuestions,startTime,studentId } = req.body;
         let request = new sql.Request();  
-        let query = "exec addresponse @examid='" + examId + "', @studentid='1', @totalquestions="+totalQuestions+", @startTime="+startTime+";";  
+        let query = "exec addresponse @examid='" + examId + "', @studentid='"+studentId+"', @totalquestions="+totalQuestions+", @startTime="+startTime+";";  
         console.log(query);
         request.query(query, function (err, recordset) {
           if (err) {
@@ -397,9 +423,9 @@ router.post('/saveResponse',(req,res)=>{
 //users.push(req.body); 
     sql.connect(config, function (err) {
       if (err) console.log(err);
-      const { examId,responseList,totalMarks } = req.body;
+      const { examId,responseList,totalMarks,studentId } = req.body;
       let request = new sql.Request();  
-      let query = "exec updateresponse @examid='" + examId + "', @studentid='1', @response='"+responseList+"',@totalMarks="+totalMarks+";";  
+      let query = "exec updateresponse @examid='" + examId + "', @studentid='"+studentId+"', @response='"+responseList+"',@totalMarks="+totalMarks+";";  
       console.log(query);
       request.query(query, function (err, recordset) {
         if (err) {

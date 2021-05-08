@@ -116,6 +116,7 @@ class Questions extends Component {
               examId: this.state.ExamId,
               responseList:responseAnswer,
               totalMarks:this.totalMarksCalculate(),
+              studentId:this.props.studentId,
               // examTime: this.state.examTime,
               //'file': this.uploadInput.files[0]
             })
@@ -137,7 +138,7 @@ class Questions extends Component {
             body: 
              JSON.stringify({
               examId: this.state.ExamId,
-              studentid: this.props.studentid,
+              studentId: this.props.studentId,
               // examTime: this.state.examTime,
               //'file': this.uploadInput.files[0]
             })
@@ -170,6 +171,7 @@ class Questions extends Component {
                 examId: this.state.ExamId,
                 totalQuestions: this.state.questionList.length,
                 startTime:Date.now(),
+                studentId:this.props.studentId,
                 // examTime: this.state.examTime,
                 //'file': this.uploadInput.files[0]
               })
