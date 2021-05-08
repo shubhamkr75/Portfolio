@@ -11,6 +11,7 @@ class Header extends Component{
                     <a href="/teacherdashboard">Teacher Dashboard</a>
                     <a href="/studentdashboard">Student Dashboard</a>
                     <a href="/Exams">Exams</a>
+                    <a href="/Approval">Approvals</a>
                     <LogOut/>
                 </div>
                 <div className="burger">
