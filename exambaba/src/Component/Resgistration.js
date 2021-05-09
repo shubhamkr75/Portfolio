@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import App from '../App';
+import Footer from './Footer';
+import Header from './Header';
 import Login from './Login';
  
 class Registration extends Component{
@@ -101,6 +103,7 @@ render(){
     return(
         
         <div className="container-fluid login-component px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <Header/>
             <div className="card card0 border-0">
                 <div className="row d-flex">
                     <div className="col-lg-6">
@@ -156,11 +159,7 @@ render(){
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue py-4">
-                    <div className="row px-3"> <small className="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
-                        <div className="social-contact ml-4 ml-sm-auto"> <span className="fa fa-facebook mr-4 text-sm"></span> <span className="fa fa-google-plus mr-4 text-sm"></span> <span className="fa fa-linkedin mr-4 text-sm"></span> <span className="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
-                    </div>
-                </div>
+                <Footer/>
             </div>
         </div>
     );

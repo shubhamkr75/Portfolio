@@ -16,6 +16,7 @@ import FetchAllUsers from './Component/FetchAllUsers';
 import FetchAdmins from './Component/fetchAdmins';
 import Header from './Component/Header';
 import StudentDashboard from './Component/StudentDashboard';
+import Footer from './Component/Footer';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -71,6 +72,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      <Footer/>
     </div>
 
     // <div className="App">

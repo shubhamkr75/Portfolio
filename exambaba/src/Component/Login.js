@@ -4,6 +4,8 @@ import './style.css';
 import PropTypes from 'prop-types';
 import Registration from './Resgistration';
 import ForgotPassword from './ForgotPassword';
+import Header from './Header';
+import Footer from './Footer';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -22,7 +24,8 @@ class Login extends Component {
         this.loginUser = this.loginUser.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);        
     }
- 
+    
+    
     handleInputChange(event) {
         const target = event.target;
         const value = target.value;
@@ -51,16 +54,16 @@ class Login extends Component {
                 console.log(err);
                 this.setState({credentialflag:1});
                 document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
-              });
-            // .then((data) => {
-            //     console.log(data);
-            // });
+              })
     }
  
     async handleSubmit(e){
         e.preventDefault();
         const token = await this.loginUser();
-        if(token){
+        if(token && token.token.approved!=1){
+            document.getElementById("passwordError").innerHTML="User Not Approved";
+        }
+        else if(token){
             this.setState({credentialflag:0});
             this.props.setToken(token);
         }
@@ -70,6 +73,7 @@ class Login extends Component {
         if(this.state.flag==0){
         return (
         <div className="container-fluid login-component px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <Header/>
             <div className="card card0 border-0">
                 <div className="row d-flex">
                     <div className="col-lg-6">
@@ -82,7 +86,7 @@ class Login extends Component {
                         <div className="card2 card border-0 px-4 py-5">
                             
                             <div className="row px-3"> <label className="mb-1">
-                                    <h6 className="mb-0 text-sm">Email Address</h6>
+                                    <h6 className="mb-0 text-sm">Email/UserID</h6>
                                 </label> <input className="mb-4" type="text" name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Password</h6>
@@ -98,11 +102,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue py-4">
-                    <div className="row px-3"> <small className="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
-                        <div className="social-contact ml-4 ml-sm-auto"> <span className="fa fa-facebook mr-4 text-sm"></span> <span className="fa fa-google-plus mr-4 text-sm"></span> <span className="fa fa-linkedin mr-4 text-sm"></span> <span className="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
-                    </div>
-                </div>
+                <Footer/>
             </div>
         </div>
     );
