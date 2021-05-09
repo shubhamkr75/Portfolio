@@ -141,10 +141,10 @@ class ExamCreation extends React.Component {
                                 </select> 
                             </div>
           <br />
-          <input align="center" onClick={()=>this.createExam()} type="button" value="Create Exam" id="btnSubmitExam"/>
+          <button align="center" onClick={()=>this.createExam()} type="button" value="Create Exam" id="btnSubmitExam">Create Exam</button>
         </form>
         <br/><br/><br/>
-        <input align="center" onClick={()=>this.setState({testCreated:4})} type="button" value="Examination Page" id="btnSubmitExam"/>
+        <button align="center" onClick={()=>this.setState({testCreated:4})} type="button" value="Examination Page" id="btnSubmitExam">Examination Page</button>
         </div>
       );
     }

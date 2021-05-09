@@ -62,7 +62,6 @@ class TeacherDashboard extends Component{
         if(this.state.section==1&&this.state.examList.length!=0){
         return(
             <div>
-                <LogOut/>
                 <h3>Welcome to EXAM BABA</h3>
                 <p>Below Exams are created by You</p>
                 <h1>Dashboard</h1>

@@ -22,6 +22,18 @@ class Questions extends Component {
         }
     }
     
+    // componentDidMount(){
+    //     document.addEventListener("contextmenu", (event) => {
+    //         event.preventDefault();
+    //     });
+    //     document.onkeydown((event)=> {
+    //             if(event.keyCode == 123||event.keyCode == 116) {
+    //                 return false;
+    //             }
+    //         }
+    //     );
+    // }
+
     async fetchQuestions(id,exam_time){
         if(this.state.checkdata!=1){     //if question is not rettrieved
             await fetch(`http://localhost:5000/users/questions/${id}`)
@@ -264,7 +276,6 @@ class Questions extends Component {
             
             return(
                 <div>
-                    <LogOut/>
                     <h3>Welcome to EXAM BABA</h3>
                     <p>Please take the below available test for You</p>
                     {this.state.examList.map((list) => {
@@ -283,7 +294,6 @@ class Questions extends Component {
             let studentId=this.props.studentId;
             return(
                 <div>
-                    <LogOut/>
                     <StudentDashboard studentId={studentId}/>    
                 </div>
                 
@@ -291,7 +301,7 @@ class Questions extends Component {
         }
         else{
             return(
-            <div><LogOut/>waiting/cannot render data</div>
+            <div>waiting/cannot render data</div>
             );
         }
     }
