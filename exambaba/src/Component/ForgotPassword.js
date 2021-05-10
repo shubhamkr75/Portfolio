@@ -18,7 +18,6 @@ class ForgotPassword extends Component {
         };
  
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.loginUser = this.loginUser.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);        
     }
  
@@ -31,38 +30,10 @@ class ForgotPassword extends Component {
             [name]: value
         });
     }
-    // user registration
-    async loginUser() {        
-         return fetch(`http://localhost:5000/users/loginUser`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                "accept": "application/json"
-            },
-            body:
-                JSON.stringify({
-                    userEmail: this.state.userEmail,
-                    userPassword: this.state.userPassword,
-                })
-        })
-            .then((res) => res.json())
-            .catch(err => {
-                console.log(err);
-                this.setState({credentialflag:1});
-                document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
-              });
-            // .then((data) => {
-            //     console.log(data);
-            // });
-    }
+    
  
     async handleSubmit(e){
-        e.preventDefault();
-        const token = await this.loginUser();
-        if(token){
-            this.setState({credentialflag:0});
-            this.props.setToken(token);
-        }
+       
     }
 
     render() {
@@ -73,7 +44,7 @@ class ForgotPassword extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div>
+                            {/* <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div> */}
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
                         </div>
                     </div>

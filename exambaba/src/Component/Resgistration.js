@@ -108,7 +108,6 @@ render(){
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div>
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
                         </div>
                     </div>
@@ -151,9 +150,7 @@ render(){
                                 <label id="matchPaasword"></label>
                             </div>
 
-                            <div className="row px-3 mb-4">
-                                <div className="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" /> <label for="chk1" class="custom-control-label text-sm"> Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
-                            </div>
+                            
                             <div className="row mb-3 px-3"> <button onClick={()=>this.createUser()} type="submit" value="Register"  id="submitUser">Register</button> </div>
                             <div className="row mb-4 px-3"> <small className="font-weight-bold">Already have an account? <a className="text-danger" onClick={()=>this.setState({flag:3})}>Login</a></small> </div>
                         </div>
