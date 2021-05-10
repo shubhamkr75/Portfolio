@@ -78,7 +78,6 @@ class Login extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row"> <img src="https://i.imgur.com/CXQmsmF.png" className="logo" /> </div>
                             <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
                         </div>
                     </div>
@@ -95,8 +94,10 @@ class Login extends Component {
                                 <h6 className="mb-0 text-sm"></h6>
                                 </label>
                                 </div>
-                                           
-                            <div className="row mb-4 px-3"> <small className="font-weight-bold"><a className="text-right" onClick={()=>this.setState({flag:2})}>Forgot Password?</a></small> </div>           
+                            <div className="row px-3 mb-4">
+                                <div className="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input" /> <label for="chk1" class="custom-control-label text-sm"> Remember me</label> </div> <a href="#" class="ml-auto mb-0 text-sm" onClick={()=>this.setState({flag:2})}>Forgot Password?</a>
+                            </div>
+                            {/* <div className="row mb-4 px-3"> <small className="font-weight-bold"><a className="text-right" onClick={()=>this.setState({flag:2})}>Forgot Password?</a></small> </div>            */}
                             <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue text-center">Login</button> </div>
                             <div className="row mb-4 px-3"> <small className="font-weight-bold">Don't have an account? <a className="text-danger" onClick={()=>this.setState({flag:1})}>Register</a></small> </div>
                         </div>
