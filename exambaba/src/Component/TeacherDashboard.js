@@ -2,6 +2,8 @@ import moment from 'moment';
 import React, { Component } from 'react'
 import ExamReport from './ExamReport';
 import LogOut from './LogOut';
+import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
+import LoadingAnimation from './LoadingAnimation';
 class TeacherDashboard extends Component{
     constructor(props) {
         super(props);
@@ -9,7 +11,7 @@ class TeacherDashboard extends Component{
             examdata:false,
             examList:[],
             selectedExam:null,
-            section:1,
+            section:0,
         };
       }
       async fetchExams(){    //if exam is not rettrieved
@@ -27,7 +29,11 @@ class TeacherDashboard extends Component{
               })
                 .then((res) => res.json())
                 .then((data) => {
-                    this.setState({examList:data.recordset,examdata:true});                
+                    this.setState({examList:data.recordset,examdata:true,section:1});                
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({section:404}); 
                 });
             }
     }
@@ -50,11 +56,14 @@ class TeacherDashboard extends Component{
         .then((res) => res.json())
         .then((data) => {           
            console.log(data); 
-           this.setState({section:1});
            window.location.reload();
         });
         return res;
     }
+    // saveAsPdf(){
+    //     this.pdfExportComponent.save();
+    // }
+        
 
     render(){  
         {this.fetchExams()}  
@@ -64,6 +73,7 @@ class TeacherDashboard extends Component{
             <div>
                 <h3>Welcome to EXAM BABA</h3>
                 <p>Below Exams are created by You</p>
+                {/* <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4"> */}
                 <h1>Dashboard</h1>
                 <table id="examListTable" cellpadding="2" >
 						<tbody><tr id="Tr1">
@@ -97,6 +107,8 @@ class TeacherDashboard extends Component{
                     );
                 })}
                 </tbody></table>
+                {/* </PDFExport> */}
+                {/* <button align="center" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="savepdf">Save as PDF</button>  */}
             </div>
         );
         }
@@ -110,6 +122,20 @@ class TeacherDashboard extends Component{
                 <ExamReport selectedExam={this.state.selectedExam}/>
             );
         }
+        else if(this.state.flag==404){
+            return(
+                <div>
+                    <h1 class="display-3">
+                        Something Went Wrong
+                    </h1>
+                </div>
+            );
+          }
+          else{
+              return(
+                  <LoadingAnimation/>
+              );
+          }
 
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LoadingAnimation from './LoadingAnimation';
 class Approval extends Component{
     constructor(props) {
         super(props);
@@ -28,6 +29,10 @@ class Approval extends Component{
         .then((data) => {           
            console.log(data); 
            this.setState({approvalList:data.recordset,section:1});
+        })
+        .catch(err => {
+            console.log(err);
+            this.setState({section:2}); 
         });
         return res;
     }
@@ -105,9 +110,21 @@ class Approval extends Component{
         //         //<FetchResponse ExamId={this.state.selectedExam}/>
         //     );
         // }
+        else if(this.state.approvalList.length==0&&this.state.section==1){
+            <div>No Exams to show</div>
+        }
+        else if(this.state.section==2){
+            return(
+                <div>
+                    <h1 class="display-3">
+                        Something Went Wrong
+                    </h1>
+                </div>
+            );
+          }
         else{
             return(
-                <div>No Exams to show</div>
+                <LoadingAnimation/>
             );
         }
     }

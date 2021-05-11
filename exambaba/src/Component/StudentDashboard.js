@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
 import FetchResponse from './FetchResponse';
+import LoadingAnimation from './LoadingAnimation';
 class StudentDashboard extends Component{
     constructor(props) {
         super(props);
@@ -30,6 +31,10 @@ class StudentDashboard extends Component{
         .then((data) => {           
            console.log(data); 
            this.setState({examHistoryList:data.recordset,section:1});
+        })
+        .catch(err => {
+            console.log(err);
+            this.setState({section:404}); 
         });
         return res;
     }
@@ -82,11 +87,25 @@ class StudentDashboard extends Component{
                 <FetchResponse ExamId={this.state.selectedExam} studentId={this.props.studentId}/>
             );
         }
-        else{
+        else if(this.state.examHistoryList.length==0&&this.state.section==1){
             return(
                 <div>No Exams to show</div>
             );
         }
+        else if(this.state.flag==404){
+            return(
+                <div>
+                    <h1 class="display-3">
+                        Something Went Wrong
+                    </h1>
+                </div>
+            );
+          }
+          else{
+              return(
+                  <LoadingAnimation/>  
+              );
+          }
     }
 }
 export default StudentDashboard;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import App from '../App';
 import Footer from './Footer';
 import Header from './Header';
+import LoadingAnimation from './LoadingAnimation';
 import Login from './Login';
  
 class Registration extends Component{
@@ -174,7 +175,7 @@ render(){
           <App/>
       );
     }
-    else{
+    else if(this.state.flag==3){
         return(
             <div>
                 <h1 class="display-3">
@@ -183,6 +184,9 @@ render(){
             </div>
             
         );
+    }
+    else{
+        <LoadingAnimation />
     }
 }
 }
