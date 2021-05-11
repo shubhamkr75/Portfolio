@@ -6,6 +6,7 @@ import Registration from './Resgistration';
 import ForgotPassword from './ForgotPassword';
 import Header from './Header';
 import Footer from './Footer';
+import LoadingAnimation from './LoadingAnimation';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -17,7 +18,6 @@ class Login extends Component {
             userEmail: "",
             userPassword: "",
             flag:0,
-            credentialflag:0,
         };
  
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,7 +52,6 @@ class Login extends Component {
             .then((res) => res.json())
             .catch(err => {
                 console.log(err);
-                this.setState({credentialflag:1});
                 document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
               })
     }
@@ -64,7 +63,6 @@ class Login extends Component {
             document.getElementById("passwordError").innerHTML="User Not Approved";
         }
         else if(token){
-            this.setState({credentialflag:0});
             this.props.setToken(token);
         }
     }
@@ -120,7 +118,7 @@ class Login extends Component {
     }
     else{
         return(
-        <div>Cannot render data</div>
+        <LoadingAnimation/>
         );
     }
 }

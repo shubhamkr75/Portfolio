@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component, useState } from 'react';
 import update from 'react-addons-update';
+import LoadingAnimation from './LoadingAnimation';
 import LogOut from './LogOut';
 import './Questions.css'
 import StudentDashboard from './StudentDashboard';
@@ -42,6 +43,10 @@ class Questions extends Component {
                 // setquestionList(data.Questions);
                 // setCheckdata(true);
                 this.setState({questionList:data,checkdata:1,examtime:exam_time,ExamId:id});                
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({checkdata:404}); 
             });
             this.createResponse();
         }
@@ -59,10 +64,10 @@ class Questions extends Component {
                             <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
                         </tr>
                         <tr>
-                            <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==1} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><a id="lnkOptionLink_A_434" href="javascript: void 0;">A.</a></td>
-                            <td  width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==2} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><a id="lnkOptionLink_B_434" href="javascript: void 0;">B.</a></td>
-                            <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==3} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><a id="lnkOptionLink_C_434" href="javascript: void 0;">C.</a></td>
-                            <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==4} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><a id="lnkOptionLink_D_434" href="javascript: void 0;">D.</a></td>
+                            <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==1} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,1)}/></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><p id="lnkOptionLink_A_434" href="javascript: void 0;">A.</p></td>
+                            <td  width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==2} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,2)}/></td><td width="1%" ><p id="lnkOptionLink_B_434" href="javascript: void 0;">B.</p></td>
+                            <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==3} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,3)}/></td><td  width="1%" ><p id="lnkOptionLink_C_434" href="javascript: void 0;">C.</p></td>
+                            <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==4} Name={qlist.id} onClick={(e)=>this.saveResponse(e,qlist.id,4)} /></td><td  width="1%"><p id="lnkOptionLink_D_434" href="javascript: void 0;">D.</p></td>
                             <td width="99%" >{qlist.Option4}</td></tr></tbody></table>                    
                             </td>
                         </tr>
@@ -91,6 +96,10 @@ class Questions extends Component {
                     // setquestionList(data.Questions);
                     // setCheckdata(true);
                     this.setState({examList:data.recordset,checkdata:4,examdata:true});                
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({checkdata:404}); 
                 });
             }
     }
@@ -286,7 +295,7 @@ class Questions extends Component {
                             </div>
                         );
                     })}
-                    <input align="center" onClick={()=>this.setState({checkdata:5})} type="button" value="Past Examination" id="pastExamination"/>
+                    <button align="center" onClick={()=>this.setState({checkdata:5})} type="button" value="Past Examination" id="pastExamination">Past Examination</button>
                 </div>
             );
         }
@@ -299,9 +308,18 @@ class Questions extends Component {
                 
             );
         }
+        else if(this.state.checkdata==404){
+            return(
+                <div>
+                    <h1 class="display-3">
+                        Something Went Wrong
+                    </h1>
+                </div>
+            );
+          }
         else{
             return(
-            <div>waiting/cannot render data</div>
+            <LoadingAnimation/>
             );
         }
     }

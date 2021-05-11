@@ -7,7 +7,7 @@ import Registration from './Component/Resgistration';
 import Login from './Component/Login';
 import UseToken from './Component/UseToken';
 import Approval from './Component/Approval';
-import ForgotPassword from './Component/ForgotPassword';
+import './Component/Popup.css'
 
 
 import TeacherDashboard from './Component/TeacherDashboard';
@@ -17,6 +17,7 @@ import FetchAdmins from './Component/fetchAdmins';
 import Header from './Component/Header';
 import StudentDashboard from './Component/StudentDashboard';
 import Footer from './Component/Footer';
+import LoadingAnimation from './Component/LoadingAnimation';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -67,7 +68,7 @@ function App() {
           {/* <Approval schoolId={token.School_id}/> */}
           {/* <ForgotPassword schoolId={token.School_id}/> */}
           <Profile  studentId={token.Student_id}/>
-
+          {/* <LoadingAnimation  studentId={token.Student_id}/> */}
           {/* <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
           </Route>
         </Switch>

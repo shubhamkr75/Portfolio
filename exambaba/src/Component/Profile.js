@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import App from '../App';
+import LoadingAnimation from './LoadingAnimation';
 import Login from './Login';
+import Popup from './Popup';
  
 class Profile extends Component{
     constructor(props) {
@@ -70,7 +72,7 @@ render(){
                             </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     );
     }
@@ -87,14 +89,18 @@ render(){
           <App/>
       );
     }
-    else{
+    else if(this.state.flag==2){
         return(
             <div>
                 <h1 class="display-3">
                     Something Went Wrong
                 </h1>
             </div>
-            
+        );
+      }
+    else{
+        return(            
+            <LoadingAnimation/>
         );
     }
 }

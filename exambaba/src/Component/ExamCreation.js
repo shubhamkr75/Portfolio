@@ -1,6 +1,7 @@
 import React from "react";
 import Questions from './Questions'
 import axios from 'axios'
+import LoadingAnimation from "./LoadingAnimation";
 class ExamCreation extends React.Component {
     constructor(props) {
       super(props);
@@ -169,6 +170,11 @@ class ExamCreation extends React.Component {
         <Questions />
       );
     }
+    else{
+      return(
+          <LoadingAnimation/>
+      );
+  }
   }
   
   }
