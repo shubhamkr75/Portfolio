@@ -13,9 +13,11 @@ class Popup extends Component {
                     <h1>My details modal</h1>
                 </div>
                 <div class="details-modal-content">
-                    <h1>
-                    Are  you sure you want to delete?
-                    </h1>
+                    <p>
+                    You can click the X in the corner or click the overlay to close this modal.
+                    Something like this could be useful as a nice way to show additional information,
+                    but that's about as far as I would take it. It's just a nice way of styling the details element.
+                    </p>
                 </div>
             </div>
         );

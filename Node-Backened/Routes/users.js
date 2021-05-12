@@ -9,9 +9,9 @@ import xlstojson from "xls-to-json";
 import path from 'path';
 const router=express.Router();
 var config = {
-  user: 'skuma561',
-  password: 'Test@123',
-  server: 'LIN77001221\\SQLEXPRESS', 
+  user: 'exambaba',
+  password: 'nitmz123',
+  server: 'exambaba.chqw7cpojmz6.us-east-2.rds.amazonaws.com', 
   database: 'CodeBabaDB' ,
   "options": {
     "encrypt": true,
