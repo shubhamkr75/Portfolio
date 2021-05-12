@@ -72,7 +72,8 @@ render(){
                             </div>
                     </div>
                 </div>
-            </div>            
+            </div>
+            {/* <Popup/>             */}
         </div>
     );
     }
