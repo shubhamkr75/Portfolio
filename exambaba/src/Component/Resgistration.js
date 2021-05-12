@@ -125,7 +125,7 @@ class Registration extends Component{
             this.setState({flag:2}); 
         });
       }
- 
+ //
 render(){
     if(this.state.flag==0){
     return(
