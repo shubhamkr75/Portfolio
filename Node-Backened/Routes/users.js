@@ -178,6 +178,27 @@ router.post('/fetchClasses',(req,res)=>{
     //console.log(records+"hi");
   });  
 });
+router.post('/fetchEmail',(req,res)=>{
+  let records;
+   sql.connect(config, function (err) {
+    if (err) console.log(err);
+    const { emailId } = req.body;
+    let request = new sql.Request();  
+    let query = "exec fetchEmail @emailId='" + emailId + "';" ;  
+    console.log(query);
+    request.query(query, function (err, recordset) {
+      if (err) {
+          console.log(err);
+          sql.close();
+      }          
+      //res.send(recordset.rowsAffected[0]);
+      console.log(recordset);
+      res.send(recordset);
+      sql.close();
+    });
+    //console.log(records+"hi");
+  });  
+});
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -191,7 +212,8 @@ router.post('/createUser',(req,res)=>{
     if (err) console.log(err);
     const { name,emailId,mobileNumber,schoolCode,selectedClass,userPassword } = req.body;
     let request = new sql.Request();  
-    let query = "exec createUser @name='" + name + "',@studentId='" + makeid() + "',@emailId='" + emailId + 
+    let sid=makeid();
+    let query = "exec createUser @name='" + name + "',@studentId='" + sid + "',@emailId='" + emailId + 
     "',@mobileNumber='" + mobileNumber + "',@schoolCode='" + schoolCode + "',@userPassword='" + userPassword + "',@class='" + selectedClass + "';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
@@ -200,8 +222,9 @@ router.post('/createUser',(req,res)=>{
           sql.close();
       }          
       //res.send(recordset.rowsAffected[0]);
-      console.log(recordset);
-      res.send(recordset);
+      console.log(sid);
+      // res.send(sid);
+      res.json(sid)
       sql.close();
     });
     //console.log(records+"hi");

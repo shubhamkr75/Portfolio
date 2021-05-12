@@ -17,10 +17,12 @@ class Registration extends Component{
           classesList: [],
           flag:0,
           userPassword:"",
+          sid:"",
         };
     
         this.handleInputChange = this.handleInputChange.bind(this);
         this.fetchClasses = this.fetchClasses.bind(this);  
+        this.fetchEmail = this.fetchEmail.bind(this);
         this.checkPassword = this.checkPassword.bind(this);    
       }
     
@@ -62,6 +64,31 @@ class Registration extends Component{
                }     
         });
       }
+      fetchEmail(){
+        fetch(`http://localhost:5000/users/fetchEmail`, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "accept": "application/json"
+            },
+            body: 
+             JSON.stringify({
+                emailId:this.state.emailId,
+            })
+          })
+        .then((res) => res.json())
+        .then((data) => {    
+               if((data.recordset[0]!=undefined&&data.recordset[0]!=null))       
+               {
+                    document.getElementById("emailCheck").innerHTML = "Email ID already Taken";
+                    document.getElementById("emailId").value="";
+                }
+               else {
+                document.getElementById("emailCheck").innerHTML = "";
+               }    
+        });
+      }
+
       checkPassword(event){
         if(this.state.userPassword!=event.target.value){
             document.getElementById("matchPaasword").innerHTML = "Password does not match";
@@ -91,7 +118,7 @@ class Registration extends Component{
         .then((res) => res.json())
         .then((data) => {           
            console.log(data); 
-           this.setState({flag:1});             
+           this.setState({flag:1,sid:data});             
         })
         .catch(err => {
             console.log(err);
@@ -119,14 +146,15 @@ render(){
                                 </label> <input name="name" type="text" required onChange={this.handleInputChange} /> </div>
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Email ID</h6>
-                                </label> <input name="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} /> </div>
+                                </label> <input name="emailId" id="emailId" type="email" placeholder='abc@gmail.com' onChange={this.handleInputChange} onBlur={this.fetchEmail} /> </div>
+                                <label id="emailCheck"></label>
                             <div className="row px-3"> <label className="mb-1">
                                 <h6 className="mb-0 text-sm">Mobile Number</h6>
                                 </label> <input name="mobileNumber" type="tel" placeholder='1234567891' minLength='10' maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} /> 
                             </div>
                             <div className="row px-3"> <label className="mb-1">
                                 <h6 className="mb-0 text-sm">School Code</h6>
-                                </label> <input name="schoolCode" type="number" onChange={this.handleInputChange} onBlur={this.fetchClasses} /> 
+                                </label> <input name="schoolCode" type="text" onChange={this.handleInputChange} onBlur={this.fetchClasses} /> 
                                 <label id="examCode"></label>
                             </div>
                             <div className="row px-3"> <label className="mb-1">
@@ -166,6 +194,8 @@ render(){
         return(
             <div><h1 class="display-3">Registration is successful</h1>
                 <p class="lead"><strong>Name: {this.state.name}</strong> </p>
+                <p class="lead"><strong>ID: {this.state.sid}</strong> </p>
+                <p class="lead"><strong>Note:- Please take note of the SID for further login</strong> </p>
             </div>
             
         );
