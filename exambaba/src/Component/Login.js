@@ -76,7 +76,7 @@ class Login extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
+                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://qph.fs.quoracdn.net/main-qimg-0b53e802c3afb1a1b08e549a99a213f3.webp" className="image" /> </div>
                         </div>
                     </div>
                     <div className="col-lg-6">

@@ -157,12 +157,92 @@ body {
     bottom: 0px;
 }
 
+.header-component .navbar{
+    background: #B0BEC5;
+}
 .header-component{
     position: sticky;
     top: 0px;
     z-index: 1;
+    background: #B0BEC5;
 }
 
+.header-component #navbarNav .navbar-nav{
+    text-align: center;
+}
+
+.main{
+    padding: 0px 50px;
+}
+
+.exam-dashboard-title{
+    font-size: 32px;
+    color: #465463;
+    padding: 20px 0px;
+    font-weight: normal;
+}
+
+.examlist-container{
+    height: 40px;
+    margin-bottom: 30px;
+}
+
+.examlist-container .tabs{ 
+    height: 40px;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%), 0 2px 4px 0 rgb(0 0 0 / 19%);
+}
+.tabs .live-tab{
+    position: relative;
+    float: left;
+}
+.tabs .previous-tab{
+    float: left;
+}
+.tabs .tab{
+    padding: 10px;
+    margin-left: 0;
+    margin-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4c9cdf;
+    margin-left: 10px;
+    height: 40px;
+}
+.tabs .tab.active{
+    background: #4c9cdf;
+    border-bottom: 0;
+    position: relative;
+    padding: 10px;
+    margin-left: 0;
+    margin-right: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+.tab .dark{
+    color: #46535e;
+    font-weight: bold;
+}
+
+a:hover{
+    text-decoration: none;
+}
+.test-section{
+    text-align: center;
+    background-color: #A0BEC5;
+    padding: 15px;
+    box-shadow: 0px 0px 5px;
+}
+.start-button{
+    text-align: center;
+    background-color: #A0BEC5;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 0px 5px;
+}
 /* animation css */
 .animation-loader {
     width: 100%;
@@ -235,5 +315,18 @@ body {
     .login-component .card2 {
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px
+    }
+    
+}
+@media screen and (min-width: 992px) {
+    .header-component #navbarNav{
+        display: block !important;
+    }
+    .header-component #navbarNav .navbar-nav{
+        float: right;
+    }
+    
+    .logout-section{
+        padding-left: 25px ;
     }
 }

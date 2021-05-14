@@ -2,6 +2,7 @@ import React from "react";
 import Questions from './Questions'
 import axios from 'axios'
 import LoadingAnimation from "./LoadingAnimation";
+import { Link } from "react-router-dom";
 class ExamCreation extends React.Component {
     constructor(props) {
       super(props);

@@ -40,7 +40,8 @@ function App() {
   return (
 
     <div className="wrapper">
-      <Header/>
+      <Header loginType={token.Login_Type}/>
+      <div className="main">
       <BrowserRouter>
         <Switch>
           <Route path="/examcreation">
@@ -54,6 +55,9 @@ function App() {
           </Route>
           <Route path="/Exams">
             <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+          </Route>
+          <Route path="/Registration">
+            <Registration />
           </Route>
           <Route path="/studentdashboard">
             <StudentDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
@@ -73,7 +77,9 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      </div>
       <Footer/>
+    
     </div>
 
     // <div className="App">
