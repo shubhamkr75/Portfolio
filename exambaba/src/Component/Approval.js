@@ -65,9 +65,9 @@ class Approval extends Component{
         if(this.state.approvalList.length!=0&&this.state.section==1){
         return(
             <div className="examHistorySection">
-                <h1>Dashboard</h1>
-                <table id="examListTable" cellpadding="2" >
-						<tbody><tr id="Tr1">
+                <h3 className="exam-dashboard-title">Approvals</h3>
+                <table id="examListTable" className="col-md-12" cellpadding="2" >
+						<tbody><tr id="thead">
 							<th id="Td1" class="user"> S.No</th>
 							<th id="Td2"> Student Name</th>
 							<th id="Td3"> Class</th>
@@ -76,7 +76,7 @@ class Approval extends Component{
         
                 {this.state.approvalList.map((list,index) => {
                 return(
-                        <tr>
+                        <tr id="tbody">
                         <td>                    
                             <span id="index">{index+1}</span>
                         </td>

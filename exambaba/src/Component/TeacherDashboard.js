@@ -71,45 +71,49 @@ class TeacherDashboard extends Component{
         if(this.state.section==1&&this.state.examList.length!=0){
         return(
             <div>
-                <h3>Welcome to EXAM BABA</h3>
-                <p>Below Exams are created by You</p>
-                {/* <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4"> */}
-                <h1>Dashboard</h1>
-                <table id="examListTable" cellpadding="2" >
-						<tbody><tr id="Tr1">
-							<th id="Td1" class="user"> S.No</th>
-							<th id="Td2"> Exam Name</th>
-							<th id="Td3"> Class</th>
-							<th id="Td4"> Creation Date</th>						
-						</tr>
-                {this.state.examList.map((list) => {
-                    return(
-                        <tr>
-                        <td>                    
-                            <span id="index">{index+1}</span>
-                        </td>
-                        <td>
-                            <span id="examName">{list.ExamName}</span>
-                        </td>
-                        <td>
-                            <span id="examStartTime">{list.class}</span>
-                        </td>
-                        <td>
-                            <span id="examStartTime">{moment(Date(list.creationdate)).format('Do MMMM YYYY')}</span>
-                        </td>
-                        <td>
-                        <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>    
-                        </td>
-                        <td>
-                        <input align="center" type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Activate":"Deactivate"} id="ResponseDetails"/>    
-                        </td>
-                    </tr>
-                    );
-                })}
-                </tbody></table>
-                {/* </PDFExport> */}
-                {/* <button align="center" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="savepdf">Save as PDF</button>  */}
-            </div>
+                    <h3 className="exam-dashboard-title">Welcome to Examination Dashboard</h3>
+                    <div className="examList-present row">
+                    <div className="col-lg-9 row">
+                    
+                    {this.state.examList.map((list) => {
+                        return (
+                            <div className="col-md-4">
+                                    <div className="test-section">
+                                        <div className="test-name" >
+                                            <span className="test-title">{list.ExamName}</span>
+                                        </div>
+                                        <div className="test-details">
+                                            <div className="test-class">
+                                                    <div className="classes">Class</div>
+                                                    <div  className="class-text">
+                                                        {list.class}
+                                                    </div>
+                                            </div>
+                                            <div className="test-time">
+                                                <div className="exam-time">Exam Time</div>
+                                                <div  className="time">
+                                                    {(list.Exam_Time)}
+                                                </div>
+                                            </div>
+                                            <div className="test-creation">
+                                                <div className="creation-date">Creation Date</div>
+                                                <div  className="time">
+                                                    {moment(Date(list.creationdate)).format('Do MMMM YYYY')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="start-button">
+                                    {/* <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>   */}
+                                    <button onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
+                                    <button type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Activate":"Deactivate"} id="ResponseDetails">{list.active==0?"Activate":"Deactivate"}</button>
+                                    </div>
+                            </div>
+                        );
+                    })} 
+                    </div> 
+                    </div>                               
+                </div>
         );
         }
         else if(this.state.section==1&&this.state.examList.length==0){

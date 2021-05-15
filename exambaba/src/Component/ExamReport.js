@@ -47,18 +47,18 @@ class ExamReport extends Component{
         return(
             <div className="examHistorySection pdf-section">
             <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4">
-                <h1>Dashboard</h1>
-                <table id="examListTable" cellpadding="2" >
-						<tbody><tr id="Tr1">
-							<th id="Td1" class="user"> S.No</th>
-							<th id="Td2"> Student Name</th>
+                <h3 class="exam-dashboard-title align-center">Exam Report</h3>
+                <table id="examListTable" className="col-md-12" cellpadding="2" >
+						<tbody><tr id="thead">
+							<th id="Td1" class="user"> Rank</th>
+							<th id="Td2"> Name</th>
 							<th id="Td3"> Marks</th>
 							<th id="Td4"> Total Marks</th>						
 						</tr>
         
                 {this.state.examReportList.map((list,index) => {
                 return(
-                        <tr>
+                        <tr id="tbody-pdf">
                         <td>                    
                             <span id="index">{index+1}</span>
                         </td>
@@ -83,24 +83,28 @@ class ExamReport extends Component{
         
         {!this.state.fetchedHistory && this.fetchExamReport()} 
         if(this.state.examReportList.length!=0&&this.state.section==1){
+        let counter=1;
         return(
             <div className="examHistorySection">
                 {/* <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4"> */}
                 {this.pdfData()}
-                <h1>Dashboard</h1>
-                <table id="examListTable" cellpadding="2" >
-						<tbody><tr id="Tr1">
-							<th id="Td1" class="user"> S.No</th>
+                <h3 class="exam-dashboard-title align-center">Exam Report</h3>
+                <table id="examListTable" className="col-md-12" cellpadding="2" >
+						<tbody><tr id="thead">
+							<th id="Td1" class="user"> Rank</th>
 							<th id="Td2"> Student Name</th>
 							<th id="Td3"> Marks</th>
-							<th id="Td4"> Total Marks</th>						
+							<th id="Td4"> Total Marks</th>
+                            <th id="Td5"> Actions</th>						
 						</tr>
-        
+
                 {this.state.examReportList.map((list,index) => {
+                let prevMark=list.Correct_answer;
+                if(index>0) prevMark=list[index-1].Correct_answer;
                 return(
-                        <tr>
+                        <tr id="tbody">
                         <td>                    
-                            <span id="index">{index+1}</span>
+                            <span id="index">{prevMark==list.Correct_answer?counter:++counter}</span>
                         </td>
                         <td>
                             <span id="examName">{list.Student_Name}</span>

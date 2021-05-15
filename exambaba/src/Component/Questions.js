@@ -248,17 +248,17 @@ class Questions extends Component {
     toggleTab(tab){
         if(tab==1){
             let navpresent=document.getElementsByClassName("examList-present");
-            if(navpresent!=null)
+            if(navpresent&&navpresent[0])
             navpresent[0].classList.remove("d-none");
             let navpast=document.getElementsByClassName("examHistorySection");
-            if(navpast!=null)
+            if(navpast&&navpast[0])
             navpast[0].classList.add("d-none");
         }else{
             let navpresent=document.getElementsByClassName("examList-present");
-            if(navpresent!=null)
+            if(navpresent&&navpresent[0])
             navpresent[0].classList.add("d-none");
             let navpast=document.getElementsByClassName("examHistorySection");
-            if(navpast!=null)
+            if(navpast&&navpast[0])
             navpast[0].classList.remove("d-none");
         }
     }
@@ -321,10 +321,11 @@ class Questions extends Component {
                             <div className="clear"></div>
                         </div>
                     </div>
+                    <div className="examList-present row">
+                    <div className="col-lg-9 row">
                     {this.state.examList.map((list) => {
                         return (
-                            <div className="examList-present row">
-                                <div className="col-lg-9 row">
+                            
                                 <div className="col-md-4">
                                     <div className="test-section">
                                         <div className="test-name" >
@@ -349,11 +350,12 @@ class Questions extends Component {
                                     <button onClick={() => this.fetchQuestions(list.ExamId, list.Exam_Time)}>Start Now</button>
                                     </div>
                                 </div> 
-                                </div>                               
-                            </div>
+                                
                             
                         );
                     })}
+                    </div>                               
+                    </div>
                     {<StudentDashboard studentId={studentId} />}                    
                 </div>
             );

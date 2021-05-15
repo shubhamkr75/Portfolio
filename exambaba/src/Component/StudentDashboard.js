@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import FetchResponse from './FetchResponse';
 import LoadingAnimation from './LoadingAnimation';
+import { Route } from 'react-router';
 class StudentDashboard extends Component {
     constructor(props) {
         super(props);
@@ -38,12 +39,11 @@ class StudentDashboard extends Component {
             });
         return res;
     }
-
     render() {
         { !this.state.fetchedHistory && this.fetchExamHistory() }
         if (this.state.examHistoryList.length != 0 && this.state.section == 1) {
-            return (
-                <div className="examHistorySection d-none">
+            return (                
+                <div className="examHistorySection d-none">                    
                     <div className="examList-past row">
                         <div className="col-lg-9 row">
 
@@ -77,29 +77,9 @@ class StudentDashboard extends Component {
                                         </div>
                                         <div className="start-button">
                                             <button type="button" onClick={() => this.setState({ section: 2, selectedExam: list.ExamId })} value="Check Response" id="ResponseDetails">Check Response</button>
+                                            {/* <button type="button" onClick={() => this.setState({ selectedExam: list.ExamId })}  value="Check Response" id="ResponseDetails"><a href={"/Response/"}>Check Response</a></button> */}
                                         </div>
                                     </div>
-
-                                    //     <tr>
-                                    //     <td>                    
-                                    //         <span id="index">{index+1}</span>
-                                    //     </td>
-                                    //     <td>
-                                    //         <span id="examName">{list.ExamName}</span>
-                                    //     </td>
-                                    //     <td>
-                                    //         <span id="marks">{list.Correct_answer!=null?list.Correct_answer:0}</span>
-                                    //     </td>
-                                    //     <td>
-                                    //         <span id="examStartTime">{list.TotalQuestions}</span>
-                                    //     </td>
-                                    //     <td>
-                                    //         <span id="examStartTime">{moment(Date(list.StartTime)).format('Do MMMM YYYY')}</span>
-                                    //     </td>
-                                    //     <td>
-                                    //     <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Check Response" id="ResponseDetails"/>    
-                                    //     </td>
-                                    // </tr>
                                 );
                             })}
 
@@ -110,6 +90,10 @@ class StudentDashboard extends Component {
         }
         else if (this.state.section == 2) {
             return (
+                
+            // <Route path="/Response/:responseid">
+            //     <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+            // </Route>
                 <FetchResponse ExamId={this.state.selectedExam} studentId={this.props.studentId} />
             );
         }

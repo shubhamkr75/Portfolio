@@ -170,11 +170,6 @@ body {
 .header-component #navbarNav .navbar-nav{
     text-align: center;
 }
-
-.main{
-    padding: 0px 50px;
-}
-
 .exam-dashboard-title{
     font-size: 32px;
     color: #465463;
@@ -242,6 +237,77 @@ a:hover{
     padding: 15px;
     margin-bottom: 15px;
     box-shadow: 0px 0px 5px;
+}
+
+
+
+/* Table  */
+table{
+    background: #fff;
+}
+table #thead{
+    background: #1089ff;
+}
+table #thead th{
+    border: none;
+    padding: 20px 30px;
+    font-size: 14px;
+    color: #fff;
+}
+table #tbody{
+    margin-bottom: 10px;
+}
+table #tbody td{
+    border: none;
+    padding: 20px 30px;
+    border-bottom: 3px solid #f8f9fd;
+    font-size: 14px;
+}
+table #tbody-pdf td{
+    border: none;
+    padding: 5px 30px;
+    border-bottom: 3px solid #f8f9fd;
+    font-size: 14px;
+}
+.align-center{
+    text-align: center;
+}
+/* exam Creation */
+.examCreation{
+    padding-bottom: 100px;
+    padding-top: 50px;
+}
+.examCreation form{
+    max-width: 680px;
+    padding: 57px 65px;
+    padding-bottom: 65px;
+    margin: 0 auto;
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 8px 20px 0 rgb(0 0 0 / 15%);
+    -moz-box-shadow: 0 8px 20px 0 rgba(0,0,0,.15);
+    box-shadow: 0 8px 20px 0 rgb(0 0 0 / 15%);
+}
+.class-section select{
+    outline: none;
+    height: 50px;
+    background: #fafafa;
+    -webkit-box-shadow: inset 0 1px 3px 0 rgb(0 0 0 / 8%);
+    -moz-box-shadow: inset 0 1px 3px 0 rgba(0,0,0,.08);
+    box-shadow: inset 0 1px 3px 0 rgb(0 0 0 / 8%);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+.file-attach{
+    width: auto;
+    margin-left: 35px;
+}
+.question-file{
+    text-align:center;
 }
 /* animation css */
 .animation-loader {
@@ -328,5 +394,8 @@ a:hover{
     
     .logout-section{
         padding-left: 25px ;
+    }
+    .main{
+        padding: 0px 50px;
     }
 }

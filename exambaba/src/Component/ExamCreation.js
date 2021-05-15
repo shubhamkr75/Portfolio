@@ -103,36 +103,24 @@ class ExamCreation extends React.Component {
       {!this.state.fetched && this.fetchClasses()}
       if(this.state.testCreated==1){      //starting UI
       return (
-        <div>
+        <div class="examCreation">        
         <form>
-          <label>
-            Exam Name: 
-            <input
-              name="examName"
-              type="text"
-              required
-              value={this.state.examName}
-              onChange={this.handleInputChange} />
-          </label>
-          <br />
-          <label>
-            Exam Time: 
-            <input
-              name="examTime"
-              type="number"
-              value={this.state.examTime}
-              onChange={this.handleInputChange} />
-          </label>
-          <div><br/>
-          <label>
-          Question File
-          <input ref={(ref) => { this.uploadInput = ref; }} type="file" />
-            </label>
-        </div>
-        <br/>
-        <div className="row px-3"> <label className="mb-1">
-                                <h6 className="mb-0 text-sm">Class</h6>
-                                </label> 
+        <h3 class="exam-dashboard-title align-center pt-0">Exam Creation</h3>
+            <div class="row row-space">
+                  <div class="col-6">
+                      <div class="input-group">
+                      <label>Exam Name: <input name="examName" type="text" required value={this.state.examName}
+                          onChange={this.handleInputChange} />
+                      </label>
+                      </div>
+                  </div>
+                  <div class="col-6">
+                      <label> Exam Time:  <input name="examTime" type="number" value={this.state.examTime}
+                          onChange={this.handleInputChange} />
+                      </label>
+                  </div>
+            </div>
+            <div className="row row-space class-section col"> <label >Class</label> 
                                 <select name="class" type="number" onChange={this.handleInputChange}>
                                   <option value=""></option>
                                       {this.state.classesList.map((clist) => {
@@ -141,12 +129,19 @@ class ExamCreation extends React.Component {
                                           );
                                       })}
                                 </select> 
-                            </div>
-          <br />
-          <button align="center" onClick={()=>this.createExam()} type="button" value="Create Exam" id="btnSubmitExam">Create Exam</button>
+                            </div>       
+          <div className="question-file"><br/>          
+          <label >
+          Question File
+          <input class="file-attach" ref={(ref) => { this.uploadInput = ref; }} type="file" />
+            </label>
+        </div>
+        <br/>
+        <div className="align-center">
+          <button onClick={()=>this.createExam()} type="button" value="Create Exam" id="btnSubmitExam">Create Exam</button>
+        </div>
         </form>
         <br/><br/><br/>
-        <button align="center" onClick={()=>this.setState({testCreated:4})} type="button" value="Examination Page" id="btnSubmitExam">Examination Page</button>
         </div>
       );
     }
