@@ -10,11 +10,10 @@
 }
 #divSubmitTest{
     padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 #btnSubmitTest{
     font-size: 20px;
+    width: 220px;
 }
 #pastExamination{
     position: absolute;

@@ -9,6 +9,7 @@ class ExamCreation extends React.Component {
       this.state = {
         examName: "Test",
         examTime: 60,
+        examDate: Date.now(),
         testCreated: 1,
         classesList: [],
         class:"",
@@ -58,22 +59,9 @@ class ExamCreation extends React.Component {
     formData.append('examId', examId);
     formData.append('classSelected', this.state.class);
     formData.append('schoolId', this.props.schoolId);    
-    formData.append('studentId', this.props.studentId);    
+    formData.append('studentId', this.props.studentId); 
+    formData.append('examDate', this.state.examDate);    
     formData.append('file', this.uploadInput.files[0]);
-    //   fetch("http://localhost:5000/users/createExam", {
-    //   method: "POST",
-    //   headers: {
-    //   //   "content-type": "application/json",
-    //     "content-type":'multipart/form-data',
-    //   //   "accept": "application/json"
-    //   },
-    //   body: formData,
-    //   //  JSON.stringify({
-    //   //   examName: this.state.examName,
-    //   //   examTime: this.state.examTime,
-    //   //   //'file': this.uploadInput.files[0]
-    //   // })
-    // })
     axios.post("http://localhost:5000/users/createExam", formData, {
         })
     .then(response => {
@@ -129,7 +117,11 @@ class ExamCreation extends React.Component {
                                           );
                                       })}
                                 </select> 
-                            </div>       
+                            </div>  
+            <div class="class-section pt-3">
+              <label for="examDate">Date and Time Of Examination
+              <input type="datetime-local" id="examDate" name="examDate" onChange={this.handleInputChange}/></label>
+            </div>
           <div className="question-file"><br/>          
           <label >
           Question File

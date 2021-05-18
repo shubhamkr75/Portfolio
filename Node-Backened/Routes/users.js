@@ -37,6 +37,13 @@ router.get('/questions/:id',(req,res)=>{
     const {id}=req.params;
     let rawdata = fs.readFileSync(`..\\Questions\\${id}\\Questions.json`);
     const users = JSON.parse(rawdata);  
+    for(let i=1;i<=users.length;i++){
+      users[i-1].id=i;
+      users[i-1].answer=(parseInt(users[i-1].answer)+parseInt(i)+parseInt(users[i-1].QuestionDesc.length))*54;
+      users[i-1].identity=users[i-1].answer;
+      delete users[i-1].answer;
+    }
+    console.log(users);
     res.send(users);
 });
 router.post('/exams',(req,res)=>{
@@ -44,7 +51,7 @@ router.post('/exams',(req,res)=>{
     if (err) console.log(err);
     const {schoolId,userClass}=req.body;
     var request = new sql.Request();  
-    let query = "exec fetchExams @schoolId='"+schoolId+"',@userClass='"+userClass+"';" ;  
+    let query = "exec fetchExams @schoolId='"+schoolId+"',@userClass='"+userClass+"',@timeNow='"+Date.now()+"';" ;  
     console.log(query); 
     request.query(query, function (err, recordset) {      
         if (err) console.log(err)
@@ -82,7 +89,7 @@ router.post('/createExam',(req,res)=>{
       let excel2json;
         upload.single("file")(req,res,function(err){
           console.log(req.body);         
-          const { examName, examTime, examId, classSelected, schoolId, studentId } = req.body;
+          const { examName, examTime, examId, classSelected, schoolId, studentId,examDate } = req.body;
           var dir = '..\\Questions\\'+req.body.examId;
           console.log(dir);
           if (!fs.existsSync(dir)){
@@ -92,7 +99,7 @@ router.post('/createExam',(req,res)=>{
             if (err) console.log(err);
             var request = new sql.Request();        
            //let questionFile = req.files.file; 
-            let query = "exec addexam @examname='" + examName + "', @examtime='" + examTime + "', @examid='" + examId +"', @classSelected='" + classSelected +"', @schoolId='" + schoolId + "', @studentId='" + studentId +"';" ;  
+            let query = "exec addexam @examname='" + examName + "', @examtime='" + examTime + "', @examid='" + examId +"', @classSelected='" + classSelected +"', @schoolId='" + schoolId + "', @examDate='" + examDate + "', @studentId='" + studentId +"';" ;  
             console.log(query);
             request.query(query, function (err, recordset) {
               if (err) {

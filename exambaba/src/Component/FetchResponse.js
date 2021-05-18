@@ -8,6 +8,7 @@ class FetchResponse extends Component{
             answerList:[],
             questionList:[],
             fetched:0,
+            questionPointer:1,
         };
         this.fetchResponse();
         this.fetchQuestions(this.props.ExamId)
@@ -63,29 +64,60 @@ class FetchResponse extends Component{
         this.pdfExportComponent.save();
     }
 
-    displayQuestions(){        
-        return(
+    displayQuestions(){    
+        let qlist = this.state.questionList[this.state.questionPointer-1];
+        return (
             <div class="questionList">
-            {this.state.questionList.map((qlist) => {
-                return(
-                    <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tbody><tr>
-                        <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{qlist.id}.&nbsp;</p></td>
-                        <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
-                    </tr>
-                    <tr>
-                        <td  valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==1} Name={qlist.id} /></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434">A.</td>
-                        <td  width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==2} Name={qlist.id} /></td><td width="1%" >B.</td>
-                        <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==3} Name={qlist.id} /></td><td  width="1%" >C.</td>
-                        <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id]==4} Name={qlist.id} /></td><td  width="1%">D.</td>
-                        <td width="99%" >{qlist.Option4}</td></tr></tbody></table>                    
-                        </td>
-                    </tr>
-                    </tbody></table> 
-                );
-        })} 
+                        <div>
+                        <div class="questionDesc">Que<span class="hidden-xs">stion</span> No. {this.state.questionPointer}</div>
+                        <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tbody><tr>                    
+                                <td  valign="top"><p>{qlist.QuestionDesc}</p></td>
+                            </tr>
+                                <tr className="optionSection">
+                                    <td className="select-option" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 1} Name={qlist.id}  /></td>
+                                        <td class="optionDesc" width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 2} Name={qlist.id}  /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 3} Name={qlist.id}  /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 4} Name={qlist.id}  /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option4}</td></tr></tbody></table>
+                                    </td>
+                                </tr>
+                            </tbody></table></div>
+                            <div class="navigation-button">
+                        <div class="navigate">
+                            <button type="button" class="float-left test-button" onClick={()=>{this.state.questionPointer>1?this.setState({questionPointer:this.state.questionPointer-1}):this.setState({questionPointer:this.state.questionPointer})}}>Previous</button> 
+                            <button type="button" class="float-right test-button button-next" onClick={()=>{this.state.questionPointer<this.state.questionList.length?this.setState({questionPointer:this.state.questionPointer+1}):this.setState({questionPointer:this.state.questionPointer})}} >Next</button>
+                        </div>
+                    </div>
+            </div>
+        );       
+}
+questionStatus(){
+    return(
+        <div className="status-section">            
+            <div className="status-content">
+                <div className="status-available">
+                <div class="col-xs-4 float-left">
+                    <span class="answered states">0</span>
+                    <span class="marker"><span>Answered</span></span></div>
+                <div class="col-xs-4 ">
+                    <span class="not-answered states">0</span>
+                    <span class="marker"><span>Not Answered</span></span></div>
+                </div> 
+            </div>
+            <div className="numbering">
+                <ul className="qnumbering">
+                {(() => {
+                    const list = [];
+                    for (let i = 1; i <= this.state.questionList.length; i++) {
+                        list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]?"answered":"not-answered"} value={i}>{i}</li>);
+                    }
+                    return list;
+                })()}
+                </ul>
+            </div>                
         </div>
-    );        
+    );
 }
 
     render(){
@@ -93,11 +125,11 @@ class FetchResponse extends Component{
         // {(this.state.questionList.length==0) && this.fetchQuestions(this.props.ExamId)}
         if(this.state.questionList.length!=0&&this.state.fetched!=0){
             return(
-                <div class="bix-div-container">
-                    <button align="center" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="saveAsPdf">Save as Pdf</button>
-                    <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4">
-                    {this.displayQuestions()}    
-                    </PDFExport>            
+                <div class="exam-page">
+                    {/* <button align="center" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="saveAsPdf">Save as Pdf</button> */}
+                    {/* <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4"> */}
+                    {this.displayQuestions()}  {this.questionStatus()}  
+                    {/* </PDFExport>             */}
                 </div>
             );
         }

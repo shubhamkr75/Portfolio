@@ -2,7 +2,7 @@ body {
     color: #000;
     overflow-x: hidden;
     height: 100%;
-    background-color: #B0BEC5;
+    background-color: #f6f8f9;
     background-repeat: no-repeat
 }
  
@@ -155,8 +155,11 @@ body {
 .footer-component{
     width: 100%;
     bottom: 0px;
+    position: fixed;
 }
-
+.main{
+    padding-bottom:75px;
+}
 .header-component .navbar{
     background: #B0BEC5;
 }
@@ -309,6 +312,173 @@ table #tbody-pdf td{
 .question-file{
     text-align:center;
 }
+.questionList{
+    height: 100%;
+    padding: 16px;
+    width: 75%;
+    position: relative;
+    min-height: 77vh;
+}
+.questionList .questionDesc{
+    font-weight: bold;
+    border-bottom: 0.1px solid;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+}
+.questionList .questionSection{
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    overflow-y: auto;
+    top: 115px;
+    font-size: 16px;
+}
+.questionList .questionSection tbody{
+    overflow-y: auto;
+    padding: 16px;
+    font-size: 20px;
+}
+.questionList .questionSection .optionSection td{
+    margin: 16px 0;
+    list-style: none;
+}
+.questionList .optionSection table{
+    padding-left: 5px;
+}
+.questionList .optionSection .optionDesc{
+    padding-left: 24px!important;
+    padding-top: 0;
+}
+
+.questionList input[type=radio]{
+    width: 15px;
+    height: 2rem;
+}
+.select-option{
+    padding-bottom: 50px;
+}
+.exam-page{
+    background: #fff;
+    display: flex;
+    min-height: 77vh;
+}
+.status-section{
+    max-height: 400px;
+    overflow: auto;
+    width: 25%;
+    background: #E5FFF2;
+    position: relative;
+    /* float: left; */
+    /* width: 100%; */
+    padding: 10px 0 8px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+.status-section .states{
+    height: 18px;
+    margin: 2px 0 4px;
+    padding: 4px 0 0;
+    background-color: #f9f9f9;
+    border: 1px solid #000;
+    color: #000;
+    width: 20px;
+    display: inline-block;
+    font-size: 75%;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 1px;
+    border-radius: 20px 20px 0 0!important;
+}
+.answered{
+    background-color: green!important;
+    color: #fff!important;
+    border-color: green!important;
+}
+.not-visited{
+    background-color: red!important;
+    color: #fff!important;
+    border-color: red!important;
+}
+.not-answered{
+    background-color: #ffcccb!important;
+    color: #000!important;
+    border-color: #ffcccb!important;
+}
+.status-available{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.numbering{
+    display: flex;
+    justify-content: center;
+}
+.qnumbering{
+    padding-left: 0px;
+}
+.status-section .marker{
+    font-size: 15px;
+    padding-left: 5px;
+}
+.status-section .qnumbering li{
+    position: relative;
+    border: 1px solid #000;
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    background-color: #f9f9f9;
+    margin: 7px;
+    float: left;
+    cursor: pointer;
+    width: 38px;
+    padding: 4px 0;
+    list-style: none;
+}
+.status-section .qnumbering li::marker{
+    display: none;
+}
+.test-button{
+    display: inline-block;
+    margin-bottom: 0;
+    min-width: 130px;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    -webkit-transition: all .3s cubic-bezier(.165,.84,.44,1);
+    -o-transition: all .3s cubic-bezier(.165,.84,.44,1);
+    transition: all .3s cubic-bezier(.165,.84,.44,1);
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #fff;
+    background-color: #1fbae8;
+    border-color: #1fbae8;
+}
+.navigation-button{
+    position: absolute;
+    bottom: 20px;
+    margin: auto;
+    width: 100%;
+}
+.button-next{
+    margin-right: 30px;
+}
+
 /* animation css */
 .animation-loader {
     width: 100%;
@@ -382,7 +552,16 @@ table #tbody-pdf td{
         border-top: 1px solid #EEEEEE !important;
         margin: 0px 15px
     }
-    
+    .exam-page{
+        display: block;        
+    }
+    .exam-page .status-section{
+        padding-bottom: 100px;
+        width: 100%;
+    }
+    .exam-page .questionList{
+        width: 100%;
+    }
 }
 @media screen and (min-width: 992px) {
     .header-component #navbarNav{
@@ -397,5 +576,16 @@ table #tbody-pdf td{
     }
     .main{
         padding: 0px 50px;
+        padding-bottom: 75px;
     }
+    .exam-page{
+        margin: 0 -50px;
+    }
+    .float-left{
+        float: left;        
+    }
+    .float-right{
+        float: right;        
+    }
+    
 }

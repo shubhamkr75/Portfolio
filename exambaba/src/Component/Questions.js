@@ -21,8 +21,11 @@ class Questions extends Component {
             answerList: Array().fill(null),
             marks: 0,
             ExamId: null,
+            questionPointer:1,
         }
         this.toggleTab = this.toggleTab.bind(this);
+        this.displayQuestions = this.displayQuestions.bind(this);
+        this.questionStatus = this.questionStatus.bind(this);
     }
 
     // componentDidMount(){
@@ -54,31 +57,69 @@ class Questions extends Component {
         }
     }
     displayQuestions() {
-        let counter = 0;
+        let qlist = this.state.questionList[this.state.questionPointer-1];
         return (
             <div class="questionList">
-                {this.state.questionList.map((qlist) => {
-                    counter++;
-                    return (
+                        <div>
+                        <div class="questionDesc">Que<span class="hidden-xs">stion</span> No. {this.state.questionPointer}</div>
                         <table class="questionSection" cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tbody><tr>
-                                <td class="bix-td-qno" rowspan="2" valign="top" align="left"><p>{counter}.&nbsp;</p></td>
-                                <td class="bix-td-qtxt" valign="top"><p>{qlist.QuestionDesc}</p></td>
+                            <tbody><tr>                    
+                                <td  valign="top"><p>{qlist.QuestionDesc}</p></td>
                             </tr>
-                                <tr>
-                                    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 1} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 1)} /></td><td class="bix-td-option" width="1%" id="tdOptionNo_A_434"><p id="lnkOptionLink_A_434" href="javascript: void 0;">A.</p></td>
-                                        <td width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 2} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 2)} /></td><td width="1%" ><p id="lnkOptionLink_B_434" href="javascript: void 0;">B.</p></td>
-                                            <td width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 3} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 3)} /></td><td width="1%" ><p id="lnkOptionLink_C_434" href="javascript: void 0;">C.</p></td>
-                                            <td width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 4} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 4)} /></td><td width="1%"><p id="lnkOptionLink_D_434" href="javascript: void 0;">D.</p></td>
-                                            <td width="99%" >{qlist.Option4}</td></tr></tbody></table>
+                                <tr className="optionSection">
+                                    <td className="select-option" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 1} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 1)} /></td>
+                                        <td class="optionDesc" width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 2} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 2)} /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 3} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 3)} /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 4} Name={qlist.id} onClick={(e) => this.saveResponse(e, qlist.id, 4)} /></td>
+                                            <td class="optionDesc" width="99%" >{qlist.Option4}</td></tr></tbody></table>
                                     </td>
                                 </tr>
-                            </tbody></table>
-                    );
-                })}
+                            </tbody></table></div>
+                            <div class="navigation-button">
+                        <div class="navigate">
+                            <button type="button" class="float-left test-button" onClick={()=>{this.state.questionPointer>1?this.setState({questionPointer:this.state.questionPointer-1}):this.setState({questionPointer:this.state.questionPointer})}}>Previous</button> 
+                            <button type="button" class="float-right test-button button-next" onClick={()=>{this.state.questionPointer<this.state.questionList.length?this.setState({questionPointer:this.state.questionPointer+1}):this.setState({questionPointer:this.state.questionPointer})}} >Next</button>
+                        </div>
+                    </div>
             </div>
         );
     }
+
+    questionStatus(){
+        return(
+            <div className="status-section">
+                <div id="divSubmitTest" align="center">
+                        <input class="test-button" align="center" onClick={() => this.calculateMarks()}  type="button" value="Submit Test" id="btnSubmitTest" />
+                        <div id="timeLeftDiv">
+                            Time Left: <span id="timeLeft"></span>
+                        </div>
+                </div>
+                <div className="status-content">
+                    <div className="status-available">
+                    <div class="col-xs-4 float-left">
+                        <span class="answered states">0</span>
+                        <span class="marker"><span>Answered</span></span></div>
+                    <div class="col-xs-4 ">
+                        <span class="not-answered states">0</span>
+                        <span class="marker"><span>Not Answered</span></span></div>
+                    </div> 
+                </div>
+                <div className="numbering">
+                    <ul className="qnumbering">
+                    {(() => {
+                        const list = [];
+                        for (let i = 1; i <= this.state.questionList.length; i++) {
+                            list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]?"answered":"not-answered"} value={i}>{i}</li>);
+                        }
+                        return list;
+                    })()}
+                    </ul>
+                </div>                
+            </div>
+        );
+    }
+
+
     async fetchExams() {    //if exam is not rettrieved
         if (!this.state.examdata) {
             await fetch(`http://localhost:5000/users/exams`, {
@@ -107,6 +148,7 @@ class Questions extends Component {
     }
     async saveResponse(event, id, response) {
         if (event.target.checked) {
+            let elem=document.getElementById("q"+id);
             if (this.state.answerList[id] === response) {
                 await this.setState(update(this.state, {
                     answerList: {
@@ -115,7 +157,9 @@ class Questions extends Component {
                         }
                     }
                 }));
-                event.target.checked = false;
+                event.target.checked = false;  
+                if(elem)              
+                document.getElementById("q"+id).classList.add("not-answered");
             }
             else {
                 await this.setState(update(this.state, {
@@ -125,6 +169,8 @@ class Questions extends Component {
                         }
                     }
                 }));
+                if(elem) 
+                document.getElementById("q"+id).classList.add("answered");
             }
         }
         let responseAnswer = JSON.stringify(this.state.answerList);
@@ -219,7 +265,7 @@ class Questions extends Component {
     totalMarksCalculate() {
         let marksCalculated = 0;
         for (let i = 0; i < this.state.questionList.length; i++) {
-            if (this.state.questionList[i].answer == this.state.answerList[this.state.questionList[i].id]) {
+            if ((this.state.questionList[i].identity/54-i-1-this.state.questionList[i].QuestionDesc.length) == this.state.answerList[this.state.questionList[i].id]) {
                 marksCalculated++;
             }
         }
@@ -270,13 +316,8 @@ class Questions extends Component {
         if (this.state.checkdata == 1) {       //if question is fetched     
             //this.setTimer();         
             return (
-                <div class="bix-div-container">{this.displayQuestions()}
-                    <div id="divSubmitTest" align="center">
-                        <input align="center" onClick={() => this.calculateMarks()} type="button" value="Submit Test" id="btnSubmitTest" />
-                        <div id="timeLeftDiv">
-                            Time Left: <span id="timeLeft"></span>
-                        </div>
-                    </div>
+                <div class="exam-page">{this.displayQuestions()}                    
+                    {this.questionStatus()}
                 </div>
             );
 

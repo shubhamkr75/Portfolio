@@ -73,7 +73,7 @@ class TeacherDashboard extends Component{
             <div>
                     <h3 className="exam-dashboard-title">Welcome to Examination Dashboard</h3>
                     <div className="examList-present row">
-                    <div className="col-lg-9 row">
+                    <div className="col-lg-12 row">
                     
                     {this.state.examList.map((list) => {
                         return (
