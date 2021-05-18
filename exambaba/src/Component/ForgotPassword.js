@@ -54,27 +54,14 @@ class ForgotPassword extends Component {
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Email Address</h6>
                                 </label> <input className="mb-4" type="text" name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
-                            
-                                           
-                                       
                             <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue text-center">Send OTP</button> </div>
-                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Remember the password? <a className="text-danger" onClick={()=>this.setState({flag:1})}>Login</a></small> </div>
+                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Remember the password? <a className="text-danger" href="/">Login</a></small> </div>
                         </div>
-                    </div>
-                </div>
-                <div className="bg-blue py-4">
-                    <div className="row px-3"> <small className="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
-                        <div className="social-contact ml-4 ml-sm-auto"> <span className="fa fa-facebook mr-4 text-sm"></span> <span className="fa fa-google-plus mr-4 text-sm"></span> <span className="fa fa-linkedin mr-4 text-sm"></span> <span className="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
                     </div>
                 </div>
             </div>
         </div>
     );
-    }
-    else if(this.state.flag==1){
-        return(
-            <App/>
-        );
     }
     else{
         return(

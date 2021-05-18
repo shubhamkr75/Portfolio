@@ -478,6 +478,9 @@ table #tbody-pdf td{
 .button-next{
     margin-right: 30px;
 }
+.asterik{
+    color: red;
+}
 
 /* animation css */
 .animation-loader {

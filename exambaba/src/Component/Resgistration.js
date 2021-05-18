@@ -131,7 +131,7 @@ render(){
     return(
         
         <div className="container-fluid login-component px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-            <Header/>
+            
             <div className="card card0 border-0">
                 <div className="row d-flex">
                     <div className="col-lg-6">
@@ -141,6 +141,7 @@ render(){
                     </div>
                     <div className="col-lg-6">                    
                         <div className="card2 card border-0 px-4 py-5">
+                            <form onSubmit={()=>this.createUser()}>
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm">Name</h6>
                                 </label> <input name="name" type="text" required onChange={this.handleInputChange} /> </div>
@@ -180,12 +181,12 @@ render(){
                             </div>
 
                             
-                            <div className="row mb-3 px-3"> <button onClick={()=>this.createUser()} type="submit" value="Register"  id="submitUser">Register</button> </div>
-                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Already have an account? <a className="text-danger" onClick={()=>this.setState({flag:3})}>Login</a></small> </div>
+                            <div className="row mb-3 px-3"> <button  type="submit" value="Register"  id="submitUser">Register</button> </div>
+                            </form>
+                            <div className="row mb-4 px-3"> <small className="font-weight-bold">Already have an account? <a className="text-danger" href="/">Login</a></small> </div>
                         </div>
                     </div>
                 </div>
-                <Footer/>
             </div>
         </div>
     );

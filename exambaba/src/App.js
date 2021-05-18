@@ -18,6 +18,7 @@ import Header from './Component/Header';
 import StudentDashboard from './Component/StudentDashboard';
 import Footer from './Component/Footer';
 import LoadingAnimation from './Component/LoadingAnimation';
+import ForgotPassword from './Component/ForgotPassword';
 
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -34,13 +35,28 @@ function App() {
   const { token, setToken } = UseToken();
 
   if(!token) {
-    return <Login setToken={setToken} />
+    return(
+      <div>            
+        <Header loginType=""/>   
+        <BrowserRouter>
+        <Switch>
+        <Route path="/registration">
+            <Registration />
+        </Route>
+        <Route path="/ForgotPassword">
+            <ForgotPassword />
+        </Route>
+        <Login setToken={setToken} />
+        </Switch></BrowserRouter>
+        <Footer/>
+      </div>
+    );
   }
 
   return (
 
     <div className="wrapper">
-      <Header loginType={token.Login_Type}/>
+      <Header loginType={token.Login_Type}/> 
       <div className="main">
       <BrowserRouter>
         <Switch>
@@ -77,9 +93,8 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-      </div>
-      <Footer/>
-    
+      </div>     
+    <Footer/>
     </div>
 
     // <div className="App">
