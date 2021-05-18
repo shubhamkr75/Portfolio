@@ -7,11 +7,12 @@ body {
 }
  
 .card0 {
-    box-shadow: 0px 4px 8px 0px #757575;
     border-radius: 0px
 }
  
 .card2 {
+    box-shadow: 0px 4px 8px 0px #757575;
+    height: 100%;
     margin: 0px 40px
 }
  
@@ -293,7 +294,7 @@ table #tbody-pdf td{
     -moz-box-shadow: 0 8px 20px 0 rgba(0,0,0,.15);
     box-shadow: 0 8px 20px 0 rgb(0 0 0 / 15%);
 }
-.class-section select{
+.class-section select,.login-component select{
     outline: none;
     height: 50px;
     background: #fafafa;
@@ -481,7 +482,34 @@ table #tbody-pdf td{
 .asterik{
     color: red;
 }
-
+.input-text{
+    display: block;
+    margin: 0 0 10px;
+    padding-top: 5px;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    font-family: Raleway, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.input-field{
+    outline: none;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+    line-height: inherit;
+    transition: 0.3s ease;
+}
 /* animation css */
 .animation-loader {
     width: 100%;
@@ -509,6 +537,23 @@ table #tbody-pdf td{
     width: 100%;
     background-color: #fff;
     animation: loader-inner 2s infinite ease-in;
+  }
+  .submit-button{
+    cursor: pointer;
+    outline: none;
+    text-transform: capitalize;
+    text-decoration: none;
+    white-space: nowrap;
+    text-align: center;
+    display: inline-block;
+    background: #1fbae8;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    min-width: 150px;
+    padding: .375rem 1.5rem;
+    line-height: 1.6;
+    font-size: .875rem;
   }
   @keyframes animation {
     0% { transform: rotate(0deg);}

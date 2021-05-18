@@ -6,6 +6,7 @@ import Registration from './Resgistration';
 import ForgotPassword from './ForgotPassword';
 import Header from './Header';
 import Footer from './Footer';
+import examlogo from '../Assets/image/exam-center.webp';
 import LoadingAnimation from './LoadingAnimation';
 // import $ from 'jquery';
 // import Popper from 'popper.js';
@@ -76,18 +77,18 @@ class Login extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5 pt-5">
-                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://qph.fs.quoracdn.net/main-qimg-0b53e802c3afb1a1b08e549a99a213f3.webp" className="image" /> </div>
+                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src={examlogo} className="image" /> </div>
                         </div>
                     </div>
                     <div className="col-lg-6">
                         <div className="card2 card border-0 px-4 py-5">
                             <form onSubmit={this.handleSubmit}>
                             <div className="row px-3"> <label className="mb-1">
-                                    <h6 className="mb-0 text-sm">Email/UserID<span className="asterik"> *</span></h6>
-                                </label> <input className="mb-4" type="email" required name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
+                                    <h6 className="mb-0 text-sm input-text">Email/UserID<span className="asterik"> *</span></h6>
+                                </label> <input className="mb-4 input-field" type="email" required name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
                             <div className="row px-3"> <label className="mb-1">
-                                    <h6 className="mb-0 text-sm">Password<span className="asterik"> *</span></h6>
-                                </label> <input type="password" name="userPassword" required  onChange={this.handleInputChange} placeholder="Enter password" /> </div>
+                                    <h6 className="mb-0 text-sm input-text">Password<span className="asterik"> *</span></h6>
+                                </label> <input  className="input-field" type="password" name="userPassword" required  onChange={this.handleInputChange} placeholder="Enter password" /> </div>
                                 <div><label id="passwordError">
                                 <h6 className="mb-0 text-sm"></h6>
                                 </label>
@@ -96,7 +97,7 @@ class Login extends Component {
                                  <a href="/ForgotPassword" class="ml-auto mb-0 text-sm" >Forgot Password?</a>
                             </div>
                             {/* <div className="row mb-4 px-3"> <small className="font-weight-bold"><a className="text-right" onClick={()=>this.setState({flag:2})}>Forgot Password?</a></small> </div>            */}
-                            <div className="row mb-3 px-3"> <button  type="submit" className="btn btn-blue text-center">Login</button> </div>
+                            <div className="row mb-3 px-3"> <button  type="submit" className="btn submit-button text-center">Login</button> </div>
                             </form>
                             <div className="row mb-4 px-3"> <small className="font-weight-bold">Don't have an account? <a className="text-danger" href="/Registration">Register</a></small> </div>
                         </div>
