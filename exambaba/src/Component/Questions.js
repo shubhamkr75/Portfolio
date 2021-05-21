@@ -325,8 +325,8 @@ class Questions extends Component {
             let confirmation = {
                 success: true,
                 message: <div className="message-info"><h3>Thank You. Your Response has been Submitted</h3>
-                    <p class="lead"><strong>Your Total Score is </strong>
-                        <span id="result"> {this.state.marks}</span>/{this.state.questionList.length}</p>
+                    {/* <p class="lead"><strong>Your Total Score is </strong>
+                        <span id="result"> {this.state.marks}</span>/{this.state.questionList.length}</p> */}
                 </div>,
                 url: "./studentdashboard"
             }

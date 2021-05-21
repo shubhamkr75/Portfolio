@@ -29,6 +29,12 @@ adminHeader(){
             <li class="nav-item">
                 <a class="nav-link" href="/Approval">Approvals</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/FetchAllUsers">Users</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/FetchAdmins">Admins</a>
+            </li>
         </>
     );
 }

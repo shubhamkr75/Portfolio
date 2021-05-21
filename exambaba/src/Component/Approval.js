@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
 class Approval extends Component{
     constructor(props) {
@@ -105,21 +106,19 @@ class Approval extends Component{
             </div>
         );
         }
-        // else if(this.state.section==2){
-        //     return(
-        //         //<FetchResponse ExamId={this.state.selectedExam}/>
-        //     );
-        // }
         else if(this.state.approvalList.length==0&&this.state.section==1){
-            <div>No Exams to show</div>
+            return(
+                <ConfirmationMessage success='neutral' message='No Approvals to show' />
+            );
         }
         else if(this.state.section==2){
-            return(
-                <div>
-                    <h1 class="display-3">
-                        Something Went Wrong
-                    </h1>
-                </div>
+            let confirmation={
+                success:false,
+                message: <div className="message-info">Something went wrong</div>,
+                url:"./studentdashboard"
+            }
+            return (
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
             );
           }
         else{

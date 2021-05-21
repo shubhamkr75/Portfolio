@@ -61,13 +61,13 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/examcreation">
-            <ExamCreation schoolId={token.School_id} studentId={token.Student_id}/>
+          {token.Login_Type==2 && <ExamCreation schoolId={token.School_id} studentId={token.Student_id}/>}
           </Route>
           <Route path="/registration">
             <Registration />
           </Route>
           <Route path="/teacherdashboard">
-            <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
+          {token.Login_Type==2 && <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>}
           </Route>
           <Route path="/Exams">
             <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
@@ -79,8 +79,14 @@ function App() {
             <StudentDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
           </Route>    
           <Route path="/Approval">
-            <Approval schoolId={token.School_id}/>
-          </Route>       
+            {token.Login_Type==2 && <Approval schoolId={token.School_id}/>}
+          </Route>
+          <Route path="/FetchAllUsers">
+          {token.Login_Type==2 && <FetchAllUsers  schoolId={token.School_id}/>}
+          </Route>    
+          <Route path="/FetchAdmins">
+              {token.Login_Type==2 && <FetchAdmins  schoolId={token.School_id}/>}
+          </Route>   
           <Route path="/">
           {/* <FetchAllUsers  schoolId={token.School_id}/> */}
           {/* <FetchAdmins  schoolId={token.School_id}/> */}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import App from '../App';
+import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
 import Login from './Login';
 import Popup from './Popup';
@@ -91,12 +92,13 @@ render(){
       );
     }
     else if(this.state.flag==2){
-        return(
-            <div>
-                <h1 class="display-3">
-                    Something Went Wrong
-                </h1>
-            </div>
+        let confirmation={
+            success:false,
+            message: <div className="message-info">Something went wrong</div>,
+            url:"./studentdashboard"
+        }
+        return (
+            <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
         );
       }
     else{

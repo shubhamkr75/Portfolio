@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import LoadingAnimation from './LoadingAnimation';
+import ConfirmationMessage from './ConfirmationMessage';
 class FetchResponse extends Component{
     constructor(props) {
         super(props);
@@ -134,12 +135,13 @@ questionStatus(){
             );
         }
         else if(this.state.fetched==404){
-            return(
-                <div>
-                    <h1 class="display-3">
-                        Something Went Wrong
-                    </h1>
-                </div>
+            let confirmation={
+                success:false,
+                message: <div className="message-info">Something went wrong</div>,
+                url:"./studentdashboard"
+            }
+            return (
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
             );
           }
         else{

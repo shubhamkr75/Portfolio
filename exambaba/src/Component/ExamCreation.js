@@ -172,11 +172,6 @@ class ExamCreation extends React.Component {
       return (
           <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
       );
-      // return(
-      //   <div>
-      //     <p>Something went wrong while creating the test</p>
-      //   </div>
-      // );
     }
     else if(this.state.testCreated==4){     //if user clicks on examination button
       return(
