@@ -7,6 +7,7 @@ import fileExtension from 'file-extension';
 import xlsxtojson from 'xlsx-to-json';
 import xlstojson from "xls-to-json";
 import path from 'path';
+import date from 'date-and-time';
 const router=express.Router();
 var config = {
   user: 'exambaba',
@@ -243,7 +244,7 @@ router.post('/fetchExamHistory',(req,res)=>{
     if (err) console.log(err);
     const { studentId } = req.body;
     let request = new sql.Request();  
-    let query = "exec fetchExamHistory @studentid='"+studentId+"';" ;  
+    let query = "exec fetchExamHistory @studentid='"+studentId+"',@timeNow='"+Date.now()+"';" ;  
     console.log(query);
     request.query(query, function (err, recordset) {
       if (err) {

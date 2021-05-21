@@ -3,6 +3,7 @@ import moment from 'moment'
 import FetchResponse from './FetchResponse';
 import LoadingAnimation from './LoadingAnimation';
 import { Route } from 'react-router';
+import ConfirmationMessage from './ConfirmationMessage';
 class StudentDashboard extends Component {
     constructor(props) {
         super(props);
@@ -41,18 +42,34 @@ class StudentDashboard extends Component {
     }
     render() {
         { !this.state.fetchedHistory && this.fetchExamHistory() }
-        if (this.state.examHistoryList.length != 0 && this.state.section == 1) {
+        if (this.state.section == 1) {
             return (                
-                <div className="examHistorySection d-none">                    
-                    <div className="examList-past row">
-                        <div className="col-lg-9 row">
+                <div className="examHistorySection">   
+                    <h3 className="exam-dashboard-title">Welcome to Examination Dashboard</h3>
+                    <div className="examlist-container ">
+                        <div className="tabs">
+                            <div className="live-tab">
+                                <div className="tab">
+                                    <a href='/exams' className="dark">LIVE/UPCOMING</a>
+                                </div>
+                            </div>
+                            <div className="previous-tab" >
+                                <div className="tab">
+                                    <a href='/studentdashboard' className="dark">PREVIOUS</a>
+                                </div>
+                            </div>
+                            <div className="clear"></div>
+                        </div>
+                    </div>
+                    <div className="examList-present row">
+                        <div className="col-lg-12 row">
 
-                            {this.state.examHistoryList.map((list, index) => {
+                            {this.state.examHistoryList.length>0 && this.state.examHistoryList.map((list, index) => {
                                 return (
                                     <div className="col-md-4">
                                         <div className="test-section">
                                             <div className="test-name" >
-                                                <span className="test-title">{list.ExamName}</span>
+                                                <h3 className="test-title">{list.ExamName}</h3>
                                             </div>
                                             <div className="test-details">
                                                 <div className="test-marks">
@@ -70,19 +87,21 @@ class StudentDashboard extends Component {
                                                 <div className="exam-date">
                                                     <div className="dates">Date</div>
                                                     <div className="date">
-                                                        {moment(Date(list.StartTime)).format('Do MMMM YYYY')}
+                                                    {moment(new Date(Number(list.ExamDate))).format('Do MMMM YYYY')}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="start-button">
-                                            <button type="button" onClick={() => this.setState({ section: 2, selectedExam: list.ExamId })} value="Check Response" id="ResponseDetails">Check Response</button>
+                                            <button type="button" className="submit-button"  onClick={() => this.setState({ section: 2, selectedExam: list.ExamId })} value="Check Response" id="ResponseDetails">Check Response</button>
                                             {/* <button type="button" onClick={() => this.setState({ selectedExam: list.ExamId })}  value="Check Response" id="ResponseDetails"><a href={"/Response/"}>Check Response</a></button> */}
                                         </div>
                                     </div>
                                 );
                             })}
-
+                            {this.state.examHistoryList.length==0 &&
+                                <ConfirmationMessage success='neutral' message='No Examination To show' />    
+                            }
                         </div>
                     </div>
                 </div>
@@ -90,25 +109,17 @@ class StudentDashboard extends Component {
         }
         else if (this.state.section == 2) {
             return (
-                
-            // <Route path="/Response/:responseid">
-            //     <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>
-            // </Route>
                 <FetchResponse ExamId={this.state.selectedExam} studentId={this.props.studentId} />
             );
         }
-        else if (this.state.examHistoryList.length == 0 && this.state.section == 1) {
-            return (
-                <div>No Exams to show</div>
-            );
-        }
         else if (this.state.flag == 404) {
+            let confirmation={
+                success:false,
+                message: <div className="message-info">Something went wrong</div>,
+                url:"./studentdashboard"
+            }
             return (
-                <div>
-                    <h1 class="display-3">
-                        Something Went Wrong
-                    </h1>
-                </div>
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
             );
         }
         else {

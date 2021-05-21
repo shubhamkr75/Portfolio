@@ -4,6 +4,7 @@ import ExamReport from './ExamReport';
 import LogOut from './LogOut';
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import LoadingAnimation from './LoadingAnimation';
+import ConfirmationMessage from './ConfirmationMessage';
 class TeacherDashboard extends Component{
     constructor(props) {
         super(props);
@@ -15,6 +16,7 @@ class TeacherDashboard extends Component{
         };
       }
       async fetchExams(){    //if exam is not rettrieved
+        this.setState({examdata:true})
         if(!this.state.examdata){
             await fetch(`http://localhost:5000/users/adminExams`, {
                 method: "POST",
@@ -66,7 +68,7 @@ class TeacherDashboard extends Component{
         
 
     render(){  
-        {this.fetchExams()}  
+        (!this.state.examdata) && this.fetchExams()
         let index=0;     
         if(this.state.section==1&&this.state.examList.length!=0){
         return(
@@ -80,7 +82,7 @@ class TeacherDashboard extends Component{
                             <div className="col-md-4">
                                     <div className="test-section">
                                         <div className="test-name" >
-                                            <span className="test-title">{list.ExamName}</span>
+                                            <h3 className="test-title">{list.ExamName}</h3>
                                         </div>
                                         <div className="test-details">
                                             <div className="test-class">
@@ -92,21 +94,27 @@ class TeacherDashboard extends Component{
                                             <div className="test-time">
                                                 <div className="exam-time">Exam Time</div>
                                                 <div  className="time">
-                                                    {(list.Exam_Time)}
+                                                    {(list.Exam_Time)} mins
                                                 </div>
                                             </div>
-                                            <div className="test-creation">
-                                                <div className="creation-date">Creation Date</div>
+                                            <div className="test-examdate">
+                                                <div className="test-examdate">Exam Date</div>
                                                 <div  className="time">
-                                                    {moment(Date(list.creationdate)).format('Do MMMM YYYY')}
+                                                    {moment(new Date(Number(list.ExamDate))).format('Do MMMM YYYY')}
+                                                </div>
+                                            </div>
+                                            <div className="test-examdate">
+                                                <div className="test-examdate">Exam Time</div>
+                                                <div  className="time">
+                                                    {moment(new Date(Number(list.ExamDate))).format('HH:mm')}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="start-button">
+                                    <div className="start-button action-button">
                                     {/* <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>   */}
-                                    <button onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
-                                    <button type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Activate":"Deactivate"} id="ResponseDetails">{list.active==0?"Activate":"Deactivate"}</button>
+                                    <button className="submit-button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
+                                    <button className={list.active==0?'error-background submit-button':'success-background submit-button'} type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Deactive":"Active"} id="ResponseDetails">{list.active==0?"Deactive":"Active"}</button>
                                     </div>
                             </div>
                         );
@@ -117,9 +125,7 @@ class TeacherDashboard extends Component{
         );
         }
         else if(this.state.section==1&&this.state.examList.length==0){
-            return(
-            <div>No test created</div>
-            );
+            <ConfirmationMessage success='neutral' message='No Examination To show' />
         }
         else if(this.state.section==2){
             return(
@@ -127,12 +133,13 @@ class TeacherDashboard extends Component{
             );
         }
         else if(this.state.flag==404){
-            return(
-                <div>
-                    <h1 class="display-3">
-                        Something Went Wrong
-                    </h1>
-                </div>
+            let confirmation={
+                success:false,
+                message: <div className="message-info">Unable to fetch records</div>,
+                url:"./registration"
+            }
+            return (
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
             );
           }
           else{

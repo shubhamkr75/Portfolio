@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import App from '../App';
 import LoadingAnimation from './LoadingAnimation';
 import examlogo from '../Assets/image/exam-center.webp';
+import ConfirmationMessage from './ConfirmationMessage';
 
 class Registration extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Registration extends Component {
             flag: 0,
             userPassword: "",
             sid: "",
-            invalid:false,
+            invalid: false,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -57,11 +58,11 @@ class Registration extends Component {
                 }
                 else if ((data.recordset[0] != undefined || data.recordset[0] != null) && data.recordset[0].classes == null) {
                     document.getElementById("examCode").innerHTML = "Classes not available";
-                    this.setState({ classesList: []});
+                    this.setState({ classesList: [] });
                 }
                 else {
                     document.getElementById("examCode").innerHTML = "Invalid School Code";
-                    this.setState({ classesList: []});
+                    this.setState({ classesList: [] });
                 }
             });
     }
@@ -80,7 +81,7 @@ class Registration extends Component {
             .then((res) => res.json())
             .then((data) => {
                 if ((data.recordset[0] != undefined && data.recordset[0] != null)) {
-                    document.getElementById("emailCheck").innerHTML = "Email ID '"+this.state.emailId+"' is already Taken";
+                    document.getElementById("emailCheck").innerHTML = "Email ID '" + this.state.emailId + "' is already Taken";
                     document.getElementById("emailId").value = "";
                 }
                 else {
@@ -101,10 +102,7 @@ class Registration extends Component {
     }
     // user registration
     createUser(event) {
-        if(this.state.invalid) {
-            event.preventDefault();
-        }
-        else{
+        event.preventDefault();
         fetch(`http://localhost:5000/users/createUser`, {
             method: "POST",
             headers: {
@@ -123,14 +121,15 @@ class Registration extends Component {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                if(data!=undefined||data!='null'||data)
                 this.setState({ flag: 1, sid: data });
+                else
+                this.setState({ flag: 2 });
             })
             .catch(err => {
                 console.log(err);
                 this.setState({ flag: 2 });
             });
-        }
     }
     //
     render() {
@@ -161,42 +160,42 @@ class Registration extends Component {
                                         </label> <input name="mobileNumber" className="input-field" type="tel" required placeholder='1234567891' minLength='10' maxLength='10' pattern="[6-9]{1}[0-9]{9}" onChange={this.handleInputChange} />
                                         </div>
                                         <div className="row">
-                                        <div className="col-6">
-                                        <div className="row px-3"> <label className="mb-1">
-                                            <h6 className="mb-0 text-sm input-text">School Code<span className="asterik"> *</span></h6>
-                                        </label> <input name="schoolCode" className="input-field"  type="text" required onChange={this.handleInputChange} onBlur={this.fetchClasses} />
-                                            <label className="asterik" id="examCode"></label>
-                                        </div>
-                                        </div>
-                                        <div className="col-6">
-                                        <div className="row px-3"> <label className="mb-1">
-                                            <h6 className="mb-0 text-sm input-text">Class<span className="asterik"> *</span></h6>
-                                        </label>
-                                            <select name="class" type="number" required onChange={this.handleInputChange}>
-                                                <option value=""></option>
-                                                {this.state.classesList.map((clist) => {
-                                                    return (
-                                                        <option value={clist}>{clist}</option>
-                                                    );
-                                                })}
-                                            </select>
-                                        </div>
-                                        </div>
+                                            <div className="col-6">
+                                                <div className="row px-3"> <label className="mb-1">
+                                                    <h6 className="mb-0 text-sm input-text">School Code<span className="asterik"> *</span></h6>
+                                                </label> <input name="schoolCode" className="input-field" type="text" required onChange={this.handleInputChange} onBlur={this.fetchClasses} />
+                                                    <label className="asterik" id="examCode"></label>
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="row px-3"> <label className="mb-1">
+                                                    <h6 className="mb-0 text-sm input-text">Class<span className="asterik"> *</span></h6>
+                                                </label>
+                                                    <select name="class" type="number" required onChange={this.handleInputChange}>
+                                                        <option value=""></option>
+                                                        {this.state.classesList.map((clist) => {
+                                                            return (
+                                                                <option value={clist}>{clist}</option>
+                                                            );
+                                                        })}
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="row">
-                                        <div className="col-6">
-                                        <div className="row px-3"> <label className="mb-1">
-                                            <h6 className="mb-0 text-sm input-text">Password<span className="asterik"> *</span></h6>
-                                        </label> <input name="userPassword" className="input-field" type="password" placeholder="Password" required onChange={this.handleInputChange} />
-                                        </div>
-                                        </div>
-                                        <div className="col-6">
-                                        <div className="row px-3"> <label className="mb-1">
-                                            <h6 className="mb-0 text-sm input-text">Confirm password<span className="asterik"> *</span></h6>
-                                        </label> <input name="repassword" className="input-field" id="confirmpassword" placeholder="Confirm" type="password" required onBlur={this.checkPassword} />
-                                            <label className="asterik" id="matchPaasword"></label>
-                                        </div>
-                                        </div>
+                                            <div className="col-6">
+                                                <div className="row px-3"> <label className="mb-1">
+                                                    <h6 className="mb-0 text-sm input-text">Password<span className="asterik"> *</span></h6>
+                                                </label> <input name="userPassword" minLength="6" className="input-field" type="password" placeholder="Password" required onChange={this.handleInputChange} />
+                                                </div>
+                                            </div>
+                                            <div className="col-6">
+                                                <div className="row px-3"> <label className="mb-1">
+                                                    <h6 className="mb-0 text-sm input-text">Confirm password<span className="asterik"> *</span></h6>
+                                                </label> <input name="repassword" className="input-field" id="confirmpassword" placeholder="Confirm" type="password" required onBlur={this.checkPassword} />
+                                                    <label className="asterik" id="matchPaasword"></label>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div className="row mb-3 mt-3 px-3"> <button type="submit" className="submit-button" value="Register" id="submitUser">Register</button> </div>
@@ -210,29 +209,25 @@ class Registration extends Component {
             );
         }
         else if (this.state.flag == 1) {
+            let confirmation={
+                success:true,
+                message: <div className="message-info"> <p class="lead"><strong>Name: {this.state.name}</strong> </p>
+                <p class="lead"><strong>ID: {this.state.sid}</strong> </p>
+                <p class="lead"><strong>Note:- Please take note of the SID for further login</strong> </p></div>,
+                url:"./"}
             return (
-                <div><h1 class="display-3">Registration is successful</h1>
-                    <p class="lead"><strong>Name: {this.state.name}</strong> </p>
-                    <p class="lead"><strong>ID: {this.state.sid}</strong> </p>
-                    <p class="lead"><strong>Note:- Please take note of the SID for further login</strong> </p>
-                </div>
-
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>
             );
         }
-        else if (this.state.flag == 3) {
-            return (
-                <App />
-            );
-        }
-        else if (this.state.flag == 3) {
-            return (
-                <div>
-                    <h1 class="display-3">
-                        Something Went Wrong
-                </h1>
-                </div>
-
-            );
+        else if (this.state.flag == 2) {
+                let confirmation={
+                    success:false,
+                    message: <div className="message-info">Could not create the acount</div>,
+                    url:"./registration"
+                }
+                return (
+                    <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url}/>    
+                );
         }
         else {
             <LoadingAnimation />

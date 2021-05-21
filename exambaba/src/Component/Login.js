@@ -85,11 +85,11 @@ class Login extends Component {
                             <form onSubmit={this.handleSubmit}>
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm input-text">Email/UserID<span className="asterik"> *</span></h6>
-                                </label> <input className="mb-4 input-field" type="email" required name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
+                                </label> <input className="mb-4 input-field" type="text" required name="userEmail" onChange={this.handleInputChange} placeholder="Enter a valid email address" /> </div>
                             <div className="row px-3"> <label className="mb-1">
                                     <h6 className="mb-0 text-sm input-text">Password<span className="asterik"> *</span></h6>
                                 </label> <input  className="input-field" type="password" name="userPassword" required  onChange={this.handleInputChange} placeholder="Enter password" /> </div>
-                                <div><label id="passwordError">
+                                <div><label className="asterik" id="passwordError">
                                 <h6 className="mb-0 text-sm"></h6>
                                 </label>
                                 </div>

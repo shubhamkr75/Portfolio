@@ -1,8 +1,12 @@
 {
+  "homepage": "https://main.ds1vgnwjmq1uk.amplifyapp.com/",
   "name": "exambaba",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "@progress/kendo-drawing": "^1.10.0",
     "@progress/kendo-licensing": "^1.1.4",
     "@progress/kendo-react-pdf": "^4.5.0",
@@ -27,7 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "cleanBuild": "rimraf ./build/*",
+    "build": "npm run cleanBuild && set \"GENERATE_SOURCEMAP=false\" && react-scripts build ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

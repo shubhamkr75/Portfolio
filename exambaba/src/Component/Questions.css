@@ -1,12 +1,6 @@
 #timeLeftDiv{
-    padding: 10px; 
-    position: fixed; 
-    z-index: 3000000; 
-    bottom: 10px; 
-    left: 1px; 
-    width: auto; 
-    background-color: rgb(94, 172, 26); 
-    color: white;
+    padding: 10px;
+    font-weight: bold;
 }
 #divSubmitTest{
     padding: 20px;

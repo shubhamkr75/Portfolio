@@ -4,9 +4,6 @@ import './style.css';
 import PropTypes from 'prop-types';
 import Registration from './Resgistration';
 import App from '../App';
-// import $ from 'jquery';
-// import Popper from 'popper.js';
-// import 'bootstrap/dist/js/bootstrap.bundle.min';
  
 class ForgotPassword extends Component {
     constructor(props) {
