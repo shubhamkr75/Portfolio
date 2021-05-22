@@ -18,7 +18,7 @@ class StudentDashboard extends Component {
     async fetchExamHistory() {
         var res;
         this.setState({ fetchedHistory: true });
-        await fetch(`http://localhost:5000/users/fetchExamHistory`, {
+        await fetch(`https://node-new.herokuapp.com/users/fetchExamHistory`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

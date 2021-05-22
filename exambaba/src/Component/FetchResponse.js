@@ -19,7 +19,7 @@ class FetchResponse extends Component{
     async fetchResponse(){
         if(this.state.fetched==0){
             var res;
-            await fetch(`http://localhost:5000/users/fetchResponse`, {
+            await fetch(`https://node-new.herokuapp.com/users/fetchResponse`, {
                 method: "POST",
                 headers: {
                 "content-type": "application/json",
@@ -52,7 +52,7 @@ class FetchResponse extends Component{
     }
     async fetchQuestions(id){
         if(this.state.questionList.length==0){     //if question is not rettrieved
-            await fetch(`http://localhost:5000/users/questions/${id}`)
+            await fetch(`https://node-new.herokuapp.com/users/questions/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 // setquestionList(data.Questions);

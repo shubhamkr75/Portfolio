@@ -36,7 +36,7 @@ class ExamCreation extends React.Component {
     }
     fetchClasses(){
       this.setState({fetched:true});
-      fetch(`http://localhost:5000/users/fetchClasses`, {
+      fetch(`https://node-new.herokuapp.com/users/fetchClasses`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -66,7 +66,7 @@ class ExamCreation extends React.Component {
         formData.append('studentId', this.props.studentId); 
         formData.append('examDate', Date.parse(this.state.examDate));    
         formData.append('file', this.uploadInput.files[0]);
-        axios.post("http://localhost:5000/users/createExam", formData, {
+        axios.post("https://node-new.herokuapp.com/users/createExam", formData, {
             })
         .then(response => {
           console.log(response);

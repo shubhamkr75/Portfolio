@@ -39,7 +39,7 @@ class Registration extends Component {
     }
 
     fetchClasses() {
-        fetch(`http://localhost:5000/users/fetchClasses`, {
+        fetch(`https://node-new.herokuapp.com/users/fetchClasses`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -67,7 +67,7 @@ class Registration extends Component {
             });
     }
     fetchEmail() {
-        fetch(`http://localhost:5000/users/fetchEmail`, {
+        fetch(`https://node-new.herokuapp.com/users/fetchEmail`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -103,7 +103,7 @@ class Registration extends Component {
     // user registration
     createUser(event) {
         event.preventDefault();
-        fetch(`http://localhost:5000/users/createUser`, {
+        fetch(`https://node-new.herokuapp.com/users/createUser`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

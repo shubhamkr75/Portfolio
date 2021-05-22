@@ -48,7 +48,7 @@ class Questions extends Component {
 
     async fetchQuestions(id, exam_time) {
         if (this.state.checkdata != 1) {     //if question is not rettrieved
-            await fetch(`http://localhost:5000/users/questions/${id}`)
+            await fetch(`https://node-new.herokuapp.com/users/questions/${id}`)
                 .then((res) => res.json())
                 .then((data) => {
                     // setquestionList(data.Questions);
@@ -137,7 +137,7 @@ class Questions extends Component {
     async fetchExams() {    //if exam is not rettrieved
         this.setState({ examdata: true })
         if (!this.state.examdata) {
-            await fetch(`http://localhost:5000/users/exams`, {
+            await fetch(`https://node-new.herokuapp.com/users/exams`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -189,7 +189,7 @@ class Questions extends Component {
             }
         }
         let responseAnswer = JSON.stringify(this.state.answerList);
-        fetch(`http://localhost:5000/users/saveResponse`, {
+        fetch(`https://node-new.herokuapp.com/users/saveResponse`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -213,7 +213,7 @@ class Questions extends Component {
     }
     async fetchResponse() {
         var res;
-        await fetch(`http://localhost:5000/users/fetchResponse`, {
+        await fetch(`https://node-new.herokuapp.com/users/fetchResponse`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -246,7 +246,7 @@ class Questions extends Component {
     async createResponse() {
         let recordCount = await this.fetchResponse();
         if (recordCount == 0) {
-            await fetch("http://localhost:5000/users/createResponse", {
+            await fetch("https://node-new.herokuapp.com/users/createResponse", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -277,7 +277,7 @@ class Questions extends Component {
     }
     calculateMarks() {
         let marksCalculated = this.totalMarksCalculate();
-        fetch("http://localhost:5000/users/submitTest", {
+        fetch("https://node-new.herokuapp.com/users/submitTest", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

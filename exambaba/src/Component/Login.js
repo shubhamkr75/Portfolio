@@ -38,7 +38,7 @@ class Login extends Component {
     }
     // user registration
     async loginUser() {        
-         return fetch(`http://localhost:5000/users/loginUser`, {
+         return fetch(`https://node-new.herokuapp.com/users/loginUser`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

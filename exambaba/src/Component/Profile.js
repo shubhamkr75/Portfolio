@@ -18,7 +18,7 @@ class Profile extends Component{
 // user registration
 fetchUserProfile(){
     this.setState({fetchedProfile:true});
-        fetch(`http://localhost:5000/users/fetchUserProfile`, {
+        fetch(`https://node-new.herokuapp.com/users/fetchUserProfile`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

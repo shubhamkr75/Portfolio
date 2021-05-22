@@ -15,7 +15,7 @@ class FetchAdmins extends Component{
       async fetchAdmins(){
         var res;
         this.setState({fetchedHistory:true});
-        await fetch(`http://localhost:5000/users/fetchAdmins`, {
+        await fetch(`https://node-new.herokuapp.com/users/fetchAdmins`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -40,7 +40,7 @@ class FetchAdmins extends Component{
     async approveUser(userId,approvalType){
         var res;
         this.setState({fetchedHistory:true});
-        await fetch(`http://localhost:5000/users/approveUser`, {
+        await fetch(`https://node-new.herokuapp.com/users/approveUser`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

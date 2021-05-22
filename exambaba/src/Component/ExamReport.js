@@ -17,7 +17,7 @@ class ExamReport extends Component{
       async fetchExamReport(){    //if exam is not rettrieved
         if(!this.state.examdata){
             this.setState({fetchedHistory:true});
-            await fetch(`http://localhost:5000/users/fetchExamReport`, {
+            await fetch(`https://node-new.herokuapp.com/users/fetchExamReport`, {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",

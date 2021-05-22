@@ -18,7 +18,7 @@ class TeacherDashboard extends Component{
       async fetchExams(){    //if exam is not rettrieved
         this.setState({examdata:true})
         if(!this.state.examdata){
-            await fetch(`http://localhost:5000/users/adminExams`, {
+            await fetch(`https://node-new.herokuapp.com/users/adminExams`, {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",
@@ -43,7 +43,7 @@ class TeacherDashboard extends Component{
     async activateExam(examid,activattype){
         var res;
         this.setState({fetchedHistory:true});
-        await fetch(`http://localhost:5000/users/activateExam`, {
+        await fetch(`https://node-new.herokuapp.com/users/activateExam`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
