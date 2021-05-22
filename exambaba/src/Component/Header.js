@@ -35,6 +35,12 @@ adminHeader(){
             <li class="nav-item">
                 <a class="nav-link" href="/FetchAdmins">Admins</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/studentdashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Exams">Exams</a>
+            </li>
         </>
     );
 }

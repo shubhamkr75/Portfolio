@@ -14,7 +14,7 @@ class ConfirmationMessage extends Component {
                     <p id='message'>
                     {this.props.message}
                     </p>
-                    {this.props.success!='neutral' && <a href={this.props.url} id="contBtn">Continue</a>}
+                    {this.props.url && <a href={this.props.url} id="contBtn">Continue</a>}
                 </div>
             </div>
         );

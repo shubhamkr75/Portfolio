@@ -40,7 +40,7 @@ class Questions extends Component {
 
     async testCountdown(id, exam_time, startTime){
         await this.setExamData(id, exam_time);       
-        this.setTimer(startTime,'startTimeLeft');
+        this.setTimer(startTime,'startTimeLeft',exam_time);
     }
     async setExamData(id, exam_time){
         this.setState({checkdata:6, examtime: exam_time, ExamId: id });
@@ -230,12 +230,15 @@ class Questions extends Component {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
-                res = data.recordset.length;
-                if ((data.recordset[0] != undefined || data.recordset[0] != null) && data.recordset[0].ResponseAnswer != null) {
-                    this.setState({ answerList: JSON.parse(data.recordset[0].ResponseAnswer) }); //fetching saved response           
-                    this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
+                res = data.recordset.length;                
+                if( (data.recordset[0] != undefined && data.recordset[0] != null) && data.recordset[0].submitted && data.recordset[0].submitted==1){
+                    this.setState({checkdata:7});
+                }
+                if ((data.recordset[0] != undefined && data.recordset[0] != null) && data.recordset[0].ResponseAnswer != null) {
+                    this.setState({ answerList: JSON.parse(data.recordset[0].ResponseAnswer) }); //fetching saved response  
+                    // this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
                 } else if (data.recordset[0] != undefined || data.recordset[0] != null) {
-                    this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
+                    // this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
                 } 
             });
         return res;
@@ -274,6 +277,27 @@ class Questions extends Component {
     }
     calculateMarks() {
         let marksCalculated = this.totalMarksCalculate();
+        fetch("http://localhost:5000/users/submitTest", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body:
+                    JSON.stringify({
+                        examId: this.state.ExamId,
+                        studentId: this.props.studentId,
+                    })
+            }).then(response => {
+                console.log(response);
+            })
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(err => {
+                    console.log(err);
+
+                });
         this.setState({ checkdata: 2, marks: marksCalculated });
     }
     totalMarksCalculate() {
@@ -285,7 +309,7 @@ class Questions extends Component {
         }
         return marksCalculated;
     }
-    setTimer = (timing,divid) => {
+    setTimer = (timing,divid,exam_time) => {
         let startTime = timing;
         // startTime = startTime + 1 * this.state.examtime * 60 * 1000;
         var x = setInterval(() => {
@@ -304,7 +328,8 @@ class Questions extends Component {
                 this.setState({ checkdata: 3 });
             }
             else if(distance<=0&&this.state.checkdata==6&&divid=='startTimeLeft'){
-                this.fetchQuestions(this.state.ExamId,this.state.examtime);
+                this.setTimer(timing+60000*exam_time,'timeLeft');
+                this.fetchQuestions(this.state.ExamId,this.state.examtime);                
             }
         }, 1000);
     }
@@ -422,20 +447,24 @@ class Questions extends Component {
         else if(this.state.checkdata == 6){
             let confirmation = {
                 success: 'neutral',
-                message: <div id="timeLeftDiv">
+                message: <div><div>Your test willautomatically start in</div><div id="timeLeftDiv">
                             Time Left: <div id="startTimeLeft"></div>
-                        </div>,
+                        </div></div>,
                 url: ""
             }
             return (
                 <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url} />
             );
-
-            // return(
-            //     <div id="timeLeftDiv">
-            //         Time Left: <span id="timeLeft"></span>
-            //     </div>
-            // );
+        }
+        else if(this.state.checkdata == 7){
+            let confirmation = {
+                success: 'neutral',
+                message: <div>You have already Submitted the Test</div>,
+                url: "/studentdashboard"
+            }
+            return (
+                <ConfirmationMessage success={confirmation.success} message={confirmation.message} url={confirmation.url} />
+            );
         }
         else if (this.state.checkdata == 404) {
             let confirmation = {

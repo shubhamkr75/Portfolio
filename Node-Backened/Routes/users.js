@@ -473,6 +473,22 @@ router.post('/saveResponse',(req,res)=>{
     // res.send("Exam Created successfully");
   })
     
+  router.post('/submitTest',(req,res)=>{ 
+    sql.connect(config, function (err) {
+      if (err) console.log(err);
+      const { examId,studentId } = req.body;
+      let request = new sql.Request();  
+      let query = "exec submitTest @examid='" + examId + "', @studentid='"+studentId+"';";  
+      console.log(query);
+      request.query(query, function (err, recordset) {
+        if (err) {
+            console.log(err);
+            req.send(err);
+        }
+      });
+    });  
+    res.send("Record Created");
+  })
 router.post('/loginUser',(req,res)=>{
 //users.push(req.body); 
   sql.connect(config, function (err) {
