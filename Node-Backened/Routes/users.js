@@ -8,7 +8,13 @@ import xlsxtojson from 'xlsx-to-json';
 import xlstojson from "xls-to-json";
 import path from 'path';
 import date from 'date-and-time';
-const router=express.Router();
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const crypto = require('crypto');
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
+const SENDGRID_API = process.env.SENDGRID_API;
+const EMAIL = process.env.EMAIL; 
 var config = {
   user: 'exambaba',
   password: 'nitmz123',
@@ -227,6 +233,7 @@ router.post('/createUser',(req,res)=>{
     request.query(query, function (err, recordset) {
       if (err) {
           console.log(err);
+          res.json("error")
           sql.close();
       }          
       //res.send(recordset.rowsAffected[0]);
@@ -520,6 +527,65 @@ router.post('/loginUser',(req,res)=>{
     });
   });  
   // res.send("Exam Created successfully");
+})
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'exambaba16@gmail.com',
+    pass: 'Exambaba#123'
+  }
+});
+router.post('/reset-password',(req,res)=>{
+  crypto.randomBytes(32,(err,buffer)=>{
+      if(err){
+          console.log(err)
+      }
+      const userEmail = req.body.userEmail;
+      console.log(userEmail)
+      const token = buffer.toString("hex")
+      console.log(token)
+      sql.connect(config,function (err) {
+      var queryString = "exec resetUser @emailId = '"+userEmail+"', @sentToken = '"+token+"';"
+      console.log(queryString)
+      let request = new sql.Request();
+      request.query(queryString, (err, recordset) =>{
+            if(err){
+              return res.status(422).json({error:"User dont exists with that email"})
+            }
+            else{
+              transporter.sendMail({
+                to:userEmail,
+                from:'"no-reply@exambaba.com" <foo@example.com>',
+                subject:"Password reset",
+                html:`
+                <p>You requested for password reset</p>
+                <h4>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h4>
+                `
+              }).catch(console.error)
+              res.send({result:recordset.recordset[0].Result})
+              console.log(recordset.recordset[0].Result)
+            }
+        })
+      })
+  })
+})
+router.post('/new-password',(req,res)=>{
+  //const userPassword = bcrypt.hashSync(req.body.userPassword, saltRounds);
+  //bcrypt.compareSync(myPlaintextPassword, hash);
+  const userPassword = req.body.userPassword;
+  const senttoken = req.body.token;
+  //console.log(userEmail)
+  sql.connect(config,function (err) {
+  var queryString = "exec newPassword @currentToken = '"+senttoken+"', @password = '"+userPassword+"';"
+  console.log(queryString)
+  let request = new sql.Request();
+  request.query(queryString, (err, recordset) =>{
+        if(err)
+          return res.status(422).json({error:"User dont exists with that email"})
+          console.log(recordset.recordset[0].Result)
+        res.json({message:"password update successful"})
+    })
+  })
 })
 
 router.delete('/:firstName',(req,res)=>{

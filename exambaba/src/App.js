@@ -7,8 +7,8 @@ import Registration from './Component/Resgistration';
 import Login from './Component/Login';
 import UseToken from './Component/UseToken';
 import Approval from './Component/Approval';
-import './Component/Popup.css'
-
+import dotenv from 'dotenv'
+import './Component/Popup.css';
 
 import TeacherDashboard from './Component/TeacherDashboard';
 import Profile from './Component/Profile';
@@ -18,8 +18,10 @@ import Header from './Component/Header';
 import StudentDashboard from './Component/StudentDashboard';
 import Footer from './Component/Footer';
 import LoadingAnimation from './Component/LoadingAnimation';
-import ForgotPassword from './Component/ForgotPassword';
+import Reset from './Component/Reset';
+import Newpassword from './Component/Newpassword';
 
+dotenv.config();
 // function setToken(userToken) {
 //   sessionStorage.setItem('token', JSON.stringify(userToken));
 // }
@@ -44,7 +46,10 @@ function App() {
             <Registration />
         </Route>
         <Route path="/ForgotPassword">
-            <ForgotPassword />
+            <Reset />
+        </Route>
+        <Route path="/reset/:token">
+            <Newpassword />
         </Route>
         <Login setToken={setToken} />
         </Switch></BrowserRouter>
