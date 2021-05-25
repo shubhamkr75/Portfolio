@@ -4,6 +4,7 @@ import './style.css';
 import PropTypes from 'prop-types';
 import Newpassword from './Newpassword'
 import ConfirmationMessage from './ConfirmationMessage';
+import examlogo from '../Assets/image/exam-center.webp';
 
 // import $ from 'jquery';
 // import Popper from 'popper.js';

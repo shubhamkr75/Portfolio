@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import {useParams} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import Registration from './Resgistration';
+import examlogo from '../Assets/image/exam-center.webp';
 import {
     BrowserRouter as Router,
     Link,
