@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Registration from './Resgistration';
 import Header from './Header';
 import Footer from './Footer';
-import examlogo from '../Assets/image/exam-center.webp';
+import examlogo from '../Assets/image/examination.png';
 import LoadingAnimation from './LoadingAnimation';
 // import $ from 'jquery';
 // import Popper from 'popper.js';

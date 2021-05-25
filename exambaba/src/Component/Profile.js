@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import App from '../App';
 import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
-import examlogo from '../Assets/image/exam-center.webp';
+import examlogo from '../Assets/image/examination.png';
 import Login from './Login';
 import Popup from './Popup';
  

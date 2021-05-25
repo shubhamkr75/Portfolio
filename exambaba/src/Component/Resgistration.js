@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import App from '../App';
 import LoadingAnimation from './LoadingAnimation';
-import examlogo from '../Assets/image/exam-center.webp';
+import examlogo from '../Assets/image/examination.png';
 import ConfirmationMessage from './ConfirmationMessage';
 
 class Registration extends Component {

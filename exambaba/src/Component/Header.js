@@ -9,11 +9,11 @@ studentHeader(){
     return(
         <>
             <li class="nav-item">
-                <a class="nav-link" href="/studentdashboard">Dashboard</a>
+                <a class="nav-link" href="/studentdashboard">Past Examination</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/Exams">Exams</a>
-            </li>
+            {/* <li class="nav-item">
+                <a class="nav-link" href="">Profile</a>
+            </li> */}
         </>
     );
 }
@@ -23,9 +23,9 @@ adminHeader(){
             <li class="nav-item">
                     <a class="nav-link" href="/examcreation">Exam Creation</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/teacherdashboard">Dashboard</a>
-            </li>                                
+            {/* <li class="nav-item"> */}
+                {/* <a class="nav-link" href="/teacherdashboard">Dashboard</a> */}
+            {/* </li>                                 */}
             <li class="nav-item">
                 <a class="nav-link" href="/Approval">Approvals</a>
             </li>
