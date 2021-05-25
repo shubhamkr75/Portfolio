@@ -161,6 +161,8 @@ body {
 }
 .main{
     padding-bottom:75px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .header-component .navbar{
     background: #B0BEC5;
@@ -186,7 +188,9 @@ body {
     height: 40px;
     margin-bottom: 30px;
 }
-
+.examHistorySection .col-md-4,.examHistorySection .col-lg-12,.examList-present .col-md-4,.examList-present .col-lg-12{
+    padding-right: 0;
+}
 .examlist-container .tabs{ 
     height: 40px;
     margin-bottom: 30px;
