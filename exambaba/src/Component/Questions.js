@@ -48,7 +48,17 @@ class Questions extends Component {
 
     async fetchQuestions(id, exam_time) {
         if (this.state.checkdata != 1) {     //if question is not rettrieved
-            await fetch(`https://node-new.herokuapp.com/users/questions/${id}`)
+            await fetch("https://node-new.herokuapp.com/users/questions",{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body:
+                    JSON.stringify({
+                        ExamId: id,
+                    })
+            })
                 .then((res) => res.json())
                 .then((data) => {
                     // setquestionList(data.Questions);
@@ -364,7 +374,8 @@ class Questions extends Component {
                 success: true,
                 message: <div className="message-info"><h3>Times Up. Your Response has been Submitted</h3>
                     <p class="lead"><strong>Your Total Score is </strong>
-                        <span id="result"> {this.state.marks}</span>/{this.state.questionList.length}</p></div>,
+                        {/* <span id="result"> {this.state.marks}</span>/{this.state.questionList.length} */}
+                        </p></div>,
                 url: "./studentdashboard"
             }
             return (

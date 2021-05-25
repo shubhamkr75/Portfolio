@@ -290,6 +290,9 @@ table #tbody-pdf td{
 .align-center{
     text-align: center;
 }
+.align-left{
+    text-align: left;
+}
 /* exam Creation */
 .examCreation{
     padding-bottom: 100px;

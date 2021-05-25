@@ -11,11 +11,14 @@ class FetchResponse extends Component{
             fetched:0,
             questionPointer:1,
         };
-        this.fetchResponse();
-        this.fetchQuestions(this.props.ExamId)
+        
+        
       }
 
-
+componentDidMount(){
+    this.fetchQuestions(this.props.ExamId)
+    this.fetchResponse();
+}
     async fetchResponse(){
         if(this.state.fetched==0){
             var res;
@@ -52,13 +55,27 @@ class FetchResponse extends Component{
     }
     async fetchQuestions(id){
         if(this.state.questionList.length==0){     //if question is not rettrieved
-            await fetch(`https://node-new.herokuapp.com/users/questions/${id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                // setquestionList(data.Questions);
-                // setCheckdata(true);
-                this.setState({questionList:data});                
-            });
+            await fetch("https://node-new.herokuapp.com/users/questions",{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json"
+                },
+                body:
+                    JSON.stringify({
+                        ExamId: id,
+                    })
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    // setquestionList(data.Questions);
+                    // setCheckdata(true);
+                    this.setState({questionList:data});
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.setState({ fetched: 404 });
+                });
         }
     }
     saveAsPdf(){
