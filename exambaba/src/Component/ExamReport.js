@@ -125,7 +125,7 @@ class ExamReport extends Component{
             </tbody></table>
             {/* </PDFExport> */}
             <div className="pdf-button">
-                <button align="center" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="savepdf">Save as PDF</button>
+                <button align="center" className="submit-button" type="button" onClick={()=>this.saveAsPdf()} value="Save As PDF" id="savepdf">Save as PDF</button>
             </div>
             </div>
         );

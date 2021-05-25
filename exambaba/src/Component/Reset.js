@@ -85,7 +85,7 @@ class Reset extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">                            
-                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
+                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src={examlogo} className="image" /> </div>
                         </div>
                     </div>
                     <div className="col-lg-6">
