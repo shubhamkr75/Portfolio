@@ -63,7 +63,7 @@ class ExamCreation extends React.Component {
   async createExam(event) {
     event.preventDefault();
     let examId = this.getRandomInt(99999);
-    let formData = new FormData();
+    var formData = new FormData();
     formData.append('examName', this.state.examName);
     formData.append('examTime', this.state.examTime);
     formData.append('examId', examId);
@@ -74,6 +74,17 @@ class ExamCreation extends React.Component {
     formData.append('file', this.uploadInput.files[0]);
     await axios.post("https://node-new.herokuapp.com/users/createExam", formData, {
     })
+    // fetch(`https://node-new.herokuapp.com/users/createExam`, {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json",
+    //     "accept": "application/json"
+    //   },
+    //   body:
+    //     JSON.stringify({
+    //       FormData: formData,
+    //     })
+    // })
       .then(response => {
         console.log(response);
         if (response.status !== 200) {
