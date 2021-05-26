@@ -254,8 +254,8 @@ class Questions extends Component {
         return res;
     }
     async createResponse() {
-        let recordCount = await this.fetchResponse();
-        if (recordCount == 0) {
+        // let recordCount = await this.fetchResponse();
+        if (true) {
             await fetch("https://node-new.herokuapp.com/users/createResponse", {
                 method: "POST",
                 headers: {
@@ -271,17 +271,26 @@ class Questions extends Component {
                         // examTime: this.state.examTime,
                         //'file': this.uploadInput.files[0]
                     })
-            }).then(response => {
-                console.log(response);
             })
-                .then(data => {
-                    console.log(data)
-                })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                               
+                if( (data.recordset[0] != undefined && data.recordset[0] != null) && data.recordset[0].submitted && data.recordset[0].submitted==1){
+                    this.setState({checkdata:7});
+                }
+                if ((data.recordset[0] != undefined && data.recordset[0] != null) && data.recordset[0].ResponseAnswer != null) {
+                    this.setState({ answerList: JSON.parse(data.recordset[0].ResponseAnswer) }); //fetching saved response  
+                    // this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
+                } else if (data.recordset[0] != undefined || data.recordset[0] != null) {
+                    // this.setTimer(Number(data.recordset[0].StartTime)+1 * this.state.examtime * 60 * 1000,'timeLeft');
+                } 
+            })
                 .catch(err => {
                     console.log(err);
 
                 });
-            this.fetchResponse();
+            // this.fetchResponse();
 
         }
     }
