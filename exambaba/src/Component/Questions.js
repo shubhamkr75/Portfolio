@@ -73,7 +73,7 @@ class Questions extends Component {
         }
     }
     displayQuestions() {
-        var element = document.querySelector("#root");
+        var element = document.documentElement;
         if (!element.fullscreenElement) {
             element.requestFullscreen()
                 .then(function () {

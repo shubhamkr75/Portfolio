@@ -101,7 +101,7 @@ class ExamReport extends Component{
 
                 {this.state.examReportList.map((list,index) => {
                 let prevMark=list.Correct_answer;
-                if(index>0) prevMark=list[index-1].Correct_answer;
+                if(index>0) prevMark=this.state.examReportList[index-1].Correct_answer;
                 return(
                         <tr id="tbody">
                         <td>                    
