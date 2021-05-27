@@ -22,15 +22,6 @@ import Reset from './Component/Reset';
 import Newpassword from './Component/Newpassword';
 
 dotenv.config();
-// function setToken(userToken) {
-//   sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
-// function getToken() {
-//   const tokenString = sessionStorage.getItem('token');
-//   const userToken = JSON.parse(tokenString);
-//   return userToken?.token
-// }
 
 function App() {
   // const token = getToken();

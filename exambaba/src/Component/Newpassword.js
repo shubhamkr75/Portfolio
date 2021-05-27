@@ -101,8 +101,8 @@ class Newpassword extends Component {
                 <div className="row d-flex">
                     <div className="col-lg-6">
                         <div className="card1 pb-5">
-                            <div className="row"> <img src={examlogo} className="logo" /> </div>
-                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="https://i.imgur.com/uNGdWHi.png" className="image" /> </div>
+                            <div className="row"> </div>
+                            <div className="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src={examlogo} className="image" /> </div>
                         </div>
                     </div>
                     <div className="col-lg-6">
@@ -112,7 +112,7 @@ class Newpassword extends Component {
                                     <h6 className="mb-0 text-sm">Password</h6>
                                 </label> <input type="password" name="userPassword" onChange={this.handleInputChange} placeholder="Enter your new password" /> 
                             </div>
-                            <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue submit-button text-center">Submit your new password</button> </div>
+                            <div className="row mb-3 px-3"> <button onClick={this.handleSubmit} type="submit" className="btn btn-blue submit-button text-center">Submit password</button> </div>
                         </div>
                     </div>
                 </div>

@@ -101,8 +101,8 @@ class Questions extends Component {
                         </tbody></table></div>
                 <div class="navigation-button">
                     <div class="navigate">
-                        <button type="button" class="float-left test-button" onClick={() => { this.state.questionPointer > 1 ? this.setState({ questionPointer: this.state.questionPointer - 1 }) : this.setState({ questionPointer: this.state.questionPointer }) }}>Previous</button>
-                        <button type="button" class="float-right test-button button-next" onClick={() => { this.state.questionPointer < this.state.questionList.length ? this.setState({ questionPointer: this.state.questionPointer + 1 }) : this.setState({ questionPointer: this.state.questionPointer }) }} >Next</button>
+                        <button type="button" className={ this.state.questionPointer > 1 ? "float-left test-button":"d-none"} onClick={() => { this.state.questionPointer > 1 ? this.setState({ questionPointer: this.state.questionPointer - 1 }) : this.setState({ questionPointer: this.state.questionPointer }) }}>Previous</button>
+                        <button type="button" className={this.state.questionPointer < this.state.questionList.length?"float-right test-button button-next":'d-none'} onClick={() => { this.state.questionPointer < this.state.questionList.length ? this.setState({ questionPointer: this.state.questionPointer + 1 }) : this.setState({ questionPointer: this.state.questionPointer }) }} >Next</button>
                     </div>
                 </div>
             </div>

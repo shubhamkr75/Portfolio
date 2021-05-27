@@ -84,6 +84,8 @@ componentDidMount(){
 
     displayQuestions(){    
         let qlist = this.state.questionList[this.state.questionPointer-1];
+        let chosen=this.state.answerList[qlist.id];
+        let correctAnswer=qlist.identity / 54 - qlist.id - qlist.QuestionDesc.length;
         return (
             <div class="questionList">
                         <div>
@@ -92,19 +94,20 @@ componentDidMount(){
                             <tbody><tr>                    
                                 <td  valign="top"><p>{qlist.QuestionDesc}</p></td>
                             </tr>
+                            
                                 <tr className="optionSection">
-                                    <td className="select-option" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 1} Name={qlist.id}  /></td>
-                                        <td class="optionDesc" width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 2} Name={qlist.id}  /></td>
-                                            <td class="optionDesc" width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 3} Name={qlist.id}  /></td>
-                                            <td class="optionDesc" width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={this.state.answerList[qlist.id] == 4} Name={qlist.id}  /></td>
-                                            <td class="optionDesc" width="99%" >{qlist.Option4}</td></tr></tbody></table>
+                                    <td className="select-option" valign="top"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={chosen == 1} Name={qlist.id}  /></td>
+                                        <td className={(correctAnswer==1&&chosen==1)?"correct-answer optionDesc":(correctAnswer!=1&&chosen==1)?"wrong-answer optionDesc":correctAnswer==1?"correct-answer optionDesc":"optionDesc"} width="99%" >{qlist.Option1}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={chosen == 2} Name={qlist.id}  /></td>
+                                            <td className={(correctAnswer==2&&chosen==2)?"correct-answer optionDesc":(correctAnswer!=2&&chosen==2)?"wrong-answer optionDesc":correctAnswer==2?"correct-answer optionDesc":"optionDesc"} width="99%" >{qlist.Option2}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={chosen == 3} Name={qlist.id}  /></td>
+                                            <td className={(correctAnswer==3&&chosen==3)?"correct-answer optionDesc":(correctAnswer!=3&&chosen==3)?"wrong-answer optionDesc":correctAnswer==3?"correct-answer optionDesc":"optionDesc"} width="99%" >{qlist.Option3}</td></tr><tr><td width="1%" id="tdOptionNo_A_274"><input type="radio" checked={chosen == 4} Name={qlist.id}  /></td>
+                                            <td className={(correctAnswer==4&&chosen==4)?"correct-answer optionDesc":(correctAnswer!=4&&chosen==4)?"wrong-answer optionDesc":correctAnswer==4?"correct-answer optionDesc":"optionDesc"} width="99%" >{qlist.Option4}</td></tr></tbody></table>
                                     </td>
                                 </tr>
                             </tbody></table></div>
                             <div class="navigation-button">
                         <div class="navigate">
-                            <button type="button" class="float-left test-button" onClick={()=>{this.state.questionPointer>1?this.setState({questionPointer:this.state.questionPointer-1}):this.setState({questionPointer:this.state.questionPointer})}}>Previous</button> 
-                            <button type="button" class="float-right test-button button-next" onClick={()=>{this.state.questionPointer<this.state.questionList.length?this.setState({questionPointer:this.state.questionPointer+1}):this.setState({questionPointer:this.state.questionPointer})}} >Next</button>
+                            <button type="button" class={this.state.questionPointer>1?"float-left test-button":"d-none"} onClick={()=>{this.state.questionPointer>1?this.setState({questionPointer:this.state.questionPointer-1}):this.setState({questionPointer:this.state.questionPointer})}}>Previous</button> 
+                            <button type="button" class={this.state.questionPointer<this.state.questionList.length?"float-right test-button button-next":"d-none"} onClick={()=>{this.state.questionPointer<this.state.questionList.length?this.setState({questionPointer:this.state.questionPointer+1}):this.setState({questionPointer:this.state.questionPointer})}} >Next</button>
                         </div>
                     </div>
             </div>
@@ -117,10 +120,10 @@ questionStatus(){
                 <div className="status-available">
                 <div class="col-xs-4 float-left">
                     <span class="answered states">0</span>
-                    <span class="marker"><span>Answered</span></span></div>
+                    <span class="marker"><span>Correct</span></span></div>
                 <div class="col-xs-4 ">
-                    <span class="not-answered states">0</span>
-                    <span class="marker"><span>Not Answered</span></span></div>
+                    <span class="not-visited states">0</span>
+                    <span class="marker"><span>Incorrect</span></span></div>
                 </div> 
             </div>
             <div className="numbering">
@@ -128,7 +131,9 @@ questionStatus(){
                 {(() => {
                     const list = [];
                     for (let i = 1; i <= this.state.questionList.length; i++) {
-                        list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]?"answered":"not-answered"} value={i}>{i}</li>);
+                        let qlist = this.state.questionList[i-1];
+                        let correctAnswer=qlist.identity / 54 - qlist.id - qlist.QuestionDesc.length;
+                        list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]==correctAnswer?"answered":"not-visited"} value={i}>{i}</li>);
                     }
                     return list;
                 })()}

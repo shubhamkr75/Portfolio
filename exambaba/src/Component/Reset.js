@@ -54,7 +54,7 @@ class Reset extends Component {
             alert('The entered email does not exist!')
             else
             alert('Try agin!')
-           this.setState({flag:1});             
+           //this.setState({flag:1});             
         }).catch(err => {
                 console.log(err);
                 //this.setState({credentialflag:1});
