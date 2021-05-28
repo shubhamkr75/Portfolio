@@ -70,7 +70,7 @@ componentDidMount(){
                 .then((data) => {
                     // setquestionList(data.Questions);
                     // setCheckdata(true);
-                    this.setState({questionList:data});
+                    this.setState({questionList:data,fetched:1});
                 })
                 .catch(err => {
                     console.log(err);
@@ -122,6 +122,9 @@ questionStatus(){
                     <span class="answered states">0</span>
                     <span class="marker"><span>Correct</span></span></div>
                 <div class="col-xs-4 ">
+                    <span class="not-answered states">0</span>
+                    <span class="marker"><span>Not Attempted</span></span></div>    
+                <div class="col-xs-4 ">
                     <span class="not-visited states">0</span>
                     <span class="marker"><span>Incorrect</span></span></div>
                 </div> 
@@ -133,7 +136,7 @@ questionStatus(){
                     for (let i = 1; i <= this.state.questionList.length; i++) {
                         let qlist = this.state.questionList[i-1];
                         let correctAnswer=qlist.identity / 54 - qlist.id - qlist.QuestionDesc.length;
-                        list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]==correctAnswer?"answered":"not-visited"} value={i}>{i}</li>);
+                        list.push(<li onClick={()=>this.setState({questionPointer:i})} id={'q'+i} class={this.state.answerList[i]==correctAnswer?"answered":this.state.answerList[i]==null?"not-answered":"not-visited"} value={i}>{i}</li>);
                     }
                     return list;
                 })()}

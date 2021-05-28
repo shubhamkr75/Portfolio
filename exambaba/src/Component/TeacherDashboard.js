@@ -5,6 +5,7 @@ import LogOut from './LogOut';
 import { PDFExport, savePDF } from '@progress/kendo-react-pdf';
 import LoadingAnimation from './LoadingAnimation';
 import ConfirmationMessage from './ConfirmationMessage';
+import FetchResponse from './FetchResponse';
 class TeacherDashboard extends Component{
     constructor(props) {
         super(props);
@@ -111,10 +112,18 @@ class TeacherDashboard extends Component{
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="start-button action-button">
+                                    <div className="start-button">
                                     {/* <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>   */}
-                                    <button className="submit-button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
-                                    <button className={list.active==0?'error-background submit-button':'success-background submit-button'} type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Deactive":"Active"} id="ResponseDetails">{list.active==0?"Deactive":"Active"}</button>
+                                    <div className="action-button">
+                                        <button className="submit-button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
+                                        <button className={list.active==0?'error-background submit-button':'success-background submit-button'} type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Deactive":"Active"} id="ResponseDetails">{list.active==0?"Deactive":"Active"}</button>
+                                    </div>     
+                                    <br/>                               
+                                    <div className="action-button">
+                                    <button className="submit-button" onClick={()=>this.setState({section:3,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Preview</button>
+                                    <button className="submit-button" value="Report" id="ResponseDetails">Delete</button>
+                                    
+                                    </div>
                                     </div>
                             </div>
                         );
@@ -130,6 +139,11 @@ class TeacherDashboard extends Component{
         else if(this.state.section==2){
             return(
                 <ExamReport selectedExam={this.state.selectedExam}/>
+            );
+        }
+        else if(this.state.section==3){
+            return(
+                <FetchResponse ExamId={this.state.selectedExam}/>
             );
         }
         else if(this.state.flag==404){
