@@ -93,7 +93,7 @@ class TeacherDashboard extends Component{
                                                     </div>
                                             </div>
                                             <div className="test-time">
-                                                <div className="exam-time">Exam Time</div>
+                                                <div className="exam-time">Total Time</div>
                                                 <div  className="time">
                                                     {(list.Exam_Time)} mins
                                                 </div>
@@ -134,7 +134,9 @@ class TeacherDashboard extends Component{
         );
         }
         else if(this.state.section==1&&this.state.examList.length==0){
+            return(
             <ConfirmationMessage success='neutral' message='No Examination To show' />
+            );
         }
         else if(this.state.section==2){
             return(

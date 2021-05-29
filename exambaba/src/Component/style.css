@@ -443,6 +443,9 @@ table #tbody-pdf td{
     color: #000!important;
     border-color: #ffcccb!important;
 }
+.navbar-light .navbar-nav .nav-link {
+    font-weight: bold;
+}
 .status-available{
     display: flex;
     justify-content: center;

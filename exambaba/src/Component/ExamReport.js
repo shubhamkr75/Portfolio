@@ -45,6 +45,7 @@ class ExamReport extends Component{
 
     pdfData(){
         if(this.state.examReportList.length!=0&&this.state.section==1){
+        let counter=1;
         return(
             <div className="examHistorySection pdf-section">
             <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4">
@@ -58,10 +59,12 @@ class ExamReport extends Component{
 						</tr>
         
                 {this.state.examReportList.map((list,index) => {
+                let prevMark=list.Correct_answer;
+                if(index>0) prevMark=this.state.examReportList[index-1].Correct_answer;
                 return(
                         <tr id="tbody-pdf">
                         <td>                    
-                            <span id="index">{index+1}</span>
+                            <span id="index">{prevMark==list.Correct_answer?counter:++counter}</span>
                         </td>
                         <td>
                             <span id="examName">{list.Student_Name}</span>
