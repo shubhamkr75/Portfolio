@@ -50,6 +50,8 @@ class ExamReport extends Component{
             <div className="examHistorySection pdf-section">
             <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4">
                 <h3 class="exam-dashboard-title align-center">Exam Report</h3>
+                <h3 class="float-left pl-2">{this.props.examName}</h3>
+                <h3 class="float-right pr-2">{moment(new Date(Number(this.props.examDate))).format('Do MMMM YYYY')} </h3>
                 <table id="examListTable" className="col-md-12" cellpadding="2" >
 						<tbody><tr id="thead">
 							<th id="Td1" class="user"> Rank</th>
@@ -93,6 +95,9 @@ class ExamReport extends Component{
                 {/* <PDFExport  ref={(ref) => { this.pdfExportComponent = ref; }}  paperSize="A4"> */}
                 {this.pdfData()}
                 <h3 class="exam-dashboard-title align-center">Exam Report</h3>
+                <h3 class="float-left">{this.props.examName}</h3>
+                <h3 class="float-right">{moment(new Date(Number(this.props.examDate))).format('Do MMMM YYYY')} </h3>
+                
                 <table id="examListTable" className="col-md-12" cellpadding="2" >
 						<tbody><tr id="thead">
 							<th id="Td1" class="user"> Rank</th>

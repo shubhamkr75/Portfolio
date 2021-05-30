@@ -14,6 +14,8 @@ class TeacherDashboard extends Component{
             examList:[],
             selectedExam:null,
             section:0,
+            examName:null,
+            examDate:null,
         };
       }
       async fetchExams(){    //if exam is not rettrieved
@@ -115,7 +117,7 @@ class TeacherDashboard extends Component{
                                     <div className="start-button">
                                     {/* <input align="center" type="button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails"/>   */}
                                     <div className="action-button">
-                                        <button className="submit-button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId})} value="Report" id="ResponseDetails">Report</button>
+                                        <button className="submit-button" onClick={()=>this.setState({section:2,selectedExam:list.ExamId,examName:list.ExamName,examDate:list.ExamDate})} value="Report" id="ResponseDetails">Report</button>
                                         <button className={list.active==0?'error-background submit-button':'success-background submit-button'} type="button" onClick={()=>{list.active==0?this.activateExam(list.ExamId,"activate"):this.activateExam(list.ExamId,"deactivate")}} value={list.active==0?"Deactive":"Active"} id="ResponseDetails">{list.active==0?"Deactive":"Active"}</button>
                                     </div>     
                                     <br/>                               
@@ -140,7 +142,7 @@ class TeacherDashboard extends Component{
         }
         else if(this.state.section==2){
             return(
-                <ExamReport selectedExam={this.state.selectedExam}/>
+                <ExamReport selectedExam={this.state.selectedExam} examName={this.state.examName} examDate={this.state.examDate}/>
             );
         }
         else if(this.state.section==3){

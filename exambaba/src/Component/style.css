@@ -273,22 +273,26 @@ table #thead{
 }
 table #thead th{
     border: none;
-    padding: 20px 30px;
+    padding: 20px 10px;
     font-size: 14px;
     color: #fff;
 }
 table #tbody{
     margin-bottom: 10px;
 }
+table #tbody-pdf td{
+    padding-left: 10px;
+    padding-right: 10px;
+}
 table #tbody td{
     border: none;
-    padding: 20px 30px;
+    padding: 20px 10px;
     border-bottom: 3px solid #f8f9fd;
     font-size: 14px;
 }
 table #tbody-pdf td{
     border: none;
-    padding: 5px 30px;
+    padding: 5px 10px;
     border-bottom: 3px solid #f8f9fd;
     font-size: 14px;
 }
