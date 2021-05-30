@@ -64,7 +64,7 @@ class ExamReport extends Component{
                 let prevMark=list.Correct_answer;
                 if(index>0) prevMark=this.state.examReportList[index-1].Correct_answer;
                 return(
-                        <tr id="tbody-pdf">
+                        <tr id="tbody-pdf ">
                         <td>                    
                             <span id="index">{prevMark==list.Correct_answer?counter:++counter}</span>
                         </td>
