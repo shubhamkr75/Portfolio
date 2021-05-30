@@ -83,15 +83,19 @@ function App() {
           <Route path="/FetchAdmins">
               {token.Login_Type==2 && <FetchAdmins  schoolId={token.School_id}/>}
           </Route>   
+          <Route path="/profile">
+              <Profile  studentId={token.Student_id}/>
+          </Route> 
           <Route path="/">
           {/* <FetchAllUsers  schoolId={token.School_id}/> */}
           {/* <FetchAdmins  schoolId={token.School_id}/> */}
           {/* <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
           {/* <Approval schoolId={token.School_id}/> */}
           {/* <ForgotPassword schoolId={token.School_id}/> */}
-          {/* <Profile  studentId={token.Student_id}/> */}
-          {token.Login_Type==2 && <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>}
+          {token.Login_Type==2 && <Profile  studentId={token.Student_id}/>}
           {token.Login_Type==1 && <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>}
+          {/* {token.Login_Type==2 && <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>} */}
+          {/* {token.Login_Type==1 && <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>} */}
           {/* <LoadingAnimation  studentId={token.Student_id}/> */}
           {/* <Questions schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/> */}
           </Route>

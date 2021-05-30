@@ -62,7 +62,7 @@ class ExamCreation extends React.Component {
   }
   async createExam(event) {
     event.preventDefault();
-    let examId = this.getRandomInt(99999);
+    let examId = this.getRandomInt(100000000,1000000000);
     var formData = new FormData();
     formData.append('examName', this.state.examName);
     formData.append('examTime', this.state.examTime);

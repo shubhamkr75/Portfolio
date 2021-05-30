@@ -7,13 +7,13 @@ class Header extends Component{
       }
 studentHeader(){
     return(
-        <>
+        <>            
             <li class="nav-item">
                 <a class="nav-link" href="/studentdashboard">Past Examination</a>
             </li>
-            {/* <li class="nav-item">
-                <a class="nav-link" href="">Profile</a>
-            </li> */}
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Profile</a>
+            </li>
         </>
     );
 }
@@ -23,9 +23,9 @@ adminHeader(){
             <li class="nav-item">
                     <a class="nav-link" href="/examcreation">Exam Creation</a>
             </li>
-            {/* <li class="nav-item"> */}
-                {/* <a class="nav-link" href="/teacherdashboard">Dashboard</a> */}
-            {/* </li>                                 */}
+            <li class="nav-item">
+                <a class="nav-link" href="/teacherdashboard">Admin Exams</a>
+            </li>                                
             <li class="nav-item">
                 <a class="nav-link" href="/Approval">Approvals</a>
             </li>

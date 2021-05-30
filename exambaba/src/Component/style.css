@@ -1,9 +1,10 @@
 body {
-    color: #000;
+    color: rgba(0,0,0,.7);
     overflow-x: hidden;
     height: 100%;
     background-color: #f6f8f9;
-    background-repeat: no-repeat
+    background-repeat: no-repeat;
+    font-family: 'Open Sans', sans-serif;
 }
  
 .card0 {
@@ -146,9 +147,9 @@ body {
     background-color: #1A237E
 }
  
-.login-component{
+/* .login-component{
     color: #fff;
-}
+} */
 .footer-component{
     width: 100%;
     bottom: 0px;
@@ -156,9 +157,9 @@ body {
     color: #fff;
     background: #1fbae8;
 }
-.login-component{
+/* .login-component{
     color: #000;
-}
+} */
 .main{
     padding-bottom:75px;
     padding-left: 10px;
@@ -546,6 +547,27 @@ table #tbody-pdf td{
     font-weight: 500;
     line-height: inherit;
     transition: 0.3s ease;
+}
+.profile-image{
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+.profile-image-section{
+    background: #b8f3fc;
+}
+.profile-image-section h3{
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+.profile-image-section p{
+    font-size: 12px;
+}
+.profile-fields{
+    width: 100px;
+    display: inline-block;
 }
 /* animation css */
 .animation-loader {
