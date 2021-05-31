@@ -199,6 +199,13 @@ class Questions extends Component {
             }
         }
         let responseAnswer = JSON.stringify(this.state.answerList);
+        let qDesc=[];
+        let qIdentity=[];
+        let questions=this.state.questionList;
+        for(let i=0;i<questions.length;i++){
+            qDesc[i]=questions[i].QuestionDesc.length;
+            qIdentity[i]=questions[i].identity;
+        }
         fetch(`https://node-new.herokuapp.com/users/saveResponse`, {
             method: "POST",
             headers: {
@@ -209,10 +216,9 @@ class Questions extends Component {
                 JSON.stringify({
                     examId: this.state.ExamId,
                     responseList: responseAnswer,
-                    totalMarks: this.totalMarksCalculate(),
                     studentId: this.props.studentId,
-                    // examTime: this.state.examTime,
-                    //'file': this.uploadInput.files[0]
+                    qLength: qDesc,
+                    qIdentity: qIdentity,
                 })
         })
             .then((res) => res.json())
@@ -268,8 +274,6 @@ class Questions extends Component {
                         totalQuestions: this.state.questionList.length,
                         startTime: Date.now(),
                         studentId: this.props.studentId,
-                        // examTime: this.state.examTime,
-                        //'file': this.uploadInput.files[0]
                     })
             })
             .then((res) => res.json())
@@ -295,7 +299,6 @@ class Questions extends Component {
         }
     }
     calculateMarks() {
-        let marksCalculated = this.totalMarksCalculate();
         fetch("https://node-new.herokuapp.com/users/submitTest", {
                 method: "POST",
                 headers: {
@@ -317,16 +320,7 @@ class Questions extends Component {
                     console.log(err);
 
                 });
-        this.setState({ checkdata: 2, marks: marksCalculated });
-    }
-    totalMarksCalculate() {
-        let marksCalculated = 0;
-        for (let i = 0; i < this.state.questionList.length; i++) {
-            if ((this.state.questionList[i].identity / 54 - i - 1 - this.state.questionList[i].QuestionDesc.length) == this.state.answerList[this.state.questionList[i].id]) {
-                marksCalculated++;
-            }
-        }
-        return marksCalculated;
+        this.setState({ checkdata: 2});
     }
     setTimer = (timing,divid,exam_time) => {
         let startTime = timing;
