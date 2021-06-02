@@ -71,7 +71,7 @@ class Login extends Component {
         e.preventDefault();
         // const token = await this.loginUser();
         await this.loginUser();
-        const tokenString = localStorage.getItem('user');
+        const tokenString = sessionStorage.getItem('user');
         const token = JSON.parse(tokenString);
         if(token && token.approved!=1){
             document.getElementById("passwordError").innerHTML="User Not Approved";
