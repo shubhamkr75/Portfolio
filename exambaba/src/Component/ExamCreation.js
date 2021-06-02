@@ -68,11 +68,13 @@ class ExamCreation extends React.Component {
     formData.append('examTime', this.state.examTime);
     formData.append('examId', examId);
     formData.append('classSelected', this.state.class);
-    formData.append('schoolId', this.props.schoolId);
-    formData.append('studentId', this.props.studentId);
     formData.append('examDate', Date.parse(this.state.examDate));
     formData.append('file', this.uploadInput.files[0]);
+    const token = sessionStorage.getItem('jwt');
     await axios.post("https://node-new.herokuapp.com/users/createExam", formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
     // fetch(`https://node-new.herokuapp.com/users/createExam`, {
     //   method: "POST",

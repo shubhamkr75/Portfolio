@@ -48,11 +48,13 @@ class Questions extends Component {
 
     async fetchQuestions(id, exam_time) {
         if (this.state.checkdata != 1) {     //if question is not rettrieved
+            const token = sessionStorage.getItem('jwt');
             await fetch("https://node-new.herokuapp.com/users/questions",{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "accept": "application/json"
+                    "accept": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body:
                     JSON.stringify({
@@ -147,16 +149,16 @@ class Questions extends Component {
     async fetchExams() {    //if exam is not rettrieved
         this.setState({ examdata: true })
         if (!this.state.examdata) {
+            const token = sessionStorage.getItem('jwt');
             await fetch(`https://node-new.herokuapp.com/users/exams`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "accept": "application/json"
+                    "accept": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body:
                     JSON.stringify({
-                        schoolId: this.props.schoolId,
-                        userClass: this.props.userClass,
                     })
             })
                 .then((res) => res.json())

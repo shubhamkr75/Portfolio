@@ -55,11 +55,13 @@ componentDidMount(){
     }
     async fetchQuestions(id){
         if(this.state.questionList.length==0){     //if question is not rettrieved
+            const token = sessionStorage.getItem('jwt');
             await fetch("https://node-new.herokuapp.com/users/questions",{
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "accept": "application/json"
+                    "accept": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body:
                     JSON.stringify({

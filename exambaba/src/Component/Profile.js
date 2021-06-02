@@ -18,16 +18,18 @@ class Profile extends Component {
 
     // user registration
     fetchUserProfile() {
+        const token = sessionStorage.getItem('jwt');
         this.setState({ fetchedProfile: true });
         fetch(`https://node-new.herokuapp.com/users/fetchUserProfile`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                "accept": "application/json"
+                "accept": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body:
                 JSON.stringify({
-                    studentId: this.props.studentId,
+                    // studentId: this.props.studentId,
                 })
         })
             .then((res) => res.json())

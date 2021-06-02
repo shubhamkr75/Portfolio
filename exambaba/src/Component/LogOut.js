@@ -8,7 +8,8 @@ class LogOut extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);        
     }
     handleSubmit(){
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('jwt');
         window.location.reload();
     }
     render(){

@@ -7,6 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import examlogo from '../Assets/image/examination.png';
 import LoadingAnimation from './LoadingAnimation';
+import M from 'materialize-css'
 // import $ from 'jquery';
 // import Popper from 'popper.js';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -50,6 +51,16 @@ class Login extends Component {
                 })
         })
             .then((res) => res.json())
+            .then(data=>{
+                console.log(data)
+               if(data.error){
+                  M.toast({html: data.error,classes:"#c62828 red darken-3"})
+               }
+               else{
+                    sessionStorage.setItem("jwt",data.token)
+                    sessionStorage.setItem("user",JSON.stringify(data.user))
+               }
+            })
             .catch(err => {
                 console.log(err);
                 document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
@@ -58,8 +69,11 @@ class Login extends Component {
  
     async handleSubmit(e){
         e.preventDefault();
-        const token = await this.loginUser();
-        if(token && token.token.approved!=1){
+        // const token = await this.loginUser();
+        await this.loginUser();
+        const tokenString = localStorage.getItem('user');
+        const token = JSON.parse(tokenString);
+        if(token && token.approved!=1){
             document.getElementById("passwordError").innerHTML="User Not Approved";
         }
         else if(token){
