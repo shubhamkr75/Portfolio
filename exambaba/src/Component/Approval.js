@@ -40,11 +40,13 @@ class Approval extends Component{
     async approveUser(userId,approvalType){
         var res;
         this.setState({fetchedHistory:true});
+        const token = sessionStorage.getItem('jwt')
         await fetch(`https://node-new.herokuapp.com/users/approveUser`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
-              "accept": "application/json"
+              "accept": "application/json",
+              'Authorization': `Bearer ${token}`
             },
             body: 
              JSON.stringify({

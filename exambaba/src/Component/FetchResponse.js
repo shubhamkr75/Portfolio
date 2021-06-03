@@ -22,11 +22,13 @@ componentDidMount(){
     async fetchResponse(){
         if(this.state.fetched==0){
             var res;
+            const token = sessionStorage.getItem('jwt');
             await fetch(`https://node-new.herokuapp.com/users/fetchResponse`, {
                 method: "POST",
                 headers: {
                 "content-type": "application/json",
-                "accept": "application/json"
+                "accept": "application/json",
+                'Authorization': `Bearer ${token}`
                 },
                 body: 
                 JSON.stringify({

@@ -18,15 +18,16 @@ class StudentDashboard extends Component {
     async fetchExamHistory() {
         var res;
         this.setState({ fetchedHistory: true });
+        const token = sessionStorage.getItem('jwt');
         await fetch(`https://node-new.herokuapp.com/users/fetchExamHistory`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                "accept": "application/json"
+                "accept": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body:
                 JSON.stringify({
-                    studentId: this.props.studentId,
                 })
         })
             .then((res) => res.json())

@@ -56,6 +56,9 @@ class Login extends Component {
                if(data.error){
                   M.toast({html: data.error,classes:"#c62828 red darken-3"})
                }
+               else if(data.user.approved!=1){
+                document.getElementById("passwordError").innerHTML="User Not Approved";
+               }
                else{
                     sessionStorage.setItem("jwt",data.token)
                     sessionStorage.setItem("user",JSON.stringify(data.user))

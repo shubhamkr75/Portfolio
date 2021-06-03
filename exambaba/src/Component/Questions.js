@@ -208,17 +208,18 @@ class Questions extends Component {
             qDesc[i]=questions[i].QuestionDesc.length;
             qIdentity[i]=questions[i].identity;
         }
+        const token = sessionStorage.getItem('jwt');
         fetch(`https://node-new.herokuapp.com/users/saveResponse`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                "accept": "application/json"
+                "accept": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body:
                 JSON.stringify({
                     examId: this.state.ExamId,
                     responseList: responseAnswer,
-                    studentId: this.props.studentId,
                     qLength: qDesc,
                     qIdentity: qIdentity,
                 })
@@ -231,11 +232,13 @@ class Questions extends Component {
     }
     async fetchResponse() {
         var res;
+        const token = sessionStorage.getItem('jwt');
         await fetch(`https://node-new.herokuapp.com/users/fetchResponse`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                "accept": "application/json"
+                "accept": "application/json",
+                'Authorization': `Bearer ${token}`
             },
             body:
                 JSON.stringify({
@@ -264,18 +267,19 @@ class Questions extends Component {
     async createResponse() {
         // let recordCount = await this.fetchResponse();
         if (true) {
+            const token = sessionStorage.getItem('jwt');
             await fetch("https://node-new.herokuapp.com/users/createResponse", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
-                    "accept": "application/json"
+                    "accept": "application/json",
+                    'Authorization': `Bearer ${token}`
                 },
                 body:
                     JSON.stringify({
                         examId: this.state.ExamId,
                         totalQuestions: this.state.questionList.length,
                         startTime: Date.now(),
-                        studentId: this.props.studentId,
                     })
             })
             .then((res) => res.json())
