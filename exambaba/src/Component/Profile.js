@@ -3,6 +3,8 @@ import App from '../App';
 import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
 import examlogo from '../Assets/image/examination.png';
+import Container from 'react-bootstrap/Container';
+import {Prompt} from 'react-router-dom'
 import Login from './Login';
 import Popup from './Popup';
 
@@ -15,6 +17,7 @@ class Profile extends Component {
             fetchedProfile: false,
         };
     }
+    
 
     // user registration
     fetchUserProfile() {

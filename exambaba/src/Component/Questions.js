@@ -27,6 +27,17 @@ class Questions extends Component {
         this.displayQuestions = this.displayQuestions.bind(this);
         this.questionStatus = this.questionStatus.bind(this);
     }
+    
+    alertUser(e){
+        e.preventDefault()
+        e.returnValue = 'It might effect your Result';
+    }
+    useEffect() {
+        window.addEventListener('beforeunload', this.alertUser)
+        return () => {
+          window.removeEventListener('beforeunload', this.alertUser)
+        }
+    }
 
     componentDidMount() {
         document.addEventListener("contextmenu", (event) => {
@@ -47,6 +58,7 @@ class Questions extends Component {
     }
 
     async fetchQuestions(id, exam_time) {
+        this.useEffect();
         if (this.state.checkdata != 1) {     //if question is not rettrieved
             const token = sessionStorage.getItem('jwt');
             await fetch("https://node-new.herokuapp.com/users/questions",{
