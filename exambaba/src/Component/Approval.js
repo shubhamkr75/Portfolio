@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
+import Popup from './Popup';
 class Approval extends Component{
     constructor(props) {
         super(props);
@@ -9,12 +10,17 @@ class Approval extends Component{
             section:0,
             selectedExam:null,
             fetchedHistory:false,
+            selectedUser:null,
+            userName:null
         };
+      }
+
+      componentDidMount(){
+        this.fetchApprovals();
       }
 
       async fetchApprovals(){
         var res;
-        this.setState({fetchedHistory:true});
         await fetch(`https://node-new.herokuapp.com/users/fetchApprovals`, {
             method: "POST",
             headers: {
@@ -39,7 +45,6 @@ class Approval extends Component{
     }
     async approveUser(userId,approvalType){
         var res;
-        this.setState({fetchedHistory:true});
         const token = sessionStorage.getItem('jwt')
         await fetch(`https://node-new.herokuapp.com/users/approveUser`, {
             method: "POST",
@@ -57,14 +62,21 @@ class Approval extends Component{
         .then((res) => res.json())
         .then((data) => {           
            console.log(data); 
-           this.setState({section:1});
            window.location.reload();
         });
         return res;
     }
-      
+    message(){
+        return(
+            <p>Are you sure you want to <strong>delete</strong> the approval request from the user <strong> {this.state.userName} </strong>?</p>
+        );
+    }
+    displayPopup(){
+        if(document.getElementById("details-modal"))
+        document.getElementById("details-modal").style.display="flex";
+    }  
+
     render(){
-        {!this.state.fetchedHistory && this.fetchApprovals()} 
         if(this.state.approvalList.length!=0&&this.state.section==1){
         return(
             <div className="examHistorySection">
@@ -96,7 +108,7 @@ class Approval extends Component{
                         <input align="center" type="button" onClick={()=>this.approveUser(list.Student_id,"approve")} value="Approve" id="ResponseDetails"/>    
                         </td>
                         <td>
-                        <input align="center" type="button" onClick={()=>this.approveUser(list.Student_id,"delete")} value="Delete" id="ResponseDetails"/>    
+                        <input align="center" type="button" onClick={()=>{this.setState({selectedUser:list.Student_id,userName:list.Student_Name}); this.displayPopup()}} value="Delete" id="ResponseDetails"/>    
                         </td>
                         <td>
                         <input align="center" type="button" onClick={()=>this.approveUser(list.Student_id,"makeadmin")} value="Make Admin" id="ResponseDetails"/>    
@@ -105,6 +117,7 @@ class Approval extends Component{
                 );
             })}
             </tbody></table>
+            <Popup function={this.approveUser} parameter={this.state.selectedUser} message={this.message()} title="Delete"/>
             </div>
         );
         }

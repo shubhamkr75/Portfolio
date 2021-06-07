@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ConfirmationMessage from './ConfirmationMessage';
 import LoadingAnimation from './LoadingAnimation';
+import Popup from './Popup';
 class FetchAllUsers extends Component{
     constructor(props) {
         super(props);
@@ -9,9 +10,13 @@ class FetchAllUsers extends Component{
             section:0,
             selectedExam:null,
             fetchedHistory:false,
+            selectedUser:null,
+            userName:null
         };
       }
-
+      componentDidMount(){
+        this.fetchAllUsers();
+      }
       async fetchAllUsers(){
         var res;
         this.setState({fetchedHistory:true});
@@ -39,7 +44,7 @@ class FetchAllUsers extends Component{
     }
     async approveUser(userId,approvalType){
         var res;
-        this.setState({fetchedHistory:true});
+        
         const token = sessionStorage.getItem('jwt')
         await fetch(`https://node-new.herokuapp.com/users/approveUser`, {
             method: "POST",
@@ -57,14 +62,22 @@ class FetchAllUsers extends Component{
         .then((res) => res.json())
         .then((data) => {           
            console.log(data); 
-           this.setState({section:1});
            window.location.reload();
         });
         return res;
     }
-      
+    
+    message(){
+        return(
+            <p>Are you sure you want to <strong>delete</strong> the user <strong> {this.state.userName} </strong>? Once deleted all the related records with <strong> {this.state.userName} </strong> will be deleted and the changes will not be reverted.</p>
+        );
+    }
+    displayPopup(){
+        if(document.getElementById("details-modal"))
+        document.getElementById("details-modal").style.display="flex";
+    }
+
     render(){
-        {!this.state.fetchedHistory && this.fetchAllUsers()} 
         if(this.state.approvalList.length!=0&&this.state.section==1){
         return(
             <div className="examHistorySection">
@@ -96,7 +109,7 @@ class FetchAllUsers extends Component{
                         <input align="center" type="button" onClick={()=>{if(list.approved==0){this.approveUser(list.Student_id,"approve")}}} value={list.approved==0?"Approve":"Approved"} id="ResponseDetails"/>    
                         </td>
                         <td>
-                        <input align="center" type="button" onClick={()=>this.approveUser(list.Student_id,"delete")} value="Delete" id="ResponseDetails"/>    
+                        <input align="center" type="button" onClick={()=>{this.setState({selectedUser:list.Student_id,userName:list.Student_Name}); this.displayPopup()}} value="Delete" id="ResponseDetails"/>    
                         </td>
                         <td>
                         <input align="center" type="button" onClick={()=>this.approveUser(list.Student_id,"makeadmin")} value="Make Admin" id="ResponseDetails"/>    
@@ -105,6 +118,7 @@ class FetchAllUsers extends Component{
                 );
             })}
             </tbody></table>
+            <Popup function={this.approveUser} parameter={this.state.selectedUser} message={this.message()} title="Delete"/>
             </div>
         );
         }
