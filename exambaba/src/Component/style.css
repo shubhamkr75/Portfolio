@@ -164,6 +164,7 @@ body {
     padding-bottom:75px;
     padding-left: 10px;
     padding-right: 10px;
+    min-height: 75vh;
 }
 .header-component .navbar{
     background: #B0BEC5;
