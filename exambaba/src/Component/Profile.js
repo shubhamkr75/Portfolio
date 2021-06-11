@@ -62,7 +62,7 @@ class Profile extends Component {
                             </div>
                             <div className="col-lg-9 card ">
                                 <div className=" card border-0 px-4 py-5">
-                                    <div className='school-section col-12 profile-image-section  align-center'>
+                                    <div className='school-section col-12  align-center'>
                                         <h2 className='mb-0 school-heading'>Welcome to {this.state.profileData.School_Name}</h2>
                                     </div>
                                     <h3>Profile</h3>
