@@ -30,10 +30,10 @@ adminHeader(){
                 <a class="nav-link" href="/Approval">Approvals</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/FetchAllUsers">Users</a>
+                <a class="nav-link" href="/FetchAllUsers">Students</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/FetchAdmins">Admins</a>
+                <a class="nav-link" href="/FetchAdmins">Faculty</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/studentdashboard">Dashboard</a>
@@ -69,7 +69,7 @@ toggleNavbar(){
         let logintype=this.props.loginType;
         return(
             <div className="header-component">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light">
                     <div className="row" > <a class="nav-link" href="Login.js"><img src="https://nncti.in/images/nncti.png" className="logo" /></a>  </div>
                         <button class="navbar-toggler" onClick={this.toggleNavbar} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>

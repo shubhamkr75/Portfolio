@@ -360,7 +360,8 @@ class Questions extends Component {
             }
             else if(distance<=0&&this.state.checkdata==6&&divid=='startTimeLeft'){
                 this.setTimer(timing+60000*exam_time,'timeLeft');
-                this.fetchQuestions(this.state.ExamId,this.state.examtime);                
+                this.fetchQuestions(this.state.ExamId,this.state.examtime); 
+                return;               
             }
         }, 1000);
     }
@@ -412,7 +413,7 @@ class Questions extends Component {
                         <div className="tabs">
                             <div className="live-tab">
                                 <div className="tab">
-                                    <a href='/exams' className="dark">LIVE/UPCOMING</a>
+                                    <a href='/exams' className="dark submit-button">LIVE/UPCOMING</a>
                                 </div>
                             </div>
                             <div className="previous-tab" >
@@ -479,7 +480,7 @@ class Questions extends Component {
         else if(this.state.checkdata == 6){
             let confirmation = {
                 success: 'neutral',
-                message: <div><div>Your test willautomatically start in</div><div id="timeLeftDiv">
+                message: <div><div>Your test will automatically start in</div><div id="timeLeftDiv">
                             Time Left: <div id="startTimeLeft"></div>
                         </div></div>,
                 url: ""
