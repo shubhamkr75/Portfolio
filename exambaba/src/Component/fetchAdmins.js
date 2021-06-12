@@ -71,7 +71,7 @@ class FetchAdmins extends Component{
                 <h3 className="exam-dashboard-title">Admins</h3>
                 <table id="examListTable" className="js-sort-table js-sort-asc col-md-12" cellpadding="2" >
 						<tbody><tr id="thead">
-							<th id="Td1" class="user js-sort-active"> S.No</th>
+							<th id="Td1" class="user js-sort-active js-sort-number"> S.No</th>
 							<th id="Td2" class="js-sort-active"> Admin Name</th>
 							<th id="Td3" class="js-sort-active"> Class</th>
 							<th id="Td4" class="js-sort-active"> Email</th>							

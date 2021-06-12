@@ -84,7 +84,7 @@ class FetchAllUsers extends Component{
                 <h3 className="exam-dashboard-title">Users</h3>
                 <table id="examListTable" className="js-sort-table js-sort-asc col-md-12" cellpadding="2" >
 						<tbody><tr id="thead">
-							<th id="Td1" className="user js-sort-active"> S.No</th>
+							<th id="Td1" className="user js-sort-active js-sort-number"> S.No</th>
 							<th id="Td2" className="js-sort-active"> Student Name</th>
 							<th id="Td3" className="js-sort-active"> Class</th>
 							<th id="Td4" className="js-sort-active"> Email</th>							
