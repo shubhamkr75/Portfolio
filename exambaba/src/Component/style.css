@@ -153,7 +153,7 @@ body {
 .footer-component{
     width: 100%;
     bottom: 0px;
-    position: fixed;
+    /* position: fixed; */
     color: #fff;
     background: #1fbae8;
 }
