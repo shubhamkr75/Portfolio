@@ -6,7 +6,7 @@ class FetchAdmins extends Component{
         super(props);
         this.state = {
             approvalList: [],
-            section:0,
+            section:1,
             selectedExam:null,
             fetchedHistory:false,
         };
@@ -65,16 +65,16 @@ class FetchAdmins extends Component{
       
     render(){
         {!this.state.fetchedHistory && this.fetchAdmins()} 
-        if(this.state.approvalList.length!=0&&this.state.section==1){
+        if(this.state.section==1){
         return(
             <div className="examHistorySection">
                 <h3 className="exam-dashboard-title">Admins</h3>
-                <table id="examListTable" className="col-md-12" cellpadding="2" >
+                <table id="examListTable" className="js-sort-table js-sort-asc col-md-12" cellpadding="2" >
 						<tbody><tr id="thead">
-							<th id="Td1" class="user"> S.No</th>
-							<th id="Td2"> Admin Name</th>
-							<th id="Td3"> Class</th>
-							<th id="Td4"> Email</th>							
+							<th id="Td1" class="user js-sort-active"> S.No</th>
+							<th id="Td2" class="js-sort-active"> Admin Name</th>
+							<th id="Td3" class="js-sort-active"> Class</th>
+							<th id="Td4" class="js-sort-active"> Email</th>							
 						</tr>
         
                 {this.state.approvalList.map((list,index) => {
