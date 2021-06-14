@@ -355,7 +355,7 @@ class Questions extends Component {
             // If the count down is over, write some text 
             if (distance < 0&&this.state.checkdata==1&&divid=='timeLeft') {
                 clearInterval(x);
-                this.calculateMarks();
+                // this.calculateMarks();
                 this.setState({ checkdata: 3 });
             }
             else if(distance<=0&&this.state.checkdata==6&&divid=='startTimeLeft'){
@@ -372,7 +372,8 @@ class Questions extends Component {
         if (this.state.checkdata == 1) {       //if question is fetched     
             //this.setTimer();         
             return (
-                <div class="exam-page">{this.displayQuestions()}
+                <div class="exam-page">
+                    {this.displayQuestions()}
                     {this.questionStatus()}
                 </div>
             );
@@ -395,7 +396,7 @@ class Questions extends Component {
             let confirmation = {
                 success: true,
                 message: <div className="message-info"><h3>Times Up. Your Response has been Submitted</h3>
-                    <p class="lead"><strong>Your Total Score is </strong>
+                    <p class="lead"><strong></strong>
                         {/* <span id="result"> {this.state.marks}</span>/{this.state.questionList.length} */}
                         </p></div>,
                 url: "./studentdashboard"
