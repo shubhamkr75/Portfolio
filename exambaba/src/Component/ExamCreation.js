@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import ConfirmationMessage from "./ConfirmationMessage";
 import excelLogo from '../Assets/image/ExcelLogo.png';
 import { CSVLink } from 'react-csv';
-const csvData = [
-  ['Sr', 'QuestionDesc', 'Option1', 'Option2', 'Option3', 'Option4', 'answer']
-];
+import { ExportCSV } from "./ExportExcel";
+const csvData =
+[{Sr: ``, QuestionDesc: ``,
+Option1: ``, Option2: ``, Option3: ``, Option4: ``, answer: ``}]
 
 class ExamCreation extends React.Component {
   constructor(props) {
@@ -157,8 +158,9 @@ class ExamCreation extends React.Component {
                   <label>
                     Excel Template:
                     <div className="left-align">
-                      <CSVLink data={csvData} ><img width='50px' src={excelLogo}/></CSVLink>
-                      </div>
+                      {/* <CSVLink  type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' filename='Questions.csv' data={csvData} ><img width='50px' src={excelLogo}/></CSVLink> */}
+                      <ExportCSV csvData={csvData} fileName='Questions' />
+                    </div>
                   </label>
                 </div>
               </div>
