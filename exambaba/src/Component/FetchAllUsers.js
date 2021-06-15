@@ -20,11 +20,13 @@ class FetchAllUsers extends Component{
       async fetchAllUsers(){
         var res;
         this.setState({fetchedHistory:true});
+        const token = sessionStorage.getItem('jwt')
         await fetch(`https://node-new.herokuapp.com/users/fetchAllUsers`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
-              "accept": "application/json"
+              "accept": "application/json",
+              'Authorization': `Bearer ${token}`
             },
             body: 
              JSON.stringify({
@@ -87,7 +89,8 @@ class FetchAllUsers extends Component{
 							<th id="Td1" className="user js-sort-active js-sort-number"> S.No</th>
 							<th id="Td2" className="js-sort-active"> Student Name</th>
 							<th id="Td3" className="js-sort-active"> Class</th>
-							<th id="Td4" className="js-sort-active"> Email</th>							
+							<th id="Td4" className="js-sort-active"> Email</th>	
+                            <th id="Td4" className="js-sort-active"> Password</th>							
 						</tr>
         
                 {this.state.approvalList.map((list,index) => {
@@ -104,6 +107,9 @@ class FetchAllUsers extends Component{
                         </td>
                         <td>
                             <span id="examStartTime">{list.Email_Address}</span>
+                        </td>
+                        <td>
+                            <span id={'userPassword'+index} onClick={()=>document.getElementById('userPassword'+index).innerHTML!=list.UserPassword?document.getElementById('userPassword'+index).innerHTML=list.UserPassword:document.getElementById('userPassword'+index).innerHTML='Click to show'}>Click to show</span>
                         </td>
                         <td>
                         <input align="center" type="button" onClick={()=>{if(list.approved==0){this.approveUser(list.Student_id,"approve")}}} value={list.approved==0?"Approve":"Approved"} id="ResponseDetails"/>    
