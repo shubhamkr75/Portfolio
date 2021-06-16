@@ -20,6 +20,8 @@ import Footer from './Component/Footer';
 import LoadingAnimation from './Component/LoadingAnimation';
 import Reset from './Component/Reset';
 import Newpassword from './Component/Newpassword';
+// import FetchAddClasses from './Component/FetchAddClasses';
+import LoginFooter from './Component/LoginFooter';
 
 dotenv.config();
 
@@ -44,7 +46,7 @@ function App() {
         </Route>
         <Login setToken={setToken} />
         </Switch></BrowserRouter>
-        <Footer/>
+        <LoginFooter/>
       </div>
     );
   }
@@ -79,7 +81,10 @@ function App() {
           </Route>
           <Route path="/FetchAllUsers">
           {token.Login_Type==2 && <FetchAllUsers  schoolId={token.School_id}/>}
-          </Route>    
+          </Route>  
+          {/* <Route path="/classes">
+          {token.Login_Type==2 && <FetchAddClasses  schoolId={token.School_id}/>}
+          </Route>    */}
           <Route path="/FetchAdmins">
               {token.Login_Type==2 && <FetchAdmins  schoolId={token.School_id}/>}
           </Route>   
