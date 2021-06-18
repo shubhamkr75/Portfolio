@@ -56,7 +56,7 @@ class StudentDashboard extends Component {
                             </div>
                             <div className="previous-tab" >
                                 <div className="tab">
-                                    <a href='/studentdashboard' className="dark submit-button">PREVIOUS</a>
+                                    <a href='/studentdashboard' >PREVIOUS</a>
                                 </div>
                             </div>
                             <div className="clear"></div>

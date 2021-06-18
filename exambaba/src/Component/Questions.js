@@ -439,7 +439,7 @@ class Questions extends Component {
                         <div className="tabs">
                             <div className="live-tab">
                                 <div className="tab">
-                                    <a href='/exams' className="dark submit-button">LIVE/UPCOMING</a>
+                                    <a href='/exams' >LIVE/UPCOMING</a>
                                 </div>
                             </div>
                             <div className="previous-tab" >
