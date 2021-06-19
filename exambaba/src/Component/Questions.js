@@ -50,7 +50,9 @@ class Questions extends Component {
     }
 
     async testCountdown(id, exam_time, startTime){
-        await this.setExamData(id, exam_time);       
+        await this.setExamData(id, exam_time);   
+        let currTime = await this.getCurrentTime();  
+        startTime= startTime-currTime; 
         this.setTimer(startTime,'startTimeLeft',exam_time);
     }
     async setExamData(id, exam_time){
@@ -340,11 +342,24 @@ class Questions extends Component {
                 });
         this.setState({ checkdata: 2});
     }
+    async getCurrentTime(){
+        let currDate;
+        await fetch("https://node-new.herokuapp.com/users/getCurrentTime")
+        .then(response => response.json())
+        .then(
+            data => currDate=data                
+        )
+        .catch(err => {
+            console.log(err);
+
+        });
+        return currDate;
+    }
     setTimer = (timing,divid,exam_time) => {
-        let startTime = timing;
+        let distance = timing;
         // startTime = startTime + 1 * this.state.examtime * 60 * 1000;
         var x = setInterval(() => {
-            var distance = startTime - Date.now();
+            distance = distance - 1000;
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
