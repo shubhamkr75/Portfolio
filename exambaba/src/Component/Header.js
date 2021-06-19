@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LogOut from './LogOut';
+import examlogo from '../Assets/image/ExamBabaLogo.png';
 class Header extends Component{
     constructor(props) {
         super(props); 
@@ -70,7 +71,7 @@ toggleNavbar(){
         return(
             <div className="header-component">
                 <nav class="navbar navbar-expand-lg navbar-light">
-                    <div className="row" > <a class="nav-link" href="Login.js"><img src="https://nncti.in/images/nncti.png" className="logo" /></a>  </div>
+                    <div className="row" > <a class="nav-link" href="Login.js"><img src={examlogo} className="logo" /></a>  </div>
                         <button class="navbar-toggler" onClick={this.toggleNavbar} type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
