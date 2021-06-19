@@ -374,7 +374,7 @@ class Questions extends Component {
                 this.setState({ checkdata: 3 });
             }
             else if(distance<=0&&this.state.checkdata==6&&divid=='startTimeLeft'){
-                this.setTimer(timing+60000*exam_time,'timeLeft');
+                this.setTimer(distance+60000*exam_time,'timeLeft');
                 this.fetchQuestions(this.state.ExamId,this.state.examtime); 
                 return;               
             }
