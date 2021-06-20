@@ -52,7 +52,7 @@ logoutHeader(){
             <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact Us</a>
+                <a class="nav-link" href="#contact">Contact Us</a>
             </li>
             <div className="registration-section">
                 <button  type="submit" className="submit-button btn btn-blue text-center"><a href="/Registration">Registration</a></button>

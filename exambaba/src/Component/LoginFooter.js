@@ -4,7 +4,7 @@ class LoginFooter extends Component {
     render() {
         return (
             <div>
-                <footer class="page-footer font-small blue-grey lighten-5 footer-component">
+                <footer id="contact" class="page-footer font-small blue-grey lighten-5 footer-component">
  
                     <div  className="footer-color" >
                     <div class="container">

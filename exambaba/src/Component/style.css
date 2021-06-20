@@ -792,5 +792,8 @@ table #tbody-pdf td{
     .float-right{
         float: right;        
     }
+    .card0 {
+        padding: 3rem!important;
+    }
     
 }
