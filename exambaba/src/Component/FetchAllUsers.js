@@ -112,7 +112,7 @@ class FetchAllUsers extends Component{
                             <span id={'userPassword'+index} onClick={()=>document.getElementById('userPassword'+index).innerHTML!=list.UserPassword?document.getElementById('userPassword'+index).innerHTML=list.UserPassword:document.getElementById('userPassword'+index).innerHTML='Click to show'}>Click to show</span>
                         </td>
                         <td>
-                        <input align="center" type="button" onClick={()=>{if(list.approved==0){this.approveUser(list.Student_id,"approve")}}} value={list.approved==0?"Approve":"Approved"} id="ResponseDetails"/>    
+                        <input align="center" type="button" onClick={()=>{if(list.approved==0){this.approveUser(list.Student_id,"approve")}else{this.approveUser(list.Student_id,"unapprove")}}} value={list.approved==0?"Approve":"Approved"} className={list.approved==0?"not-answered":""}  id="ResponseDetails"/>    
                         </td>
                         <td>
                         <input align="center" type="button" onClick={()=>{this.setState({selectedUser:list.Student_id,userName:list.Student_Name}); this.displayPopup()}} value="Delete" id="ResponseDetails"/>    
