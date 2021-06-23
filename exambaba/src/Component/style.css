@@ -791,6 +791,12 @@ table #tbody-pdf td{
     .exam-page .questionList{
         width: 100%;
     }
+    #carousel-description .carousel-img{
+        padding: 0px;
+    }
+    #carousel-description .carousel-inner{
+        width: 100%;
+    }
 }
 @media screen and (min-width: 992px) {
     .header-component #navbarNav{
