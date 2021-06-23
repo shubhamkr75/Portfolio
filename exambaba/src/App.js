@@ -22,6 +22,7 @@ import Reset from './Component/Reset';
 import Newpassword from './Component/Newpassword';
 // import FetchAddClasses from './Component/FetchAddClasses';
 import LoginFooter from './Component/LoginFooter';
+import Carousel from './Component/Carousel';
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ function App() {
         </Route>
         <Login setToken={setToken} />
         </Switch></BrowserRouter>
+        <Carousel/>
         <LoginFooter/>
       </div>
     );
