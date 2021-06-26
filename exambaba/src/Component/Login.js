@@ -37,7 +37,8 @@ class Login extends Component {
         });
     }
     // user registration
-    async loginUser() {        
+    async loginUser() {       
+        document.getElementById("login-button").classList.add('opaque'); 
          return fetch(`https://node-new.herokuapp.com/users/loginUser`, {
             method: "POST",
             headers: {
@@ -63,9 +64,11 @@ class Login extends Component {
                     sessionStorage.setItem("jwt",data.token)
                     sessionStorage.setItem("user",JSON.stringify(data.user))
                }
+               document.getElementById("login-button").classList.remove('opaque'); 
             })
             .catch(err => {
                 console.log(err);
+                document.getElementById("login-button").classList.remove('opaque');
                 document.getElementById("passwordError").innerHTML="Please Enter a valid Email/Password";
               })
     }
@@ -114,7 +117,7 @@ class Login extends Component {
                                  <a href="/ForgotPassword" class="ml-auto mb-0 text-sm" >Forgot Password?</a>
                             </div>
                             {/* <div className="row mb-4 px-3"> <small className="font-weight-bold"><a className="text-right" onClick={()=>this.setState({flag:2})}>Forgot Password?</a></small> </div>            */}
-                            <div className="row mb-3 px-3"> <button  type="submit" className="btn submit-button text-center">Login</button> </div>
+                            <div className="row mb-3 px-3"> <button  type="submit" id="login-button" className="btn submit-button  text-center">Login</button> </div>
                             </form>
                             <div className="row mb-4 px-3"> <small className="font-weight-bold">Don't have an account? <a className="text-danger" href="/Registration">Register</a></small> </div>
                         </div>

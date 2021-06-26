@@ -763,6 +763,9 @@ table #tbody-pdf td{
     border-radius: 1.5rem;
     width: 70%;
   }
+  .opaque{
+    opacity: 0.2;
+  }
 @media screen and (max-width: 991px) {
     .logo {
         margin-left: 0px
