@@ -23,6 +23,7 @@ import Newpassword from './Component/Newpassword';
 // import FetchAddClasses from './Component/FetchAddClasses';
 import LoginFooter from './Component/LoginFooter';
 import Carousel from './Component/Carousel';
+import Cutomization from './Component/Cutomization';
 
 dotenv.config();
 
@@ -39,13 +40,16 @@ function App() {
         <Route path="/registration">
             <Registration />
         </Route>
+        <Route path="/swiggyCustomization">
+            <Cutomization />
+          </Route>
         <Route path="/ForgotPassword">
             <Reset />
         </Route>
         <Route path="/reset/:token">
             <Newpassword />
         </Route>
-        <Login setToken={setToken} />
+        <Login setToken={setToken} />        
         </Switch></BrowserRouter>
         <Carousel/>
         <LoginFooter/>
@@ -65,7 +69,7 @@ function App() {
           </Route>
           <Route path="/registration">
             <Registration />
-          </Route>
+          </Route>          
           <Route path="/teacherdashboard">
           {token.Login_Type==2 && <TeacherDashboard schoolId={token.School_id} userClass={token.Class} studentId={token.Student_id}/>}
           </Route>

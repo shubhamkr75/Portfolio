@@ -1,0 +1,56 @@
+[
+    {
+        "product": "BFF Veg Sub Combo (15 cm, 6 Inch)",
+        "price":"371",
+        "choices":[
+            {
+                "name": "Choice of 1st Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            },
+            {
+                "name": "Choice of 2nd Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            },
+            {
+                "name": "Choice of Bread",
+                "subchoices": ["Multigrain Bread","Multigrain Honey Oats Bread","White Italian Bread","Roasted Garlic Bread"]
+            },
+            {
+                "name": "Choice of Preparation",
+                "subchoices": ["Plain Bread","Plain Bread With Cheese Slice","Toasted Bread"]
+            }
+        ]        
+    },
+    {
+        "product": "BFF Veg Signature Wrap Combo",
+        "price":"471",
+        "choices":[
+            {
+                "name": "Choice of 1st Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            },
+            {
+                "name": "Choice of 2nd Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            },
+            {
+                "name": "Choice of 1st Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            },
+            {
+                "name": "Choice of 2nd Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            }
+        ]        
+    },
+    {
+        "product": "Cookie With Veg Sub Combos (15 cm, 6 Inch)",
+        "price":"500",
+        "choices":[
+            {
+                "name": "Choice of 1st Sub",
+                "subchoices": ["Mexican Patty","Chatpata Chana"]
+            }
+        ]        
+    }
+]
