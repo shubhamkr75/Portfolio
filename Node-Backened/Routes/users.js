@@ -16,9 +16,9 @@ const sendgridTransport = require('nodemailer-sendgrid-transport')
 const SENDGRID_API = process.env.SENDGRID_API;
 const EMAIL = process.env.EMAIL; 
 var config = {
-  user: 'exambaba',
-  password: 'nitmz123',
-  server: 'exambaba.chqw7cpojmz6.us-east-2.rds.amazonaws.com', 
+  user: 'xxxxx',
+  password: 'xxxxxxxx',
+  server: 'xxxxxxxx', 
   database: 'CodeBabaDB' ,
   "options": {
     "encrypt": true,
